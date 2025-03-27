@@ -58,9 +58,6 @@ class FlatListPageParser(BaseListPageParser):
         if define_deal_url_id(common_data["url"]) in self.result_set:
             return
 
-        # if location_data["district"] != "Некрасовка" :
-        #     return
-
         page_data = dict()
         if self.with_extra_data:
             flat_parser = FlatPageParser(session=self.session, url=common_data["url"])

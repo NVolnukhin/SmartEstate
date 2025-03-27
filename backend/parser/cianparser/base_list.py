@@ -1,5 +1,6 @@
 import math
 import csv
+import os
 
 from cianparser.constants import SPECIFIC_FIELDS_FOR_RENT_LONG, SPECIFIC_FIELDS_FOR_RENT_SHORT, SPECIFIC_FIELDS_FOR_SALE
 
@@ -26,7 +27,7 @@ class BaseListPageParser:
         self.count_parsed_offers = 0
         self.start_page = 1 if (additional_settings is None or "start_page" not in additional_settings.keys()) else additional_settings["start_page"]
         self.end_page = 100 if (additional_settings is None or "end_page" not in additional_settings.keys()) else additional_settings["end_page"]
-        self.file_path = self.build_file_path()
+        self.file_path = os.path.join(os.getcwd(), "parse_result.csv")
 
     def is_sale(self):
         return self.deal_type == "sale"
@@ -37,8 +38,6 @@ class BaseListPageParser:
     def is_rent_short(self):
         return self.deal_type == "rent" and self.rent_period_type == 2
 
-    def build_file_path(self):
-        pass
 
     def define_average_price(self, price_data):
         if "price" in price_data:

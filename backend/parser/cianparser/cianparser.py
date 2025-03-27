@@ -154,9 +154,6 @@ def __build_url_list__(location_id, deal_type, accommodation_type, rooms=None, r
     if rent_period_type is not None:
         url_builder.add_rent_period_type(rent_period_type)
 
-    if suburban_type is not None:
-        url_builder.add_object_suburban_type(suburban_type)
-
     if additional_settings is not None:
         url_builder.add_additional_settings(additional_settings)
 
