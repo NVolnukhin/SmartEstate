@@ -3,3 +3,13 @@
 /Users/nikitavolnuhin/ghostbusters/backend/WebApplication/DatabaseContext/obj/Debug/net8.0/DatabaseContext.AssemblyInfoInputs.cache
 /Users/nikitavolnuhin/ghostbusters/backend/WebApplication/DatabaseContext/obj/Debug/net8.0/DatabaseContext.AssemblyInfo.cs
 /Users/nikitavolnuhin/ghostbusters/backend/WebApplication/DatabaseContext/obj/Debug/net8.0/DatabaseContext.csproj.CoreCompileInputs.cache
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/DatabaseContext/bin/Debug/net8.0/DatabaseContext.deps.json
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/DatabaseContext/bin/Debug/net8.0/DatabaseContext.dll
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/DatabaseContext/bin/Debug/net8.0/DatabaseContext.pdb
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/DatabaseContext/bin/Debug/net8.0/DatabaseModel.dll
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/DatabaseContext/bin/Debug/net8.0/DatabaseModel.pdb
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/DatabaseContext/obj/Debug/net8.0/Database.E130DD82.Up2Date
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/DatabaseContext/obj/Debug/net8.0/DatabaseContext.dll
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/DatabaseContext/obj/Debug/net8.0/refint/DatabaseContext.dll
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/DatabaseContext/obj/Debug/net8.0/DatabaseContext.pdb
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/DatabaseContext/obj/Debug/net8.0/ref/DatabaseContext.dll

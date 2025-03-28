@@ -9,3 +9,4 @@
 /Users/nikitavolnuhin/ghostbusters/backend/WebApplication/DatabaseModel/obj/Debug/net8.0/refint/DatabaseModel.dll
 /Users/nikitavolnuhin/ghostbusters/backend/WebApplication/DatabaseModel/obj/Debug/net8.0/DatabaseModel.pdb
 /Users/nikitavolnuhin/ghostbusters/backend/WebApplication/DatabaseModel/obj/Debug/net8.0/ref/DatabaseModel.dll
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/DatabaseModel/obj/Debug/net8.0/DatabaseModel.csproj.AssemblyReference.cache
