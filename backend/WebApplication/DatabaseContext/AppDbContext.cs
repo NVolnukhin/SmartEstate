@@ -44,37 +44,40 @@ public class AppDbContext : DbContext
             .HasOne(p => p.Flat)
             .WithMany(f => f.PriceHistories)
             .HasForeignKey(p => p.FlatId);
+        
+        // UserFavorite - User & Flat
+        modelBuilder.Entity<UserFavorite>(entity =>
+        {
+            entity.HasKey(uf => uf.FavoriteId);
+        
+            entity.HasOne(uf => uf.User)
+                .WithMany(u => u.Favorites)
+                .HasForeignKey(uf => uf.UserId);
             
-        // UserComparison - User
-        modelBuilder.Entity<UserComparison>()
-            .HasOne(uc => uc.User)
-            .WithMany(u => u.Comparisons)
-            .HasForeignKey(uc => uc.UserId);
+            entity.HasOne(uf => uf.Flat)
+                .WithMany(f => f.Favorites)
+                .HasForeignKey(uf => uf.FlatId);
+        });
+        
+        // UserComparison - User & Flats
+        modelBuilder.Entity<UserComparison>(entity =>
+        {
+            entity.HasKey(uc => uc.CompareId);
+        
+            entity.HasOne(uc => uc.User)
+                .WithMany(u => u.Comparisons)
+                .HasForeignKey(uc => uc.UserId);
             
-        // UserComparison - Flat 1
-        modelBuilder.Entity<UserComparison>()
-            .HasOne(uc => uc.FirstFlat)
-            .WithMany(f => f.ComparisonsAsFirst)
-            .HasForeignKey(uc => uc.FlatId1)
-            .OnDelete(DeleteBehavior.NoAction);
+            entity.HasOne(uc => uc.FirstFlat)
+                .WithMany(f => f.ComparisonsAsFirst)
+                .HasForeignKey(uc => uc.FlatId1)
+                .OnDelete(DeleteBehavior.NoAction);
             
-        // UserComparison - Flat 2
-        modelBuilder.Entity<UserComparison>()
-            .HasOne(uc => uc.SecondFlat)
-            .WithMany(f => f.ComparisonsAsSecond)
-            .HasForeignKey(uc => uc.FlatId2)
-            .OnDelete(DeleteBehavior.NoAction);
-            
-        // UserFavorite - User
-        modelBuilder.Entity<UserFavorite>()
-            .HasOne(uf => uf.User)
-            .WithMany(u => u.Favorites)
-            .HasForeignKey(uf => uf.UserId);
-            
-        // UserFavorite - Flat
-        modelBuilder.Entity<UserFavorite>()
-            .HasOne(uf => uf.Flat)
-            .WithMany(f => f.Favorites)
-            .HasForeignKey(uf => uf.FlatId);
+            entity.HasOne(uc => uc.SecondFlat)
+                .WithMany(f => f.ComparisonsAsSecond)
+                .HasForeignKey(uc => uc.FlatId2)
+                .OnDelete(DeleteBehavior.NoAction);
+        });
+
     }
 }

@@ -10,3 +10,5 @@
 /Users/nikitavolnuhin/ghostbusters/backend/WebApplication/DatabaseModel/obj/Debug/net8.0/DatabaseModel.pdb
 /Users/nikitavolnuhin/ghostbusters/backend/WebApplication/DatabaseModel/obj/Debug/net8.0/ref/DatabaseModel.dll
 /Users/nikitavolnuhin/ghostbusters/backend/WebApplication/DatabaseModel/obj/Debug/net8.0/DatabaseModel.csproj.AssemblyReference.cache
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/DatabaseModel/bin/Debug/net8.0/DatabaseModel.runtimeconfig.json
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/DatabaseModel/obj/Debug/net8.0/DatabaseModel.genruntimeconfig.cache

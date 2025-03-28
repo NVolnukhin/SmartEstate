@@ -13,3 +13,5 @@
 /Users/nikitavolnuhin/ghostbusters/backend/WebApplication/DatabaseContext/obj/Debug/net8.0/refint/DatabaseContext.dll
 /Users/nikitavolnuhin/ghostbusters/backend/WebApplication/DatabaseContext/obj/Debug/net8.0/DatabaseContext.pdb
 /Users/nikitavolnuhin/ghostbusters/backend/WebApplication/DatabaseContext/obj/Debug/net8.0/ref/DatabaseContext.dll
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/DatabaseContext/bin/Debug/net8.0/DatabaseContext.runtimeconfig.json
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/DatabaseContext/obj/Debug/net8.0/DatabaseContext.genruntimeconfig.cache
