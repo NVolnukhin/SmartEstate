@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presentation", "Presentation\Presentation.csproj", "{74C67C2D-316C-411A-BF3C-C740E9BD6BA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseModels", "DatabaseModels\DatabaseModels.csproj", "{184DED96-6A5D-4A5E-86C1-13BCB1BB8C71}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{74C67C2D-316C-411A-BF3C-C740E9BD6BA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74C67C2D-316C-411A-BF3C-C740E9BD6BA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74C67C2D-316C-411A-BF3C-C740E9BD6BA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74C67C2D-316C-411A-BF3C-C740E9BD6BA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{184DED96-6A5D-4A5E-86C1-13BCB1BB8C71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{184DED96-6A5D-4A5E-86C1-13BCB1BB8C71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{184DED96-6A5D-4A5E-86C1-13BCB1BB8C71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{184DED96-6A5D-4A5E-86C1-13BCB1BB8C71}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
