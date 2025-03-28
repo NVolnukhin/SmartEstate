@@ -65,6 +65,9 @@ SPECIFIC_FIELDS_FOR_RENT_LONG = {"price_per_month", "commissions"}
 SPECIFIC_FIELDS_FOR_RENT_SHORT = {"price_per_day"}
 SPECIFIC_FIELDS_FOR_SALE = {"price", "residential_complex", "object_type", "finish_type"}
 
+FROM_DEVELOPER = "&from_developer=1"
+FROM_AGENCY_AND_PRIVATE_PERSONS = "&from_developer=0"
+
 MOSCOW_DISTRICT = [
     ['Некрасовка', '78'],
     ['Ново-Переделкино', '117'],

@@ -1,4 +1,4 @@
-from cianparser.constants import *
+from backend.parser.cianparser.constants import *
 
 
 class URLBuilder:
@@ -118,6 +118,14 @@ class URLBuilder:
         if "only_apartment" in additional_settings.keys():
             if additional_settings["only_apartment"]:
                 self.url += APARTMENT_PATH.format(1)
+
+        if "author_type" in additional_settings.keys():
+            if additional_settings["author_type"] == "застройщик":
+                self.url += FROM_DEVELOPER.format(1)
+            if additional_settings["author_type"] == "агенство":
+                self.url += FROM_AGENCY_AND_PRIVATE_PERSONS.format(1)
+            if additional_settings["author_type"] == "частное лицо":
+                self.url += FROM_AGENCY_AND_PRIVATE_PERSONS.format(1)
 
         if "sort_by" in additional_settings.keys():
             if additional_settings["sort_by"] == IS_SORT_BY_PRICE_FROM_MIN_TO_MAX_PATH:
