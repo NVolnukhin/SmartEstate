@@ -1,0 +1,5 @@
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/DatabaseContext/obj/Debug/net8.0/DatabaseContext.csproj.AssemblyReference.cache
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/DatabaseContext/obj/Debug/net8.0/DatabaseContext.GeneratedMSBuildEditorConfig.editorconfig
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/DatabaseContext/obj/Debug/net8.0/DatabaseContext.AssemblyInfoInputs.cache
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/DatabaseContext/obj/Debug/net8.0/DatabaseContext.AssemblyInfo.cs
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/DatabaseContext/obj/Debug/net8.0/DatabaseContext.csproj.CoreCompileInputs.cache
