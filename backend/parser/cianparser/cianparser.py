@@ -1,10 +1,10 @@
 import cloudscraper
 import time
 
-from cianparser.constants import CITIES, METRO_STATIONS, DEAL_TYPES
-from cianparser.url_builder import URLBuilder
-from cianparser.proxy_pool import ProxyPool
-from cianparser.flat.list import FlatListPageParser
+from backend.parser.cianparser.constants import CITIES, METRO_STATIONS, DEAL_TYPES
+from backend.parser.cianparser.url_builder import URLBuilder
+from backend.parser.cianparser.proxy_pool import ProxyPool
+from backend.parser.cianparser.flat.list import FlatListPageParser
 
 
 def list_locations():
