@@ -1,0 +1,14 @@
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.DatabaseModel/bin/Debug/net8.0/SmartEstate.DatabaseModel.deps.json
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.DatabaseModel/bin/Debug/net8.0/SmartEstate.DatabaseModel.runtimeconfig.json
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.DatabaseModel/bin/Debug/net8.0/SmartEstate.DatabaseModel.dll
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.DatabaseModel/bin/Debug/net8.0/SmartEstate.DatabaseModel.pdb
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.DatabaseModel/obj/Debug/net8.0/SmartEstate.DatabaseModel.csproj.AssemblyReference.cache
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.DatabaseModel/obj/Debug/net8.0/SmartEstate.DatabaseModel.GeneratedMSBuildEditorConfig.editorconfig
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.DatabaseModel/obj/Debug/net8.0/SmartEstate.DatabaseModel.AssemblyInfoInputs.cache
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.DatabaseModel/obj/Debug/net8.0/SmartEstate.DatabaseModel.AssemblyInfo.cs
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.DatabaseModel/obj/Debug/net8.0/SmartEstate.DatabaseModel.csproj.CoreCompileInputs.cache
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.DatabaseModel/obj/Debug/net8.0/SmartEstate.DatabaseModel.dll
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.DatabaseModel/obj/Debug/net8.0/refint/SmartEstate.DatabaseModel.dll
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.DatabaseModel/obj/Debug/net8.0/SmartEstate.DatabaseModel.pdb
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.DatabaseModel/obj/Debug/net8.0/SmartEstate.DatabaseModel.genruntimeconfig.cache
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.DatabaseModel/obj/Debug/net8.0/ref/SmartEstate.DatabaseModel.dll

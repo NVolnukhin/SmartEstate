@@ -1,0 +1,17 @@
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.DatabaseContext/bin/Debug/net8.0/SmartEstate.DatabaseContext.deps.json
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.DatabaseContext/bin/Debug/net8.0/SmartEstate.DatabaseContext.runtimeconfig.json
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.DatabaseContext/bin/Debug/net8.0/SmartEstate.DatabaseContext.dll
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.DatabaseContext/bin/Debug/net8.0/SmartEstate.DatabaseContext.pdb
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.DatabaseContext/bin/Debug/net8.0/SmartEstate.DatabaseModel.dll
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.DatabaseContext/bin/Debug/net8.0/SmartEstate.DatabaseModel.pdb
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.DatabaseContext/obj/Debug/net8.0/SmartEstate.DatabaseContext.csproj.AssemblyReference.cache
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.DatabaseContext/obj/Debug/net8.0/SmartEstate.DatabaseContext.GeneratedMSBuildEditorConfig.editorconfig
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.DatabaseContext/obj/Debug/net8.0/SmartEstate.DatabaseContext.AssemblyInfoInputs.cache
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.DatabaseContext/obj/Debug/net8.0/SmartEstate.DatabaseContext.AssemblyInfo.cs
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.DatabaseContext/obj/Debug/net8.0/SmartEstate.DatabaseContext.csproj.CoreCompileInputs.cache
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.DatabaseContext/obj/Debug/net8.0/SmartEst.39DE6556.Up2Date
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.DatabaseContext/obj/Debug/net8.0/SmartEstate.DatabaseContext.dll
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.DatabaseContext/obj/Debug/net8.0/refint/SmartEstate.DatabaseContext.dll
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.DatabaseContext/obj/Debug/net8.0/SmartEstate.DatabaseContext.pdb
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.DatabaseContext/obj/Debug/net8.0/SmartEstate.DatabaseContext.genruntimeconfig.cache
+/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.DatabaseContext/obj/Debug/net8.0/ref/SmartEstate.DatabaseContext.dll
