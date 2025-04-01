@@ -213,9 +213,7 @@ White and Broughton	real_estate_agent	https://www.cian.ru/sale/flat/292416804/	�
 ```
 
 Пример получаемого файла при вызове метода get_newobjects:
-```
-cian_newobject_13_Jan_2024_01_27_32_734734.csv
-```
+```cian_newobject_13_Jan_2024_01_27_32_734734.csv```
 ```
 name	location	accommodation_type	url	full_location_address	year_of_construction	house_material_type	finish_type	ceiling_height	class	parking_type	floors_from	floors_to	builder
 ЖК «SYMPHONY 34 (Симфони 34)»	Москва	newobject	https://zhk-symphony-34-i.cian.ru	Москва, САО, Савеловский, 2-я Хуторская ул., 34	2025	Монолитный	Предчистовая, чистовая	3,0 м	Премиум	Подземная, гостевая	36	54	Застройщик MR Group
