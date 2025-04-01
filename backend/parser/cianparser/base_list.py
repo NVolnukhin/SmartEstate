@@ -27,7 +27,7 @@ class BaseListPageParser:
         self.count_parsed_offers = 0
         self.start_page = 1 if (additional_settings is None or "start_page" not in additional_settings.keys()) else additional_settings["start_page"]
         self.end_page = 100 if (additional_settings is None or "end_page" not in additional_settings.keys()) else additional_settings["end_page"]
-        self.file_path = os.path.join(os.getcwd(), "parse_result.csv")
+        self.file_path = os.path.join(os.getcwd(), "flats_parse_result.csv")
 
     def is_sale(self):
         return self.deal_type == "sale"
@@ -47,6 +47,7 @@ class BaseListPageParser:
 
     def print_parse_progress(self, page_number, count_of_pages, offers, ind):
         total_planed_offers = len(offers) * count_of_pages
+
         print(f"\r {page_number - self.start_page + 1}"
               f" | {page_number} page with list: [" + "=>" * (ind + 1) + "  " * (len(offers) - ind - 1) + "]" + f" {math.ceil((ind + 1) * 100 / len(offers))}" + "%" +
               f" | Count of all parsed: {self.count_parsed_offers}."
