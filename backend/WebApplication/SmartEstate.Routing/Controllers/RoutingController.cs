@@ -29,27 +29,5 @@ namespace SmartEstate.Routing.Controllers
                 ? NotFound("Route not found") 
                 : Ok(WalkingTimeResponse.FromPath(path));
         }
-        
-        /*[HttpGet("test")]
-        public async Task<IActionResult> TestConnection()
-        {
-            try
-            {
-                var testUrl = $"{_options.BaseUrl}route?point=55.756808,37.621984&point=55.754741,37.628406&vehicle=foot&key={_options.ApiKey}";
-                var response = await _httpClient.GetAsync(testUrl);
-                 
-                if (!response.IsSuccessStatusCode)
-                {
-                    return StatusCode((int)response.StatusCode, await response.Content.ReadAsStringAsync());
-                }
- 
-                var content = await response.Content.ReadAsStringAsync();
-                return Content(content, "application/json");
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.ToString());
-            }
-        }*/
     }
 }
