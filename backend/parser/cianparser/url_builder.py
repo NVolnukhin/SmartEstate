@@ -1,4 +1,4 @@
-from backend.parser.cianparser.constants import *
+from .constants import *
 
 
 class URLBuilder:

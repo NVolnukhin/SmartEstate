@@ -4,10 +4,10 @@ import pathlib
 from datetime import datetime
 from transliterate import translit
 
-from backend.parser.cianparser.constants import FILE_NAME_FLAT_FORMAT
-from backend.parser.cianparser.helpers import union_dicts, define_author, define_location_data, define_specification_data, define_deal_url_id, define_price_data
-from backend.parser.cianparser.flat.page import FlatPageParser
-from backend.parser.cianparser.base_list import BaseListPageParser
+from ..constants import FILE_NAME_FLAT_FORMAT
+from ..helpers import union_dicts, define_author, define_location_data, define_specification_data, define_deal_url_id, define_price_data
+from ..flat.page import FlatPageParser
+from ..base_list import BaseListPageParser
 
 
 class FlatListPageParser(BaseListPageParser):

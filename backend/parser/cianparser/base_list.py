@@ -1,8 +1,9 @@
 import math
 import csv
 import os
+import sys
 
-from backend.parser.cianparser.constants import SPECIFIC_FIELDS_FOR_RENT_LONG, SPECIFIC_FIELDS_FOR_RENT_SHORT, SPECIFIC_FIELDS_FOR_SALE
+from .constants import SPECIFIC_FIELDS_FOR_RENT_LONG, SPECIFIC_FIELDS_FOR_RENT_SHORT, SPECIFIC_FIELDS_FOR_SALE
 
 
 class BaseListPageParser:
@@ -46,14 +47,11 @@ class BaseListPageParser:
             self.average_price = (self.average_price * self.count_parsed_offers + price_data["price_per_month"]) / self.count_parsed_offers
 
     def print_parse_progress(self, page_number, count_of_pages, offers, ind):
-        total_planed_offers = len(offers) * count_of_pages
-
-        print(f"\r {page_number - self.start_page + 1}"
-              f" | {page_number} page with list: [" + "=>" * (ind + 1) + "  " * (len(offers) - ind - 1) + "]" + f" {math.ceil((ind + 1) * 100 / len(offers))}" + "%" +
-              f" | Count of all parsed: {self.count_parsed_offers}."
-              f" Progress ratio: {math.ceil(self.count_parsed_offers * 100 / total_planed_offers)} %."
-              f" Average price: {'{:,}'.format(int(self.average_price)).replace(',', ' ')} rub",
-              end="\r", flush=True)
+        progress = math.ceil((ind + 1) * 100 / len(offers))
+        sys.stdout.write(f"\rProcessing {page_number} page / {count_of_pages} pages: {progress}% ({ind + 1}/{len(offers)})")
+        sys.stdout.flush()
+        if ind == len(offers) - 1:
+            print()
 
     def remove_unnecessary_fields(self):
         if self.is_sale():
