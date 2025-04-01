@@ -201,8 +201,8 @@ builder - застройщик
 Имеется возможность сохранения собираемых данных в режиме реального времени. Для этого необходимо подставить в аргументе with_saving_csv значение True.
 
 ## Пример получаемого файла при вызове метода get_flats с with_extra_data = True:
-```cian_flat_sale_1_1_moskva_12_Jan_2024_22_29_48_117413.csv
-author	author_type	url	location	deal_type	accommodation_type	floor	floors_count	rooms_count	total_meters	price_per_m2	price	year_of_construction	object_type	house_material_type	heating_type	finish_type	living_meters	kitchen_meters	phone	district	street	house_number	underground	residential_complex
+```cian_flat_sale_1_1_moskva_12_Jan_2024_22_29_48_117413.csv```
+```author	author_type	url	location	deal_type	accommodation_type	floor	floors_count	rooms_count	total_meters	price_per_m2	price	year_of_construction	object_type	house_material_type	heating_type	finish_type	living_meters	kitchen_meters	phone	district	street	house_number	underground	residential_complex
 White and Broughton	real_estate_agent	https://www.cian.ru/sale/flat/290499455/	Москва	sale	flat	3	40	1	45.5	709890	32300000	2021	Вторичка	Монолитный	Центральное	-1	19.0	6.0	+79646331510	Хорошевский	Ленинградский проспект	37/4	Динамо	Прайм Парк
 ФСК	developer	https://www.cian.ru/sale/flat/288376323/	Москва	sale	flat	24	47	2	46.0	528900	24329400	2024	Новостройка	Монолитно-кирпичный	-1	Без отделки, предчистовая, чистовая	18.0	15.0	+74951387154	Обручевский	Академика Волгина	2С1	Калужская	Архитектор
 White and Broughton	real_estate_agent	https://www.cian.ru/sale/flat/292416804/	Москва	sale	flat	2	41	2	60.0	783333	47000000	2021	Вторичка	-1	Центральное	-1	43.0	5.0	+79646331510	Хорошевский	Ленинградский проспект	37/5	Динамо	Прайм Парк
@@ -217,7 +217,8 @@ cian_newobject_13_Jan_2024_01_27_32_734734.csv
 name	location	accommodation_type	url	full_location_address	year_of_construction	house_material_type	finish_type	ceiling_height	class	parking_type	floors_from	floors_to	builder
 ЖК «SYMPHONY 34 (Симфони 34)»	Москва	newobject	https://zhk-symphony-34-i.cian.ru	Москва, САО, Савеловский, 2-я Хуторская ул., 34	2025	Монолитный	Предчистовая, чистовая	3,0 м	Премиум	Подземная, гостевая	36	54	Застройщик MR Group
 ЖК «Коллекция клубных особняков Ильинка 3/8»	Москва	newobject	https://zhk-kollekciya-klubnyh-osobnyakov-ilinka-38-i.cian.ru	Москва, ЦАО, Тверской, ул. Ильинка	2024	Монолитно-кирпичный, монолитный	Без отделки	от 3,35 м до 6,0 м	Премиум	Подземная, гостевая	3	5	Застройщик Sminex-Интеко
-ЖК «Victory Park Residences (Виктори Парк Резиденсез)»	Москва	newobject	https://zhk-victory-park-residences-i.cian.ru	Москва, ЗАО, Дорогомилово, ул. Братьев Фонченко	2024	Монолитный	Чистовая	—	Премиум	Подземная	10	11	Застройщик ANT Development```
+ЖК «Victory Park Residences (Виктори Парк Резиденсез)»	Москва	newobject	https://zhk-victory-park-residences-i.cian.ru	Москва, ЗАО, Дорогомилово, ул. Братьев Фонченко	2024	Монолитный	Чистовая	—	Премиум	Подземная	10	11	Застройщик ANT Development
+```
 
 ## Cloudflare, CloudScraper, Proxy
 Для обхода блокировки в проекте задействован CloudScraper (библиотека cloudscraper), который позволяет успешно обходить защиту Cloudflare.
@@ -237,17 +238,19 @@ Proxy
     '68.178.170.59:80', 
     '20.235.104.105:3729', 
     '195.201.34.206:80',
-]```
+]
+```
 
 В процессе запуска утилита проходится по всем из них, пытаясь определить подходящий, то есть тот, который может, во первых, делать запросы, во вторых, не иметь тест CAPTCHA
 
 Пример лога, в котором представлено все три возможных кейса
 
+```
 The process of checking the proxies... Search an available one among them...
  1 | proxy 46.47.197.210:3128: unavailable.. trying another
  2 | proxy 213.184.153.66:8080: there is captcha.. trying another
  3 | proxy 95.66.138.21:8880: available.. stop searching
-
+ ```
 
 #### Ограничения
 Сайт выдает списки с объявлениями лишь до 54 странцы включительно. Это примерно 28 * 54 = 1512 объявлений. Поэтому, если имеется желание собрать как можно больше данных, то следует использовать более конкретные запросы (по количеству комнат).
