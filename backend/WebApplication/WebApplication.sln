@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartEstate.Application", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartEstate.Infrastructure", "SmartEstate.Infrastructure\SmartEstate.Infrastructure.csproj", "{831A68AB-FD8E-4071-B200-FAB8604534E3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartEstate.Routing", "SmartEstate.Routing\SmartEstate.Routing.csproj", "{415115F3-E172-4494-81C1-153C8D617D92}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{831A68AB-FD8E-4071-B200-FAB8604534E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{831A68AB-FD8E-4071-B200-FAB8604534E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{831A68AB-FD8E-4071-B200-FAB8604534E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{415115F3-E172-4494-81C1-153C8D617D92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{415115F3-E172-4494-81C1-153C8D617D92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{415115F3-E172-4494-81C1-153C8D617D92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{415115F3-E172-4494-81C1-153C8D617D92}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
