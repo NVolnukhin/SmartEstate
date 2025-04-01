@@ -212,7 +212,7 @@ White and Broughton	real_estate_agent	https://www.cian.ru/sale/flat/290499455/	�
 White and Broughton	real_estate_agent	https://www.cian.ru/sale/flat/292416804/	Москва	sale	flat	2	41	2	60.0	783333	47000000	2021	Вторичка	-1	Центральное	-1	43.0	5.0	+79646331510	Хорошевский	Ленинградский проспект	37/5	Динамо	Прайм Парк
 ```
 
-Пример получаемого файла при вызове метода get_newobjects:
+## Пример получаемого файла при вызове метода get_newobjects:
 ```cian_newobject_13_Jan_2024_01_27_32_734734.csv```
 ```
 name	location	accommodation_type	url	full_location_address	year_of_construction	house_material_type	finish_type	ceiling_height	class	parking_type	floors_from	floors_to	builder
