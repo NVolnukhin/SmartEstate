@@ -13,6 +13,9 @@ moscow_parser = cianparser.CianParser(location="Москва")
 data = moscow_parser.get_flats(deal_type="sale", rooms=(1, 2), with_saving_csv=True, additional_settings={"start_page":1, "end_page":2})
 
 print(data[0])
+```
+
+```
                               Preparing to collect information from pages..
 The absolute path to the file: 
  /Users/macbook/some_project/cianparser/cian_flat_sale_1_2_moskva_12_Jan_2024_21_48_43_100892.csv 
@@ -49,17 +52,17 @@ Total number of parsed offers: 56.
 ### Инициализация
 Параметры, используемые при инициализации парсера через функциою CianParser:
 
-location - локация объявления, к примеру, Москва (для просмотра доступных мест используйте cianparser.list_locations())
-proxies - прокси (см раздел Cloudflare, CloudScraper, Proxy), по умолчанию None
+- location - локация объявления, к примеру, Москва (для просмотра доступных мест используйте cianparser.list_locations())
+- proxies - прокси (см раздел Cloudflare, CloudScraper, Proxy), по умолчанию None
 
 ## Метод get_flats
 Данный метод принимает следующий аргументы:
 
-deal_type - тип объявления, к примеру, долгосрочная аренда, продажа ("rent_long", "sale")
-rooms - количество комнат, к примеру, 1, (1,3, "studio"), "studio, "all"; по умолчанию любое ("all")
-with_saving_csv - необходимо ли сохранение собираемых данных (в реальном времени в процессе сбора данных) или нет, по умолчанию False
-with_extra_data - необходимо ли сбор дополнительных данных, но с кратным продолжительности по времени (см. ниже в Примечании), по умолчанию False
-additional_settings - дополнительные настройки поиска (см. ниже в Дополнительные настройки поиска), по умолчанию None
+- deal_type - тип объявления, к примеру, долгосрочная аренда, продажа ("rent_long", "sale")
+- rooms - количество комнат, к примеру, 1, (1,3, "studio"), "studio, "all"; по умолчанию любое ("all")
+- with_saving_csv - необходимо ли сохранение собираемых данных (в реальном времени в процессе сбора данных) или нет, по умолчанию False
+- with_extra_data - необходимо ли сбор дополнительных данных, но с кратным продолжительности по времени (см. ниже в Примечании), по умолчанию False
+- additional_settings - дополнительные настройки поиска (см. ниже в Дополнительные настройки поиска), по умолчанию None
 
 Пример:
 
@@ -207,14 +210,13 @@ additional_settings = {
 White and Broughton	real_estate_agent	https://www.cian.ru/sale/flat/290499455/	Москва	sale	flat	3	40	1	45.5	709890	32300000	2021	Вторичка	Монолитный	Центральное	-1	19.0	6.0	+79646331510	Хорошевский	Ленинградский проспект	37/4	Динамо	Прайм Парк
 ФСК	developer	https://www.cian.ru/sale/flat/288376323/	Москва	sale	flat	24	47	2	46.0	528900	24329400	2024	Новостройка	Монолитно-кирпичный	-1	Без отделки, предчистовая, чистовая	18.0	15.0	+74951387154	Обручевский	Академика Волгина	2С1	Калужская	Архитектор
 White and Broughton	real_estate_agent	https://www.cian.ru/sale/flat/292416804/	Москва	sale	flat	2	41	2	60.0	783333	47000000	2021	Вторичка	-1	Центральное	-1	43.0	5.0	+79646331510	Хорошевский	Ленинградский проспект	37/5	Динамо	Прайм Парк
-Пример получаемого файла при вызове метода get_suburban с with_extra_data = True:
-cian_suburban_townhouse_sale_15_15_moskva_13_Jan_2024_04_30_47_963046.csv
-author	author_type	url	location	deal_type	accommodation_type	price	year_of_construction	house_material_type	land_plot	land_plot_status	heating_type	gas_type	water_supply_type	sewage_system	bathroom	living_meters	floors_count	phone	district	underground	street	house_number
-New Moscow House	real_estate_agent	https://www.cian.ru/sale/suburban/296304861/	Москва	sale	suburban	93000000	2020	Кирпичный	13 сот.	-1	-1	Есть	Есть	Есть	В доме	-1	2	+79096865868	Первомайское поселение		улица Центральная	21
-LaRichesse	real_estate_agent	https://www.cian.ru/sale/suburban/290335502/	Москва	sale	suburban	95000000	-1	Пенобетонный блок	12 сот.	Индивидуальное жилищное строительство	Центральное	-1	-1	-1	-1	502,8 м²	2	+79652502027	Воскресенское поселение		улица Каменка	44Ас1
-Динара Ваганова	realtor	https://www.cian.ru/sale/suburban/293424451/	Москва	sale	suburban	21990000	-1	-1	-1	Индивидуальное жилищное строительство	-1	Нет	-1	Нет	-1	-1	-1	+79672093870	Первомайское поселение	м. Крёкшино		
+```
+
 Пример получаемого файла при вызове метода get_newobjects:
+```
 cian_newobject_13_Jan_2024_01_27_32_734734.csv
+```
+```
 name	location	accommodation_type	url	full_location_address	year_of_construction	house_material_type	finish_type	ceiling_height	class	parking_type	floors_from	floors_to	builder
 ЖК «SYMPHONY 34 (Симфони 34)»	Москва	newobject	https://zhk-symphony-34-i.cian.ru	Москва, САО, Савеловский, 2-я Хуторская ул., 34	2025	Монолитный	Предчистовая, чистовая	3,0 м	Премиум	Подземная, гостевая	36	54	Застройщик MR Group
 ЖК «Коллекция клубных особняков Ильинка 3/8»	Москва	newobject	https://zhk-kollekciya-klubnyh-osobnyakov-ilinka-38-i.cian.ru	Москва, ЦАО, Тверской, ул. Ильинка	2024	Монолитно-кирпичный, монолитный	Без отделки	от 3,35 м до 6,0 м	Премиум	Подземная, гостевая	3	5	Застройщик Sminex-Интеко
@@ -226,7 +228,7 @@ name	location	accommodation_type	url	full_location_address	year_of_construction	
 
 Вместе с тем, это не гарантирует отсутствие возможности появления у некоторых пользователей теста CAPTCHA при долговременном непрерывном использовании.
 
-Proxy
+### Proxy
 Поэтому была предоставлена возможность проставлять прокси, используя аргумент proxies (список прокси протокола HTTPS)
 
 Пример:
@@ -251,7 +253,7 @@ The process of checking the proxies... Search an available one among them...
  1 | proxy 46.47.197.210:3128: unavailable.. trying another
  2 | proxy 213.184.153.66:8080: there is captcha.. trying another
  3 | proxy 95.66.138.21:8880: available.. stop searching
- ```
+```
 
 ## Ограничения
 Сайт выдает списки с объявлениями лишь до 54 странцы включительно. Это примерно 28 * 54 = 1512 объявлений. Поэтому, если имеется желание собрать как можно больше данных, то следует использовать более конкретные запросы (по количеству комнат).
