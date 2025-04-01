@@ -24,11 +24,14 @@ The page from which the collection of information begins:
  https://cian.ru/cat.php?engine_version=2&p=1&with_neighbors=0&region=1&deal_type=sale&offer_type=flat&room1=1&room2=1
 
 Collecting information from pages with list of offers
- 1 | 1 page with list: [=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>] 100% | Count of all parsed: 28. Progress ratio: 50 %. Average price: 45 547 801 rub
- 2 | 2 page with list: [=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>] 100% | Count of all parsed: 56. Progress ratio: 100 %. Average price: 54 040 102 rub
+Processing 1 page / 2 pages: 100% (28/28)
+
+Processing 2 page / 2 pages: 100% (28/28)
+
 
 The collection of information from the pages with list of offers is completed
 Total number of parsed offers: 56.
+
 {
     "author": "MR Group",
     "author_type": "developer",
