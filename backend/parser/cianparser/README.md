@@ -233,7 +233,8 @@ name	location	accommodation_type	url	full_location_address	year_of_construction	
 
 Пример:
 
-```proxies = [
+```
+proxies = [
     '117.250.3.58:8080', 
     '115.96.208.124:8080',
     '152.67.0.109:80', 
