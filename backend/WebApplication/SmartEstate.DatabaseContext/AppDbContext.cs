@@ -79,5 +79,34 @@ public class AppDbContext : DbContext
                 .OnDelete(DeleteBehavior.NoAction);
         });
 
+        modelBuilder.Entity<InfrastructureInfo>()
+            .HasOne(i => i.NearestShop)
+            .WithMany()
+            .HasForeignKey(i => i.NearestShopId)
+            .OnDelete(DeleteBehavior.SetNull);
+            
+        modelBuilder.Entity<InfrastructureInfo>()
+            .HasOne(i => i.NearestMetro)
+            .WithMany()
+            .HasForeignKey(i => i.NearestMetroId)
+            .OnDelete(DeleteBehavior.SetNull);
+            
+        modelBuilder.Entity<InfrastructureInfo>()
+            .HasOne(i => i.NearestSchool)
+            .WithMany()
+            .HasForeignKey(i => i.NearestSchoolId)
+            .OnDelete(DeleteBehavior.SetNull);
+            
+        modelBuilder.Entity<InfrastructureInfo>()
+            .HasOne(i => i.NearestKindergarten)
+            .WithMany()
+            .HasForeignKey(i => i.NearestKindergartenId)
+            .OnDelete(DeleteBehavior.SetNull);
+            
+        modelBuilder.Entity<InfrastructureInfo>()
+            .HasOne(i => i.NearestPharmacy)
+            .WithMany()
+            .HasForeignKey(i => i.NearestPharmacyId)
+            .OnDelete(DeleteBehavior.SetNull);
     }
 }
