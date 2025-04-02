@@ -27,3 +27,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# /opt/anaconda3/bin/python3 /Users/nikitavolnuhin/ghostbusters/backend/parser/metroparser/main.py

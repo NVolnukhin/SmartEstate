@@ -8,7 +8,6 @@ def save_to_postgresql(stations, db_params):
         conn = psycopg2.connect(**db_params)
         cursor = conn.cursor()
 
-        # Создаем таблицу, если она не существует
         create_table_query = """
         CREATE TABLE IF NOT EXISTS Metro (
             id SERIAL PRIMARY KEY,
@@ -19,10 +18,8 @@ def save_to_postgresql(stations, db_params):
         """
         cursor.execute(create_table_query)
 
-        # Очищаем таблицу перед вставкой новых данных
         cursor.execute("TRUNCATE TABLE Metro RESTART IDENTITY")
 
-        # Вставляем данные
         insert_query = sql.SQL("""
         INSERT INTO Metro (metro_station, latitude, longitude)
         VALUES (%s, %s, %s)
