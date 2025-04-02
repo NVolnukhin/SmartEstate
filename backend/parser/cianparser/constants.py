@@ -5,6 +5,8 @@ OBJECT_TYPES = {"secondary": "1", "new": "2"}
 
 # ACCOMMODATION_TYPES_NOT_IMPLEMENTED_YET = {"room", "house", "house-part", "townhouse"}
 
+WITHOUT_NEW_MOSCOW = "&include_new_moscow=0"
+
 FLOATS_NUMBERS_REG_EXPRESSION = r"[+-]? *(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?"
 
 FILE_NAME_FLAT_FORMAT = 'cian_{}_{}_{}_{}_{}_{}.csv'

@@ -127,6 +127,10 @@ class URLBuilder:
             if additional_settings["author_type"] == "частное лицо":
                 self.url += FROM_AGENCY_AND_PRIVATE_PERSONS.format(1)
 
+        if "new_moscow" in additional_settings.keys():
+            if additional_settings["new_moscow"] == "without":
+                self.url += WITHOUT_NEW_MOSCOW.format(1)
+
         if "sort_by" in additional_settings.keys():
             if additional_settings["sort_by"] == IS_SORT_BY_PRICE_FROM_MIN_TO_MAX_PATH:
                 self.url += SORT_BY_PRICE_FROM_MIN_TO_MAX_PATH
