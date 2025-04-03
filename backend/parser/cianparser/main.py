@@ -1,4 +1,4 @@
-import cianparser.cianparser as cp
+import cianparser as cp
 
 msk_parser = cp.CianParser(location="Москва")
 data = msk_parser.get_flats(deal_type="sale",
