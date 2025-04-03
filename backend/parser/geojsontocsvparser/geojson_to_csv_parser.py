@@ -48,7 +48,6 @@ def extract_coordinates(geometry: Dict) -> Optional[Tuple[float, float]]:
 
 
 def find_name_field(properties: Dict) -> Optional[str]:
-    "
     possible_name_fields = ['name', 'title', 'label', 'description', 'nom', 'nombre']
 
     for field in possible_name_fields:
