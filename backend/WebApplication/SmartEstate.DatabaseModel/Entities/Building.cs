@@ -7,6 +7,8 @@ public class Building
     public string ConstructionStatus { get; set; } = string.Empty;
     public int FloorCount { get; set; }
     public string Address { get; set; } = string.Empty;
+    public double Latitude { get; set; }
+    public double Longitude { get; set; }
     public int? InfrastructureInfoId { get; set; }
     
     public Developer Developer { get; set; }
