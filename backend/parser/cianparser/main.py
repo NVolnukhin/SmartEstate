@@ -8,9 +8,10 @@ data = msk_parser.get_flats(deal_type="sale",
                                additional_settings={
                                     "object_type": "new",
                                     "author_type": "застройщик",
-                                    # "start_page":1,
-                                    # "end_page": 1,
-                                    "district": {"Некрасовка",
-                                                 "Ново-Переделкино",
-                                                 "Басманный"}
+                                    "new_moscow": "without",
+                                    "start_page":1,
+                                    "end_page": 54,
+                                    # "district": {"Некрасовка",
+                                    #              "Ново-Переделкино",
+                                    #              "Басманный"}
                                })
