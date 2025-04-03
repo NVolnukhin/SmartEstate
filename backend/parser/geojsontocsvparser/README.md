@@ -16,7 +16,7 @@ pip install geojsontocsvparser
 ### Использование
 #### Базовый запуск
 ```bash
-from geojson_parser import main
+from geojsontocsvparser import main
 
 main()
 ```
@@ -28,7 +28,7 @@ main()
 
 #### Пример работы с парсером
 ```bash
-from geojson_parser import (
+from geojsontocsvparser import (
     load_geojson,
     process_geojson_features,
     write_to_csv
