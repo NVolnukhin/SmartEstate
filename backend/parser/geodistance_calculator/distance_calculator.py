@@ -1,7 +1,5 @@
-import os
 from typing import Tuple
 import finding_nearest_objects as finder
-from constants import DATA_DIR, FILE_PATHS
 
 
 def get_user_coordinates() -> Tuple[float, float]:
@@ -32,10 +30,4 @@ def main():
 
 
 if __name__ == "__main__":
-    if not os.path.exists(DATA_DIR):
-        print(f"Ошибка: папка {DATA_DIR} не найдена!")
-        print("Создайте папку и поместите в нее файлы с данными:")
-        for name, path in FILE_PATHS.items():
-            print(f"  - {name}: {path}")
-    else:
-        main()
+    main()
