@@ -9,9 +9,7 @@ public class Building
     public string Address { get; set; } = string.Empty;
     public double Latitude { get; set; }
     public double Longitude { get; set; }
-    public int? InfrastructureInfoId { get; set; }
     
     public Developer Developer { get; set; }
-    public InfrastructureInfo? InfrastructureInfo { get; set; }
     public ICollection<Flat> Flats { get; set; } = new List<Flat>();
 }
