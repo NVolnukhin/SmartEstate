@@ -3,7 +3,7 @@ namespace DatabaseModel;
 public class Flat
 {
     public int FlatId { get; set; }
-    public string? Layout { get; set; } // Layout link (picture)
+    public string? Images { get; set; } //  picture links
     public decimal Square { get; set; }
     public int Roominess { get; set; }
     public int Floor { get; set; }
