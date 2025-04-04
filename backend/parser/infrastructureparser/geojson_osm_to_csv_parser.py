@@ -6,11 +6,6 @@ from tkinter import filedialog
 from typing import Dict, List, Optional, Tuple
 
 
-def ensure_secondary_data_dir() -> str:
-    os.makedirs('secondary_data', exist_ok=True)
-    return os.path.abspath('secondary_data')
-
-
 def select_input_file() -> Optional[str]:
     root = tk.Tk()
     root.withdraw()
@@ -114,8 +109,8 @@ def load_geojson(file_path: str) -> Optional[Dict]:
 
 
 def main():
-    output_dir = ensure_secondary_data_dir()
-    print(f"Результаты будут сохранены в: {output_dir}")
+    parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    print(f"Результаты будут сохранены в родительскую директорию: {parent_dir}")
 
     input_file = select_input_file()
     if not input_file:
@@ -127,7 +122,7 @@ def main():
         default="output"
     ) + ".csv"
 
-    output_path = os.path.join(output_dir, output_filename)
+    output_path = os.path.join(parent_dir, output_filename)
 
     geojson_data = load_geojson(input_file)
     if not geojson_data:
