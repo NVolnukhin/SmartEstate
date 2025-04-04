@@ -6,7 +6,8 @@ namespace DatabaseModel;
 public class InfrastructureInfo
 {
     public int? InfrastructureInfoId { get; set; }
-    public string Facilities { get; set; } = string.Empty;
+    public int BuildingId { get; set; }
+    public string? Facilities { get; set; } = string.Empty;
     
     // Navigation properties to nearest infrastructure
     public int? NearestShopId { get; set; }
@@ -29,17 +30,3 @@ public class InfrastructureInfo
     public Kindergarten? NearestKindergarten { get; set; }
     public Pharmacy? NearestPharmacy { get; set; }
 }
-/*
-public class InfrastructureInfo
-{
-    public int? InfrastructureInfoId { get; set; }
-    public int? MinutesToShop { get; set; }
-    public int? MinutesToMetro { get; set; }
-    public int? MinutesToSchool { get; set; }
-    public int? MinutesToKindergarten { get; set; }
-    public int? MinutesToBusStop { get; set; }
-    public int? MinutesToPharmacy { get; set; }
-    public string Facilities { get; set; } = string.Empty;
-    
-    public Building? Building { get; set; }
-}*/
