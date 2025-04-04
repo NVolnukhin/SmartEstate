@@ -4,11 +4,11 @@ import csv
 def save_to_csv(stations, filename=None):
     """Сохраняет данные станций в CSV файл."""
     if not filename:
-        filename = f"metro_parse_result.csv"
+        filename = f"../metro_parse_result.csv"
 
     try:
         with open(filename, 'w', newline='', encoding='utf-8') as csvfile:
-            fieldnames = ['num', 'metro_station', 'latitude', 'longitude']
+            fieldnames = ['ID', 'name', 'latitude', 'longitude']
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
             writer.writeheader()
