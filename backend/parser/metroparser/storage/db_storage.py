@@ -27,7 +27,7 @@ def save_to_postgresql(stations, db_params):
 
         for station in stations:
             cursor.execute(insert_query, (
-                station['metro_station'],
+                station['name'],
                 station['latitude'],
                 station['longitude']
             ))

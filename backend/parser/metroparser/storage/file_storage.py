@@ -14,8 +14,8 @@ def save_to_csv(stations, filename=None):
             writer.writeheader()
             for idx, station in enumerate(stations, start=1):
                 writer.writerow({
-                    'num': idx,
-                    'metro_station': station['metro_station'],
+                    'ID': idx,
+                    'name': station['metro_station'],
                     'latitude': station['latitude'],
                     'longitude': station['longitude']
                 })
