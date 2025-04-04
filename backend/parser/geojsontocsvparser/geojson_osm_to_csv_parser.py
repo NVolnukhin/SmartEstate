@@ -7,13 +7,11 @@ from typing import Dict, List, Optional, Tuple
 
 
 def ensure_secondary_data_dir() -> str:
-    
     os.makedirs('secondary_data', exist_ok=True)
     return os.path.abspath('secondary_data')
 
 
 def select_input_file() -> Optional[str]:
-    
     root = tk.Tk()
     root.withdraw()
     file_path = filedialog.askopenfilename(
@@ -24,13 +22,11 @@ def select_input_file() -> Optional[str]:
 
 
 def get_user_input(prompt: str, default: str = "") -> str:
-    
     user_input = input(prompt).strip()
     return user_input if user_input else default
 
 
 def extract_coordinates(geometry: Dict) -> Optional[Tuple[float, float]]:
-    
     if not geometry:
         return None
 
@@ -38,11 +34,11 @@ def extract_coordinates(geometry: Dict) -> Optional[Tuple[float, float]]:
     coordinates = geometry.get('coordinates', [])
 
     if geometry_type == 'Point' and len(coordinates) >= 2:
-        return (coordinates[0], coordinates[1])
+        return (coordinates[1], coordinates[0])
     elif geometry_type in ['Polygon', 'LineString'] and coordinates:
         first_coords = coordinates[0] if geometry_type == 'Polygon' else coordinates
         if first_coords and len(first_coords[0]) >= 2:
-            return (first_coords[0][0], first_coords[0][1])
+            return (first_coords[0][1], first_coords[0][0])
 
     return None
 
@@ -62,7 +58,6 @@ def find_name_field(properties: Dict) -> Optional[str]:
 
 
 def process_geojson_features(features: List[Dict]) -> Tuple[List[Dict], Optional[str]]:
-    
     csv_data = []
     name_field = None
 
@@ -83,19 +78,18 @@ def process_geojson_features(features: List[Dict]) -> Tuple[List[Dict], Optional
         coords = extract_coordinates(geometry)
 
         if coords:
-            lon, lat = sorted(coords, reverse=True)
+            latitude, longitude = coords
             csv_data.append({
                 'ID': idx,
                 'name': name,
-                'latitude': lat,
-                'longitude': lon
+                'latitude': latitude,
+                'longitude': longitude
             })
 
     return csv_data, name_field
 
 
 def write_to_csv(data: List[Dict], output_path: str):
-    
     if not data:
         print("Нет данных для сохранения.")
         return
@@ -111,7 +105,6 @@ def write_to_csv(data: List[Dict], output_path: str):
 
 
 def load_geojson(file_path: str) -> Optional[Dict]:
-    
     try:
         with open(file_path, 'r', encoding='utf-8') as f:
             return json.load(f)
@@ -121,18 +114,14 @@ def load_geojson(file_path: str) -> Optional[Dict]:
 
 
 def main():
-    
-    
     output_dir = ensure_secondary_data_dir()
     print(f"Результаты будут сохранены в: {output_dir}")
 
-    
     input_file = select_input_file()
     if not input_file:
         print("Файл не выбран. Операция отменена.")
         return
 
-    
     output_filename = get_user_input(
         "Введите имя выходного CSV файла (без расширения): ",
         default="output"
@@ -140,7 +129,6 @@ def main():
 
     output_path = os.path.join(output_dir, output_filename)
 
-    
     geojson_data = load_geojson(input_file)
     if not geojson_data:
         return
