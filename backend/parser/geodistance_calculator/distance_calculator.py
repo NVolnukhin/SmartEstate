@@ -2,7 +2,6 @@ from typing import Tuple
 from storage.buildings_db_storage import get_building_coordinates
 from storage.nearest_object import find_nearest_object
 from os import getenv
-from dotenv import load_dotenv
 
 
 def get_infrastructure_info(db_params, building_id: int) -> Tuple[int, int, int, int, int]:
