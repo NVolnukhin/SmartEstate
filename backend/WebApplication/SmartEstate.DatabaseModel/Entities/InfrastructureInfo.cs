@@ -23,7 +23,7 @@ public class InfrastructureInfo
     public int? MinutesToPharmacy { get; set; }
     
     // Navigation properties
-    public Building? Building { get; set; }
+    public Building Building { get; set; }
     public Shop? NearestShop { get; set; }
     public Metro? NearestMetro { get; set; }
     public School? NearestSchool { get; set; }
