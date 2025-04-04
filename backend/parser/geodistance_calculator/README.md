@@ -63,4 +63,5 @@ school_id, school_dist, school_name = finder.find_nearest_school(lat, lon)
 ```
 "Ближайший детский сад: {kg_name} (ID: {kg_id}) - {kg_dist:.2f} км"
 "Ближайшая школа: {school_name} (ID: {school_id}) - {school_dist:.2f} км"
+...
 ```
