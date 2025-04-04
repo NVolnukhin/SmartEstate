@@ -14,7 +14,7 @@ def get_unique_buildings_info():
             if row:
                 building_info = (
                     row[7].strip(),
-                    f"г. {row[3]}, {row[20].strip()} {row[21].strip()}",  # address
+                    f"г. {row[3]}, {row[20].strip()}, {row[21].strip()}",  # address
                     row[0],
                     row[11]
                 )
@@ -56,8 +56,10 @@ def use_geocode_and_find_additional_info(buildings_set: set, db_params) -> list:
             'lon': coordinates[0]
         })
 
+        print(f"geocoded {i} bilding")
+    
         # # for test
-        # if i >= 1:
+        # if i >= 4:
         #     break
 
     return geocoded_data

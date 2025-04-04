@@ -10,7 +10,7 @@ def get_flats_info(db_params):
         next(reader)
         for row in reader:
             if row:
-                address = f"г. {row[3]}, {row[20].strip()} {row[21].strip()}"
+                address = f"г. {row[3]}, {row[20].strip()}, {row[21].strip()}"
                 building_id = find_building_id(address, db_params)
 
                 flats_data.append({
@@ -21,6 +21,8 @@ def get_flats_info(db_params):
                     'building_id': building_id,
                     'finish_type': row[15]
                 })
+                
+                print("proceeded flat row")
 
     return flats_data
 

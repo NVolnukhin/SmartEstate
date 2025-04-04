@@ -81,8 +81,4 @@ def find_building_id(address: str, db_params) -> int:
 
 
 
-
-
-
-
-# f"г. {row[3]}, {row[20].strip()} {row[21].strip()}",  # address
+# f"г. {row[3]}, {row[20].strip()}, {row[21].strip()}",  # address
