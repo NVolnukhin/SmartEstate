@@ -27,12 +27,6 @@ public class AppDbContext : DbContext
             .WithMany(d => d.Buildings)
             .HasForeignKey(b => b.DeveloperId);
             
-        // Building - InfrastructureInfo
-        modelBuilder.Entity<Building>()
-            .HasOne(b => b.InfrastructureInfo)
-            .WithOne(i => i.Building)
-            .HasForeignKey<Building>(b => b.InfrastructureInfoId);
-            
         // Flat - Building
         modelBuilder.Entity<Flat>()
             .HasOne(f => f.Building)
@@ -78,6 +72,11 @@ public class AppDbContext : DbContext
                 .HasForeignKey(uc => uc.FlatId2)
                 .OnDelete(DeleteBehavior.NoAction);
         });
+        
+        modelBuilder.Entity<InfrastructureInfo>()
+            .HasOne(i => i.Building)          
+            .WithOne()                        
+            .HasForeignKey<InfrastructureInfo>(i => i.BuildingId);  
 
         modelBuilder.Entity<InfrastructureInfo>()
             .HasOne(i => i.NearestShop)
