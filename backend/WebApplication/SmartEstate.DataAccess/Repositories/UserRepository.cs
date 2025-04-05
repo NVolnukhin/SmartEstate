@@ -14,12 +14,10 @@ public class UsersRepository : IUsersRepository
         _dbContext = dbContext;
     }
 
-    public async Task<List<User>> GetAllUsers()
+    public async Task<User> GetById(Guid userId)
     {
         return await _dbContext.Users
-            .AsNoTracking()
-            .OrderBy(u => u.Email)
-            .ToListAsync();
+                   .FirstOrDefaultAsync(u => u.UserId == userId) ?? throw new Exception("User not found");
     }
     
     public async Task<User?> GetByEmail(string email)
@@ -42,15 +40,28 @@ public class UsersRepository : IUsersRepository
         await _dbContext.SaveChangesAsync();
     }
     
-    public async Task Update(Guid userId, string name, string email, string password)
+    public async Task UpdateEmail(Guid userId, string newEmail)
     {
         await _dbContext.Users
             .Where(u => u.UserId == userId)
             .ExecuteUpdateAsync(u => u
-                    .SetProperty(p => p.Name, name)
-                    .SetProperty(p => p.Email, email)
-                    .SetProperty(p => p.HashedPassword, password)
-            );
+                .SetProperty(p => p.Email, newEmail)); // Сбрасываем подтверждение email
+    }
+
+    public async Task UpdateName(Guid userId, string newName)
+    {
+        await _dbContext.Users
+            .Where(u => u.UserId == userId)
+            .ExecuteUpdateAsync(u => u
+                .SetProperty(p => p.Name, newName));
+    }
+
+    public async Task UpdatePassword(Guid userId, string newPasswordHash)
+    {
+        await _dbContext.Users
+            .Where(u => u.UserId == userId)
+            .ExecuteUpdateAsync(u => u
+                .SetProperty(p => p.HashedPassword, newPasswordHash));
     }
     
     public async Task Delete(Guid userId)
