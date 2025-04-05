@@ -7,12 +7,18 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\SmartEstate.DataAccess\SmartEstate.DataAccess.csproj" />
       <ProjectReference Include="..\SmartEstate.DatabaseModel\SmartEstate.DatabaseModel.csproj" />
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+      <PackageReference Include="FluentResults" Version="3.16.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.14" />
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.14" />
+      <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.3" />
       <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.7.0" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
       <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.7.0" />
     </ItemGroup>
 
