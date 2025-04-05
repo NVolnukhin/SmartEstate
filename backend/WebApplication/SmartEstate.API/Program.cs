@@ -119,6 +119,5 @@ app.UseAuthorization();
 
 app.MapControllers();
 app.MapUsersEndpoint();
-app.MapGet("/", () => "Navigation to /swagger for API documentation");
 
 app.Run();

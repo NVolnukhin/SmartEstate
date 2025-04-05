@@ -24,38 +24,37 @@ public class UserService
     }
     
     
-    public async Task<Result<User>> Register(string login, string email, string password, string name)
+    public async Task<Result<(User User, string Token)>> Register(
+        string login, 
+        string email, 
+        string password, 
+        string name)
     {
         try
         {
-            var userByEmail = await _usersRepository.GetByEmail(email);
-            if (userByEmail != null)
-            {
-                return Result.Fail<User>("Пользователь с таким email уже существует");
-            }
+            if (await _usersRepository.GetByEmail(email) != null)
+                return Result.Fail("Пользователь с таким email уже существует");
 
-            var userByLogin = await _usersRepository.GetByLogin(login);
-            if (userByLogin != null)
-            {
-                return Result.Fail<User>("Пользователь с таким логином уже существует");
-            }
-        
-            var hashedPassword = _passwordHasher.Generate(password); 
-        
+            if (await _usersRepository.GetByLogin(login) != null)
+                return Result.Fail("Пользователь с таким логином уже существует");
+
+            var hashedPassword = _passwordHasher.Generate(password);
             var user = User.Create(
-                id: Guid.NewGuid(),
-                login: login.Trim(),
-                email: email.Trim().ToLower(),
-                passwordHash: hashedPassword,
-                name: name.Trim());
+                Guid.NewGuid(),
+                login.Trim(),
+                email.Trim().ToLower(),
+                hashedPassword,
+                name.Trim());
 
             await _usersRepository.Add(user);
-    
-            return Result.Ok(user);
+        
+            var token = _jwtProvider.GenerateToken(user);
+        
+            return Result.Ok((user, token));
         }
         catch (Exception ex)
         {
-            return Result.Fail<User>(ex.Message);
+            return Result.Fail(ex.Message);
         }
     }
 

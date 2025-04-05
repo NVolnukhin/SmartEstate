@@ -21,16 +21,35 @@ public static class UserEndpoint
     
     private static async Task<IResult> Register(
         [FromBody] RegisterUserRequest request,
-        UserService userService)
+        UserService userService,
+        HttpContext httpContext)
     {
-        var result = await userService.Register(request.Login, request.Email, request.Password, request.Name);
-    
+        var result = await userService.Register(
+            request.Login,
+            request.Email,
+            request.Password,
+            request.Name);
+
         if (result.IsFailed)
+            return Results.BadRequest(result.Errors);
+
+        var (user, token) = result.Value;
+        
+        httpContext.Response.Cookies.Append("whtstht", token, new CookieOptions
         {
-            return Results.BadRequest(new { errors = result.Errors });
-        }
+            HttpOnly = true,
+            Secure = true,
+            SameSite = SameSiteMode.Strict,
+            Expires = DateTimeOffset.UtcNow.AddHours(12)
+        });
     
-        return Results.Ok(new { user = result.Value });
+        return Results.Ok(new
+        {
+            user.UserId,
+            user.Email,
+            user.Name,
+            Token = token
+        });
     }
     
     private static async Task<IResult> Login(
