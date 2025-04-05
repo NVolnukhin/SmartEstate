@@ -7,8 +7,6 @@ public class InfrastructureInfo
 {
     public int? InfrastructureInfoId { get; set; }
     public int BuildingId { get; set; }
-    public string? Facilities { get; set; } = string.Empty;
-    
     // Navigation properties to nearest infrastructure
     public int? NearestShopId { get; set; }
     public int? NearestMetroId { get; set; }
