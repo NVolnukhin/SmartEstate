@@ -9,7 +9,7 @@ public class UserFavorite
     public int FavoriteId { get; set; }
     
     [ForeignKey("User")]
-    public int UserId { get; set; }
+    public Guid UserId { get; set; }
     
     [ForeignKey("Flat")]
     public int FlatId { get; set; }

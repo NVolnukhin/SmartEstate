@@ -13,7 +13,6 @@
         "packagesPath": "/Users/nikitavolnuhin/.nuget/packages/",
         "outputPath": "/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.DatabaseModel/obj/",
         "projectStyle": "PackageReference",
-        "UsingMicrosoftNETSdk": false,
         "configFilePaths": [
           "/Users/nikitavolnuhin/.nuget/NuGet/NuGet.Config"
         ],
@@ -47,6 +46,10 @@
             "BCrypt.Net-Next": {
               "target": "Package",
               "version": "[4.0.3, )"
+            },
+            "FluentResults": {
+              "target": "Package",
+              "version": "[3.16.0, )"
             },
             "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
               "target": "Package",

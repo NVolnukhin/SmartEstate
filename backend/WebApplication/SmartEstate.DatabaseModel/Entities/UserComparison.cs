@@ -9,7 +9,7 @@ public class UserComparison
     public int CompareId { get; set; }
     
     [ForeignKey("User")]
-    public int UserId { get; set; }
+    public Guid UserId { get; set; }
     
     [ForeignKey("FirstFlat")]
     public int FlatId1 { get; set; }
