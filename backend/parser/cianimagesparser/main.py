@@ -21,11 +21,7 @@ if __name__ == "__main__":
     for idx, link in links_dict.items():
         print(f"{idx} - {link}")
 
-    images_dict = pci({1: "https://www.cian.ru/sale/flat/298030201/",
-                       2: "https://www.cian.ru/sale/flat/314441491/",
-                       3: "https://www.cian.ru/sale/flat/313404545/"})
-
-
+    images_dict = pci(links_dict)
 
     for idx, imgs in images_dict.items():
         print(f"ID {idx}: {imgs}")
