@@ -16,7 +16,8 @@ def save_buildings_to_postgresql(buildings, db_params):
                         "Address" TEXT NOT NULL,
                         "InfrastructureInfoId" INTEGER,
                         "Latitude" DOUBLE PRECISION NOT NULL,
-                        "Longitude" DOUBLE PRECISION NOT NULL
+                        "Longitude" DOUBLE PRECISION NOT NULL,
+                        "ResidentialComplex" TEXT
                     )
                 """
 
@@ -25,7 +26,7 @@ def save_buildings_to_postgresql(buildings, db_params):
         cursor.execute('TRUNCATE TABLE public."Buildings" RESTART IDENTITY CASCADE')
 
         insert_query = sql.SQL("""
-                INSERT INTO "Buildings" ("DeveloperId", "ConstructionStatus", "FloorCount", "Address", "Latitude", "Longitude")
+                INSERT INTO "Buildings" ("DeveloperId", "ConstructionStatus", "FloorCount", "Address", "Latitude", "Longitude", "ResidentialComplex")
                 VALUES (%s, %s, %s, %s, %s, %s)
                 """)
 
@@ -36,7 +37,8 @@ def save_buildings_to_postgresql(buildings, db_params):
                 building['floors_count'],
                 building['address'],
                 building['lat'],
-                building['lon']
+                building['lon'],
+                building['residential_complex']
             ))
 
         conn.commit()

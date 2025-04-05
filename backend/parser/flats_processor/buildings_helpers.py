@@ -16,7 +16,8 @@ def get_unique_buildings_info():
                     row[7].strip(),
                     f"г. {row[3]}, {row[20].strip()}, {row[21].strip()}",  # address
                     row[0],
-                    row[11]
+                    row[11],
+                    row[23]
                 )
                 building_data.add(building_info)
 
@@ -37,7 +38,7 @@ def use_geocode_and_find_additional_info(buildings_set: set, db_params) -> list:
     """Геокодирует адреса зданий и находит более подробную информацию."""
     geocoded_data = []
 
-    for i, (floors_count, address, developer, year) in enumerate(buildings_set, 1):
+    for i, (floors_count, address, developer, year, residential_complex) in enumerate(buildings_set, 1):
         coordinates = geocode_yandex(address)
 
         if not coordinates:
@@ -53,13 +54,10 @@ def use_geocode_and_find_additional_info(buildings_set: set, db_params) -> list:
             'developer_id': developer_id,
             'status': status,
             'lat': coordinates[1],
-            'lon': coordinates[0]
+            'lon': coordinates[0],
+            'residential_complex': residential_complex
         })
 
         print(f"geocoded {i} bilding")
-    
-        # # for test
-        # if i >= 4:
-        #     break
 
     return geocoded_data

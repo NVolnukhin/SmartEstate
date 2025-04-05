@@ -71,6 +71,7 @@ YANDEX_API_KEY=your_yandex_api_key
 - InfrastructureInfoId - идентификатор информации об инфраструктуре (не используется)
 - Latitude - широта 
 - Longitude - долгота
+- ResidentialComplex - ЖК
 
 ### Flats
 - FlatId - идентификатор квартиры 
