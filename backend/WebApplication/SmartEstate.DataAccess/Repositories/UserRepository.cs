@@ -9,7 +9,7 @@ public class UsersRepository : IUsersRepository
 {
     private readonly AppDbContext _dbContext;
 
-    public UsersRepository(AppDbContext dbContext/*, IMapper mapper*/)
+    public UsersRepository(AppDbContext dbContext)
     {
         _dbContext = dbContext;
     }
@@ -45,7 +45,7 @@ public class UsersRepository : IUsersRepository
         await _dbContext.Users
             .Where(u => u.UserId == userId)
             .ExecuteUpdateAsync(u => u
-                .SetProperty(p => p.Email, newEmail)); // Сбрасываем подтверждение email
+                .SetProperty(p => p.Email, newEmail));
     }
 
     public async Task UpdateName(Guid userId, string newName)
