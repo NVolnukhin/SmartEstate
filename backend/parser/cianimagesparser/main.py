@@ -1,7 +1,7 @@
 from imgparser import parse_cian_images as pci
 from os import getenv
 from dotenv import load_dotenv
-from storage.get_cian_urls_db import get_links as gl
+from storage.get_cian_urls_db import get_links as gl, get_null_img_links as glnull
 from storage.save_img_links_db import overwrite_flats_images as ofi
 import time
 BATCH_SIZE = 5
