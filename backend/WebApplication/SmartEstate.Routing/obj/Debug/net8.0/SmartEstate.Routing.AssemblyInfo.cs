@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SmartEstate.Routing")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4cdae1f5746842b69a5605a57cd65cea1f986ee7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d31d0c26bbe5ecab0624b277c08dfc46544d72f1")]
 [assembly: System.Reflection.AssemblyProductAttribute("SmartEstate.Routing")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SmartEstate.Routing")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

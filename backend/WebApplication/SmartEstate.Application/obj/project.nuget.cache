@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Jj0vsN0Mm00=",
+  "dgSpecHash": "6B0vvd3tZW4=",
   "success": true,
   "projectFilePath": "/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.Application/SmartEstate.Application.csproj",
   "expectedPackageFiles": [
@@ -51,7 +51,7 @@
       "code": "NU1608",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Detected package version outside of dependency constraint: AutoMapper.Extensions.Microsoft.DependencyInjection 12.0.1 requires AutoMapper (= 12.0.1) but version AutoMapper 14.0.0 was resolved.",
+      "message": "Версия обнаруженного пакета нарушает ограничение зависимости: AutoMapper.Extensions.Microsoft.DependencyInjection 12.0.1 требуется AutoMapper (= 12.0.1), но в результате разрешения получена версия AutoMapper 14.0.0.",
       "libraryId": "AutoMapper",
       "targetGraphs": [
         "net8.0"

@@ -3,6 +3,7 @@ using System;
 using DatabaseContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DatabaseContext.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250406162157_AddPasswordRecoveryTokenTable")]
+    partial class AddPasswordRecoveryTokenTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -135,19 +138,19 @@ namespace DatabaseContext.Data.Migrations
                     b.Property<int>("BuildingId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("MinutesToKindergarten")
+                    b.Property<int?>("MinutesToKindergarten")
                         .HasColumnType("integer");
 
                     b.Property<int>("MinutesToMetro")
                         .HasColumnType("integer");
 
-                    b.Property<int>("MinutesToPharmacy")
+                    b.Property<int?>("MinutesToPharmacy")
                         .HasColumnType("integer");
 
-                    b.Property<int>("MinutesToSchool")
+                    b.Property<int?>("MinutesToSchool")
                         .HasColumnType("integer");
 
-                    b.Property<int>("MinutesToShop")
+                    b.Property<int?>("MinutesToShop")
                         .HasColumnType("integer");
 
                     b.Property<int?>("NearestKindergartenId")
@@ -399,32 +402,6 @@ namespace DatabaseContext.Data.Migrations
                     b.ToTable("UserFavorites");
                 });
 
-            modelBuilder.Entity("DatabaseModels.RecoveryPassword.PasswordRecoveryToken", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("ExpiresAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<bool>("IsUsed")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("Token")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("PasswordRecoveryTokens");
-                });
-
             modelBuilder.Entity("DatabaseModel.Building", b =>
                 {
                     b.HasOne("DatabaseModel.Developer", "Developer")
@@ -546,17 +523,6 @@ namespace DatabaseContext.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Flat");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("DatabaseModels.RecoveryPassword.PasswordRecoveryToken", b =>
-                {
-                    b.HasOne("DatabaseModel.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
 
                     b.Navigation("User");
                 });

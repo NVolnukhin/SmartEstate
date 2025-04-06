@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SmartEstate.DatabaseModel")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f8ab9bb7002def36038eedaee6c00ca26419b7d4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d31d0c26bbe5ecab0624b277c08dfc46544d72f1")]
 [assembly: System.Reflection.AssemblyProductAttribute("SmartEstate.DatabaseModel")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SmartEstate.DatabaseModel")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
