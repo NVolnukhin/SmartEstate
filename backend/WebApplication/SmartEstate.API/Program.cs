@@ -1,4 +1,5 @@
 using System.Text;
+using Contracts.Email;
 using DatabaseContext;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Presentation.Endpoints;
 using Presentation.Extensions;
+using SmartEstate.Email;
 using SmartEstate.Infrastructure;
 using SmartEstate.Routing.Extensions;
 
@@ -24,12 +26,14 @@ builder.Services.AddControllers()
         {
             var errors = context.ModelState
                 .Where(e => e.Value.Errors.Count > 0)
-                .ToDictionary(
-                    kvp => kvp.Key,
-                    kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
-                );
+                .SelectMany(e => e.Value.Errors
+                    .Select(error => new ErrorResponse.ErrorDetail(
+                        Code: "VALIDATION_ERROR",
+                        Message: error.ErrorMessage ?? "Некорректное значение",
+                        Field: e.Key)))
+                .ToList();
 
-            return new BadRequestObjectResult(new
+            return new BadRequestObjectResult(new ErrorResponse
             {
                 Message = "Ошибки валидации",
                 Errors = errors
@@ -89,6 +93,9 @@ builder.Services.AddAuthorization();
 
 builder.Services.AddApplicationServices();
 
+builder.Services.AddOptions<SmtpSettings>().Bind(builder.Configuration.GetSection("SmtpSettings"));
+
+
 builder.Services.AddRoutingModule(builder.Configuration);
 
 
@@ -118,5 +125,20 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapGet("/test-gmail", async (IEmailService emailService) => 
+{
+    try 
+    {
+        await emailService.SendEmailAsync(
+            "heyshehe@gmail.com", 
+            "ZALUPPPPAAAA", 
+            "<h1>ЗРОБИЛО БЛЯТЬ </h1>");
+        return "Email sent successfully!";
+    }
+    catch (Exception ex)
+    {
+        return $"Error: {ex.Message}";
+    }
+});
 
 app.Run();
