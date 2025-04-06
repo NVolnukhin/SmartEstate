@@ -7,11 +7,14 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\SmartEstate.Contracts\SmartEstate.Contracts.csproj" />
       <ProjectReference Include="..\SmartEstate.DataAccess\SmartEstate.DataAccess.csproj" />
       <ProjectReference Include="..\SmartEstate.DatabaseModel\SmartEstate.DatabaseModel.csproj" />
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="14.0.0" />
+      <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
       <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
       <PackageReference Include="FluentResults" Version="3.16.0" />
       <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.14" />
