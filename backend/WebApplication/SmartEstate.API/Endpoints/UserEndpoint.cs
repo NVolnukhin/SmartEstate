@@ -10,9 +10,9 @@ namespace Presentation.Endpoints;
 [Route("api/users")]
 public class UsersEndpoint : ControllerBase
 {
-    private readonly UserService _userService;
+    private readonly IUserService _userService;
 
-    public UsersEndpoint(UserService userService)
+    public UsersEndpoint(IUserService userService)
     {
         _userService = userService;
     }
