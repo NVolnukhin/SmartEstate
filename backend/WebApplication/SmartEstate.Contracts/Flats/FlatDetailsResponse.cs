@@ -13,6 +13,7 @@ public record FlatDetailsResponse(
     string CianLink,
     string FinishType,
     decimal Price,
+    string PriceChart,
     int BuildingId,
     int DeveloperId,
     int InfrastructureInfoId,
