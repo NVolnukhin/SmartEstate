@@ -23,6 +23,7 @@
           "SmartEstate.Application": "1.0.0",
           "SmartEstate.Contracts": "1.0.0",
           "SmartEstate.DatabaseContext": "1.0.0",
+          "SmartEstate.Email": "1.0.0",
           "SmartEstate.Infrastructure": "1.0.0",
           "SmartEstate.Routing": "1.0.0",
           "Swashbuckle.AspNetCore": "8.1.0",
@@ -1075,6 +1076,17 @@
           }
         }
       },
+      "SmartEstate.Email/1.0.0": {
+        "dependencies": {
+          "SmartEstate.Application": "1.0.0"
+        },
+        "runtime": {
+          "SmartEstate.Email.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "SmartEstate.Infrastructure/1.0.0": {
         "dependencies": {
           "AutoMapper": "14.0.0",
@@ -1661,6 +1673,11 @@
       "sha512": ""
     },
     "SmartEstate.DatabaseModel/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SmartEstate.Email/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

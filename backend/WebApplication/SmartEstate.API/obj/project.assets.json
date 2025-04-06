@@ -1584,6 +1584,19 @@
           "bin/placeholder/SmartEstate.DatabaseModel.dll": {}
         }
       },
+      "SmartEstate.Email/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "SmartEstate.Application": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/SmartEstate.Email.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SmartEstate.Email.dll": {}
+        }
+      },
       "SmartEstate.Infrastructure/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
@@ -4558,6 +4571,11 @@
       "path": "../SmartEstate.DatabaseModel/SmartEstate.DatabaseModel.csproj",
       "msbuildProject": "../SmartEstate.DatabaseModel/SmartEstate.DatabaseModel.csproj"
     },
+    "SmartEstate.Email/1.0.0": {
+      "type": "project",
+      "path": "../SmartEstate.Email/SmartEstate.Email.csproj",
+      "msbuildProject": "../SmartEstate.Email/SmartEstate.Email.csproj"
+    },
     "SmartEstate.Infrastructure/1.0.0": {
       "type": "project",
       "path": "../SmartEstate.Infrastructure/SmartEstate.Infrastructure.csproj",
@@ -4586,6 +4604,7 @@
       "SmartEstate.Application >= 1.0.0",
       "SmartEstate.Contracts >= 1.0.0",
       "SmartEstate.DatabaseContext >= 1.0.0",
+      "SmartEstate.Email >= 1.0.0",
       "SmartEstate.Infrastructure >= 1.0.0",
       "SmartEstate.Routing >= 1.0.0",
       "Swashbuckle.AspNetCore >= 8.1.0",
@@ -4626,6 +4645,9 @@
             },
             "/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.DatabaseContext/SmartEstate.DatabaseContext.csproj": {
               "projectPath": "/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.DatabaseContext/SmartEstate.DatabaseContext.csproj"
+            },
+            "/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.Email/SmartEstate.Email.csproj": {
+              "projectPath": "/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.Email/SmartEstate.Email.csproj"
             },
             "/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.Infrastructure/SmartEstate.Infrastructure.csproj": {
               "projectPath": "/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.Infrastructure/SmartEstate.Infrastructure.csproj"
