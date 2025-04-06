@@ -14,11 +14,11 @@ public class InfrastructureInfo
     public int? NearestKindergartenId { get; set; }
     public int? NearestPharmacyId { get; set; }
     
-    public int? MinutesToShop { get; set; }
+    public int MinutesToShop { get; set; }
     public int MinutesToMetro { get; set; }
-    public int? MinutesToSchool { get; set; }
-    public int? MinutesToKindergarten { get; set; }
-    public int? MinutesToPharmacy { get; set; }
+    public int MinutesToSchool { get; set; }
+    public int MinutesToKindergarten { get; set; }
+    public int MinutesToPharmacy { get; set; }
     
     // Navigation properties
     public Building Building { get; set; }
