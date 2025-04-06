@@ -1,5 +1,6 @@
 ﻿
 using DatabaseModel;
+using DatabaseModels.RecoveryPassword;
 using Microsoft.EntityFrameworkCore;
 
 namespace DatabaseContext;
@@ -18,6 +19,7 @@ public class AppDbContext : DbContext
     public DbSet<PriceHistory> PriceHistories { get; set; }
     public DbSet<UserComparison> UserComparisons { get; set; }
     public DbSet<UserFavorite> UserFavorites { get; set; }
+    public DbSet<PasswordRecoveryToken> PasswordRecoveryTokens { get; set; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
