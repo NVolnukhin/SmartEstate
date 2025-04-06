@@ -2,5 +2,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Contracts.PasswordRecovery;
 
-public record PasswordRecoveryRequest(
-    [property: Required, EmailAddress] string Email);
+public sealed record PasswordRecoveryRequest(
+    [Required(ErrorMessage = "Email обязателен")]
+    [EmailAddress(ErrorMessage = "Некорректный формат email")]
+    string Email
+);
