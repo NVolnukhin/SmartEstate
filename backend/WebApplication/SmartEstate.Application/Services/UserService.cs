@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
+using AutoMapper;
 using DatabaseModel;
 using FluentResults;
 using Microsoft.Extensions.Logging;
@@ -15,18 +16,22 @@ public class UserService : IUserService
     private readonly IUsersRepository _usersRepository;
     private readonly IJwtProvider _jwtProvider;
     private readonly ILogger<UserService> _logger;
-
+    private readonly IPasswordRecoveryTokenRepository _recoveryTokenRepository;
+    
     public UserService(
         IUsersRepository usersRepository,
+        IPasswordRecoveryTokenRepository recoveryTokenRepository,
         IPasswordHasher passwordHasher,
         IJwtProvider jwtProvider,
         ILogger<UserService> logger)
     {
-        _passwordHasher = passwordHasher;
-        _usersRepository = usersRepository;
-        _jwtProvider = jwtProvider;
-        _logger = logger;
+        _usersRepository = usersRepository ?? throw new ArgumentNullException(nameof(usersRepository));
+        _recoveryTokenRepository = recoveryTokenRepository ?? throw new ArgumentNullException(nameof(recoveryTokenRepository));
+        _passwordHasher = passwordHasher ?? throw new ArgumentNullException(nameof(passwordHasher));
+        _jwtProvider = jwtProvider ?? throw new ArgumentNullException(nameof(jwtProvider));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
+
 
     public async Task<Result<(User User, string Token)>> Register(
         string login,
@@ -191,6 +196,51 @@ public class UserService : IUserService
         {
             _logger.LogError(ex, "Error updating password for user {UserId}", userId);
             return Result.Fail("Произошла ошибка при обновлении пароля");
+        }
+    }
+    
+    public async Task<Result> RecoverPassword(Guid userId, string newPassword, string confirmPassword)
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(newPassword))
+            {
+                return Result.Fail("Новый пароль не может быть пустым");
+            }
+        
+            if (!newPassword.Equals(confirmPassword))
+            {
+                return Result.Fail("Пароли не совпадают");
+            }
+            
+            if (newPassword.Length < 8)
+            {
+                return Result.Fail("Пароль должен содержать минимум 8 символов");
+            }
+        
+            if (!Regex.IsMatch(newPassword, @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)"))
+            {
+                return Result.Fail("Пароль должен содержать цифры, заглавные и строчные буквы");
+            }
+            
+            var user = await _usersRepository.GetById(userId);
+            if (user == null)
+            {
+                _logger.LogWarning("Попытка восстановления пароля для несуществующего пользователя {UserId}", userId);
+                return Result.Fail("Пользователь не найден");
+            }
+            
+            var hashedPassword = _passwordHasher.Generate(newPassword);
+            await _usersRepository.UpdatePassword(userId, hashedPassword);
+            await _recoveryTokenRepository.InvalidateUserTokensAsync(userId);
+        
+            _logger.LogInformation("Пароль успешно обновлён для пользователя {UserId}", userId);
+            return Result.Ok();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Ошибка при восстановлении пароля для пользователя {UserId}", userId);
+            return Result.Fail("Произошла ошибка при восстановлении пароля");
         }
     }
     

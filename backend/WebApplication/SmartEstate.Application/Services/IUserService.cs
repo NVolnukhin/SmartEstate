@@ -11,4 +11,5 @@ public interface IUserService
     public Task<Result> UpdateEmail(Guid userId, string newEmail);
     public Task<Result> UpdateName(Guid userId, string newName);
     public Task<Result> UpdatePassword(Guid userId, string newPassword, string currentPassword);
+    public Task<Result> RecoverPassword(Guid userId, string newPassword, string confirmPassword);
 }
