@@ -62,7 +62,7 @@ public class FlatService : IFlatService
                 infrastructure != null ? new NearestMetroInfo(
                     metro?.Name ?? "Не указано",
                     infrastructure.MinutesToMetro,
-                    metro != null ? $"{metro.Latitude},{metro.Longitude}" : "Координаты не указаны") : null
+                    metro != null ? $"{metro.Latitude}, {metro.Longitude}" : "Координаты не указаны") : null
             );
         }).ToList();
 
@@ -96,7 +96,7 @@ public class FlatService : IFlatService
                 infrastructure != null ? new NearestMetroInfo(
                     metro?.Name ?? "Не указано",
                     infrastructure.MinutesToMetro,
-                    metro != null ? $"{metro.Latitude},{metro.Longitude}" : "Координаты не указаны") : null
+                    metro != null ? $"{metro.Latitude}, {metro.Longitude}" : "Координаты не указаны") : null
             );
         }).ToList();
     }
@@ -119,8 +119,19 @@ public class FlatService : IFlatService
             return null;
 
         var infrastructure = await _dbContext.InfrastructureInfos
+            .Include(infrastructureInfo => infrastructureInfo.NearestMetro)
+            .Include(infrastructureInfo => infrastructureInfo.NearestSchool)
+            .Include(infrastructureInfo => infrastructureInfo.NearestKindergarten)
+            .Include(infrastructureInfo => infrastructureInfo.NearestShop)
+            .Include(infrastructureInfo => infrastructureInfo.NearestPharmacy)
             .FirstOrDefaultAsync(i => i.BuildingId == flat.BuildingId);
-
+        
+        var metro = infrastructure?.NearestMetro;
+        var school = infrastructure?.NearestSchool;
+        var kindergarten = infrastructure?.NearestKindergarten;
+        var shop = infrastructure?.NearestShop;
+        var pharmacy = infrastructure?.NearestPharmacy;
+        
         string priceChartBase64 = await GetPriceChartBase64Async(flatId);
         
         return new FlatDetailsResponse(
@@ -145,12 +156,26 @@ public class FlatService : IFlatService
                 building.Developer.Name,
                 building.Developer.BuildingsCount,
                 building.Developer.Website),
-            infrastructure != null ? new InfrastructureInfoDto(
+            infrastructure != null ? new NearestMetroInfo(
+                metro?.Name ?? "Не указано",
                 infrastructure.MinutesToMetro,
+                metro != null ? $"{metro.Latitude}, {metro.Longitude}" : "Координаты не указаны") : null,
+            infrastructure != null ? new NearestSchoolInfo(
+                school?.Name ?? "Не указано",
                 infrastructure.MinutesToSchool,
+                metro != null ? $"{school.Latitude}, {school.Longitude}" : "Координаты не указаны") : null,
+            infrastructure != null ? new NearestKindergartenInfo(
+                kindergarten?.Name ?? "Не указано",
                 infrastructure.MinutesToKindergarten,
+                metro != null ? $"{kindergarten.Latitude}, {kindergarten.Longitude}" : "Координаты не указаны") : null,
+            infrastructure != null ? new NearestShopInfo(
+                shop?.Name ?? "Не указано",
+                infrastructure.MinutesToShop,
+                shop != null ? $"{shop.Latitude}, {shop.Longitude}" : "Координаты не указаны") : null,
+            infrastructure != null ? new NearestPharmacyInfo(
+                pharmacy?.Name ?? "Не указано",
                 infrastructure.MinutesToPharmacy,
-                infrastructure.MinutesToShop) : null
+                pharmacy != null ? $"{pharmacy.Latitude}, {pharmacy.Longitude}" : "Координаты не указаны") : null
         );
     }
     
