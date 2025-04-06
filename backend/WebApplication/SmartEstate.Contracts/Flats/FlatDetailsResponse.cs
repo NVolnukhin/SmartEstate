@@ -1,6 +1,7 @@
 using Presentation.Contracts.Building;
 using Presentation.Contracts.Developer;
 using Presentation.Contracts.InfrastructureInfo;
+using Presentation.Contracts.Metro;
 
 namespace Presentation.Contracts.Flats;
 
@@ -17,6 +18,12 @@ public record FlatDetailsResponse(
     int BuildingId,
     int DeveloperId,
     int InfrastructureInfoId,
+    
     BuildingInfoDto BuildingInfo,
     DeveloperInfoDto DeveloperInfo,
-    InfrastructureInfoDto? InfrastructureInfo);
+    
+    NearestMetroInfo? NearestMetroInfo,
+    NearestSchoolInfo? NearestSchoolInfo,
+    NearestKindergartenInfo? NearestKindergartenInfo,
+    NearestShopInfo? NearestShopInfo,
+    NearestPharmacyInfo? NearestPharmacyInfo);

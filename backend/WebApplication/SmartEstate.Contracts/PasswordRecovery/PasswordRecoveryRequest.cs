@@ -2,5 +2,5 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Contracts.PasswordRecovery;
 
-public record ForgotPasswordRequestDto(
+public record PasswordRecoveryRequest(
     [property: Required, EmailAddress] string Email);
