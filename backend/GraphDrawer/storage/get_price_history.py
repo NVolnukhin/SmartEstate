@@ -1,4 +1,4 @@
-from get_db_connection import get_db_connection
+from .get_db_connection import get_db_connection
 
 def get_price_history(flat_id):
     conn = get_db_connection()
