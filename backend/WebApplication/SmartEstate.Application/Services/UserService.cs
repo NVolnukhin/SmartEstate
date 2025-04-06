@@ -2,42 +2,50 @@ using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using DatabaseModel;
 using FluentResults;
+using Microsoft.Extensions.Logging;
 using SmartEstate.Application.Interfaces;
 using SmartEstate.DataAccess.Repositories;
 
 namespace SmartEstate.Application.Services;
 
-public class UserService
+
+public class UserService : IUserService
 {
     private readonly IPasswordHasher _passwordHasher;
     private readonly IUsersRepository _usersRepository;
     private readonly IJwtProvider _jwtProvider;
+    private readonly ILogger<UserService> _logger;
 
     public UserService(
         IUsersRepository usersRepository,
-        IPasswordHasher passwordHasher, 
-        IJwtProvider jwtProvider)
+        IPasswordHasher passwordHasher,
+        IJwtProvider jwtProvider,
+        ILogger<UserService> logger)
     {
         _passwordHasher = passwordHasher;
         _usersRepository = usersRepository;
         _jwtProvider = jwtProvider;
+        _logger = logger;
     }
-    
-    
+
     public async Task<Result<(User User, string Token)>> Register(
-        string login, 
-        string email, 
-        string password, 
+        string login,
+        string email,
+        string password,
         string name)
     {
         try
         {
+            var validationResult = ValidateUserData(login, email, password, name);
+            if (validationResult.IsFailed)
+                return validationResult;
+            
             if (await _usersRepository.GetByEmail(email) != null)
                 return Result.Fail("Пользователь с таким email уже существует");
 
             if (await _usersRepository.GetByLogin(login) != null)
                 return Result.Fail("Пользователь с таким логином уже существует");
-
+            
             var hashedPassword = _passwordHasher.Generate(password);
             var user = User.Create(
                 Guid.NewGuid(),
@@ -47,93 +55,163 @@ public class UserService
                 name.Trim());
 
             await _usersRepository.Add(user);
-        
+            _logger.LogInformation("User registered with ID: {UserId}", user.UserId);
+
             var token = _jwtProvider.GenerateToken(user);
-        
             return Result.Ok((user, token));
         }
         catch (Exception ex)
         {
-            return Result.Fail(ex.Message);
+            _logger.LogError(ex, "Error during user registration");
+            return Result.Fail("Произошла ошибка при регистрации");
         }
     }
 
-    public async Task<Result<string>> Login(string login, string password)
+    public async Task<Result<string>> Login(string loginOrEmail, string password)
     {
         try
         {
-            var user = await _usersRepository.GetByLogin(login) ?? 
-                       await _usersRepository.GetByEmail(login);
+            if (string.IsNullOrWhiteSpace(loginOrEmail) || string.IsNullOrWhiteSpace(password))
+                return Result.Fail("Логин/email и пароль обязательны");
+
+            var user = await _usersRepository.GetByLogin(loginOrEmail) ??
+                       await _usersRepository.GetByEmail(loginOrEmail);
 
             if (user == null)
             {
-                return Result.Fail<string>("Пользователь с таким логином/email не найден");
+                _logger.LogWarning("Login attempt for non-existent user: {Login}", loginOrEmail);
+                return Result.Fail("Неверные учетные данные");
             }
 
             var passwordValid = _passwordHasher.Verify(password, user.HashedPassword);
             if (!passwordValid)
             {
-                return Result.Fail<string>("Неверный пароль");
+                _logger.LogWarning("Invalid password attempt for user: {UserId}", user.UserId);
+                return Result.Fail("Неверные учетные данные");
             }
 
             var token = _jwtProvider.GenerateToken(user);
+            _logger.LogInformation("User logged in: {UserId}", user.UserId);
             return Result.Ok(token);
         }
         catch (Exception ex)
         {
-            return Result.Fail<string>(ex.Message);
+            _logger.LogError(ex, "Error during user login");
+            return Result.Fail("Произошла ошибка при входе");
         }
     }
     
     public async Task<Result> UpdateEmail(Guid userId, string newEmail)
     {
-        var user = await _usersRepository.GetById(userId);
-        
-        if (await _usersRepository.GetByEmail(newEmail) != null)
+        try
         {
-            return Result.Fail("Этот email уже используется");
+            if (!new EmailAddressAttribute().IsValid(newEmail))
+            {
+                _logger.LogWarning("Invalid email format attempt for user {UserId}: {Email}", userId, newEmail);
+                return Result.Fail("Некорректный формат email");
+            }
+
+            var existingUser = await _usersRepository.GetByEmail(newEmail);
+            if (existingUser != null && existingUser.UserId != userId)
+            {
+                _logger.LogWarning("Email conflict for user {UserId}: {Email} already taken", userId, newEmail);
+                return Result.Fail("Этот email уже используется");
+            }
+
+            await _usersRepository.UpdateEmail(userId, newEmail);
+            _logger.LogInformation("Email updated for user {UserId}", userId);
+            
+            return Result.Ok();
         }
-        
-        if (!new EmailAddressAttribute().IsValid(newEmail))
+        catch (Exception ex)
         {
-            return Result.Fail("Некорректный формат email");
+            _logger.LogError(ex, "Error updating email for user {UserId}", userId);
+            return Result.Fail("Произошла ошибка при обновлении email");
         }
-        
-        await _usersRepository.UpdateEmail(userId, newEmail);
-        return Result.Ok();
     }
 
     public async Task<Result> UpdateName(Guid userId, string newName)
     {
-        if (newName.Length < 3)
+        try
         {
-            return Result.Fail("Имя должно быть длиннее 3 символов");
+            if (string.IsNullOrWhiteSpace(newName) || newName.Length < 3)
+            {
+                _logger.LogWarning("Invalid name update attempt for user {UserId}: {Name}", userId, newName);
+                return Result.Fail("Имя должно содержать минимум 3 символа");
+            }
+
+            await _usersRepository.UpdateName(userId, newName.Trim());
+            _logger.LogInformation("Name updated for user {UserId}", userId);
+            
+            return Result.Ok();
         }
-        await _usersRepository.UpdateName(userId, newName);
-        return Result.Ok();
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error updating name for user {UserId}", userId);
+            return Result.Fail("Произошла ошибка при обновлении имени");
+        }
     }
 
     public async Task<Result> UpdatePassword(Guid userId, string newPassword, string currentPassword)
     {
-        var user = await _usersRepository.GetById(userId);
-        if (!_passwordHasher.Verify(currentPassword, user.HashedPassword))
+        try
         {
-            return Result.Fail("Неверный текущий пароль");
-        }
-        
-        if (newPassword.Length < 8)
-        {
-            return Result.Fail("Пароль должен содержать минимум 8 символов");
-        }
+            var user = await _usersRepository.GetById(userId);
+            if (user == null)
+            {
+                _logger.LogWarning("Password update attempt for non-existent user {UserId}", userId);
+                return Result.Fail("Пользователь не найден");
+            }
 
-        if (!Regex.IsMatch(newPassword, @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)"))
-        {
-            return Result.Fail("Пароль должен содержать цифры, заглавные и строчные буквы");
+            if (!_passwordHasher.Verify(currentPassword, user.HashedPassword))
+            {
+                _logger.LogWarning("Invalid current password attempt for user {UserId}", userId);
+                return Result.Fail("Неверный текущий пароль");
+            }
+
+            if (newPassword.Length < 8)
+            {
+                _logger.LogWarning("Weak password attempt for user {UserId}", userId);
+                return Result.Fail("Пароль должен содержать минимум 8 символов");
+            }
+
+            if (!Regex.IsMatch(newPassword, @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)"))
+            {
+                _logger.LogWarning("Invalid password format for user {UserId}", userId);
+                return Result.Fail("Пароль должен содержать цифры, заглавные и строчные буквы");
+            }
+
+            var newPasswordHash = _passwordHasher.Generate(newPassword);
+            await _usersRepository.UpdatePassword(userId, newPasswordHash);
+            
+            _logger.LogInformation("Password updated for user {UserId}", userId);
+            return Result.Ok();
         }
-        
-        var newPasswordHash = _passwordHasher.Generate(newPassword);
-        
-        await _usersRepository.UpdatePassword(userId, newPasswordHash);
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error updating password for user {UserId}", userId);
+            return Result.Fail("Произошла ошибка при обновлении пароля");
+        }
+    }
+    
+    
+    private Result ValidateUserData(string login, string email, string password, string name)
+    {
+        if (string.IsNullOrWhiteSpace(login) || login.Length < 4)
+            return Result.Fail("Логин должен содержать минимум 4 символа");
+
+        if (!new EmailAddressAttribute().IsValid(email))
+            return Result.Fail("Некорректный формат email");
+
+        if (string.IsNullOrWhiteSpace(password) || password.Length < 8)
+            return Result.Fail("Пароль должен содержать минимум 8 символов");
+
+        if (!Regex.IsMatch(password, @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)"))
+            return Result.Fail("Пароль должен содержать цифры, заглавные и строчные буквы");
+
+        if (string.IsNullOrWhiteSpace(name) || name.Length < 2)
+            return Result.Fail("Имя должно содержать минимум 2 символа");
+
         return Result.Ok();
     }
 }
