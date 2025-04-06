@@ -1,13 +1,27 @@
+using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
+
 namespace DatabaseModel;
 
+[Table("Flats")]
 public class Flat
 {
     public int FlatId { get; set; }
-    public string? Images { get; set; } //  picture links
+
+    [Column("Images")]
+    public string ImagesJson { get; set; }
+
+    [NotMapped]
+    public string[]? Images
+    {
+        get => JsonConvert.DeserializeObject<string[]>(ImagesJson) ?? Array.Empty<string>();
+        set => ImagesJson = JsonConvert.SerializeObject(value);
+    }
+
     public decimal Square { get; set; }
     public int Roominess { get; set; }
     public int Floor { get; set; }
-    public string CianLink { get; set; }  = string.Empty; // Link fot flat on cian 
+    public string CianLink { get; set; }  = string.Empty;  
     public int BuildingId { get; set; }
     public string FinishType { get; set; } = string.Empty;
     

@@ -13,7 +13,6 @@
         "packagesPath": "/Users/nikitavolnuhin/.nuget/packages/",
         "outputPath": "/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.DatabaseContext/obj/",
         "projectStyle": "PackageReference",
-        "UsingMicrosoftNETSdk": false,
         "configFilePaths": [
           "/Users/nikitavolnuhin/.nuget/NuGet/NuGet.Config"
         ],
@@ -124,7 +123,6 @@
         "packagesPath": "/Users/nikitavolnuhin/.nuget/packages/",
         "outputPath": "/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.DatabaseModel/obj/",
         "projectStyle": "PackageReference",
-        "UsingMicrosoftNETSdk": false,
         "configFilePaths": [
           "/Users/nikitavolnuhin/.nuget/NuGet/NuGet.Config"
         ],
