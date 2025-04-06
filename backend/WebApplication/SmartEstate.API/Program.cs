@@ -125,20 +125,5 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-app.MapGet("/test-gmail", async (IEmailService emailService) => 
-{
-    try 
-    {
-        await emailService.SendEmailAsync(
-            "heyshehe@gmail.com", 
-            "ZALUPPPPAAAA", 
-            "<h1>ЗРОБИЛО БЛЯТЬ </h1>");
-        return "Email sent successfully!";
-    }
-    catch (Exception ex)
-    {
-        return $"Error: {ex.Message}";
-    }
-});
 
 app.Run();
