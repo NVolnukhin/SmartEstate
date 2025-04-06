@@ -119,5 +119,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 app.MapUsersEndpoint();
+app.MapFlatsEndpoint();
 
 app.Run();

@@ -14,6 +14,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<UserService>();
         services.AddScoped<IPasswordHasher, PasswordHasher>();
         services.AddScoped<IJwtProvider, JwtProvider>();
+        services.AddScoped<FlatsRepository>();
 
         return services;
     }

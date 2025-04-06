@@ -15,7 +15,7 @@ public class InfrastructureInfo
     public int? NearestPharmacyId { get; set; }
     
     public int? MinutesToShop { get; set; }
-    public int? MinutesToMetro { get; set; }
+    public int MinutesToMetro { get; set; }
     public int? MinutesToSchool { get; set; }
     public int? MinutesToKindergarten { get; set; }
     public int? MinutesToPharmacy { get; set; }
