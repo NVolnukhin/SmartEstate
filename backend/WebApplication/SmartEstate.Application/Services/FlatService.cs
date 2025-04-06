@@ -1,3 +1,5 @@
+using System.Diagnostics;
+using System.Text;
 using DatabaseContext;
 using Microsoft.EntityFrameworkCore;
 using Presentation.Contracts.Building;
@@ -119,6 +121,8 @@ public class FlatService : IFlatService
         var infrastructure = await _dbContext.InfrastructureInfos
             .FirstOrDefaultAsync(i => i.BuildingId == flat.BuildingId);
 
+        string priceChartBase64 = await GetPriceChartBase64Async(flatId);
+        
         return new FlatDetailsResponse(
             flat.FlatId,
             flat.Images,
@@ -128,6 +132,7 @@ public class FlatService : IFlatService
             flat.CianLink,
             flat.FinishType,
             price?.Price ?? 0,
+            priceChartBase64,
             flat.BuildingId,
             building.Developer.DeveloperId,
             infrastructure?.InfrastructureInfoId ?? 0,
@@ -148,4 +153,26 @@ public class FlatService : IFlatService
                 infrastructure.MinutesToShop) : null
         );
     }
+    
+    private async Task<string> GetPriceChartBase64Async(int flatId)
+    {
+        var startInfo = new ProcessStartInfo
+        {
+            FileName = "python",
+            Arguments = $"-c \"import sys; sys.path.append('../../GraphDrawer'); from price_history_plotter import get_price_chart_base64; print(get_price_chart_base64({flatId}), end='')\"",
+            RedirectStandardOutput = true,
+            UseShellExecute = false,
+            CreateNoWindow = true,
+            StandardOutputEncoding = Encoding.UTF8
+        };
+
+        using (var process = Process.Start(startInfo))
+        {
+            string output = await process.StandardOutput.ReadToEndAsync().ConfigureAwait(false);
+            await process.WaitForExitAsync().ConfigureAwait(false);
+            
+            return output.Trim();
+        }
+    }
+
 }
