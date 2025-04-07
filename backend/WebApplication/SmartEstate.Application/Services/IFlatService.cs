@@ -9,6 +9,6 @@ namespace SmartEstate.Application.Services;
 public interface IFlatService
 {
     Task<PagedResponse<FlatResponse>> GetAllFlatsAsync(int page, int pageSize);
-    Task<List<FlatShortInfoResponse>> GetRandomFlatsAsync();
+    Task<List<FlatShortInfoResponse>> GetRandomFlatsAsync(int count);
     Task<FlatDetailsResponse?> GetFlatDetailsByIdAsync(int flatId);
 }

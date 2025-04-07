@@ -28,9 +28,9 @@ public class FlatEndpoint : ControllerBase
 
 
     [HttpGet("random")]
-    public async Task<ActionResult<List<FlatShortInfoResponse>>> GetRandomFlats()
+    public async Task<ActionResult<List<FlatShortInfoResponse>>> GetRandomFlats([FromQuery] int count = 10)
     {
-        var result = await _flatService.GetRandomFlatsAsync();
+        var result = await _flatService.GetRandomFlatsAsync(count);
         return Ok(result);
     }
 

@@ -76,9 +76,9 @@ public class FlatService : IFlatService
 
         return new PagedResponse<FlatResponse>(result, allFlats.Count, page, pageSize);
     }
-    public async Task<List<FlatShortInfoResponse>> GetRandomFlatsAsync()
+    public async Task<List<FlatShortInfoResponse>> GetRandomFlatsAsync(int count = 10)
     {
-        var flats = await _repository.GetRandomFlats(10);
+        var flats = await _repository.GetRandomFlats(count);
         var priceHistory = await _repository.GetLatestPrices();
         var buildingIds = flats.Select(f => f.BuildingId).Distinct().ToList();
 
