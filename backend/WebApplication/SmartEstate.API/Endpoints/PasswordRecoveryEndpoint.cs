@@ -1,5 +1,9 @@
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 using Contracts.PasswordRecovery;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using SmartEstate.Application.Interfaces;
 using SmartEstate.Email;
 
