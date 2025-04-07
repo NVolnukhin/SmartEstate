@@ -2,8 +2,9 @@ using Presentation.Contracts.Building;
 using Presentation.Contracts.Developer;
 using Presentation.Contracts.InfrastructureInfo;
 using Presentation.Contracts.Metro;
+using Presentation.Contracts.Price;
 
-namespace Presentation.Contracts.Flats;
+namespace Contracts.Flats;
 
 public record FlatDetailsResponse(
     int FlatId,
@@ -14,7 +15,7 @@ public record FlatDetailsResponse(
     string CianLink,
     string FinishType,
     decimal Price,
-    string PriceChart,
+    PriceDto[] PriceChart,
     int BuildingId,
     int DeveloperId,
     int InfrastructureInfoId,
