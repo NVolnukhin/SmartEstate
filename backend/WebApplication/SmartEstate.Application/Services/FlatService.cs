@@ -1,8 +1,4 @@
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Contracts;
 using Contracts.Flats;
 using DatabaseContext;
 using Microsoft.EntityFrameworkCore;
@@ -27,12 +23,19 @@ public class FlatService : IFlatService
         _dbContext = dbContext;
     }
 
-    public async Task<List<FlatResponse>> GetAllFlatsAsync()
+    public async Task<PagedResponse<FlatResponse>> GetAllFlatsAsync(int page = 1, int pageSize = 25)
     {
-        var flats = await _repository.GetAllFlats();
+        // Получаем все квартиры
+        var allFlats = await _repository.GetAllFlats();
         var priceHistory = await _repository.GetLatestPrices();
 
-        var buildingIds = flats.Select(f => f.BuildingId).Distinct().ToList();
+        // Применяем пагинацию
+        var paginatedFlats = allFlats
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToList();
+
+        var buildingIds = paginatedFlats.Select(f => f.BuildingId).Distinct().ToList();
 
         var buildings = await _dbContext.Buildings
             .Include(b => b.Developer)
@@ -44,7 +47,7 @@ public class FlatService : IFlatService
             .Where(ii => buildingIds.Contains(ii.BuildingId))
             .ToDictionaryAsync(ii => ii.BuildingId);
 
-        var result = flats.Select(f =>
+        var result = paginatedFlats.Select(f =>
         {
             var latestPrice = priceHistory.First(ph => ph.FlatId == f.FlatId).Price;
             buildings.TryGetValue(f.BuildingId, out var building);
@@ -71,9 +74,8 @@ public class FlatService : IFlatService
             );
         }).ToList();
 
-        return result;
+        return new PagedResponse<FlatResponse>(result, allFlats.Count, page, pageSize);
     }
-
     public async Task<List<FlatShortInfoResponse>> GetRandomFlatsAsync()
     {
         var flats = await _repository.GetRandomFlats(10);
