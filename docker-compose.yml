@@ -1,31 +1,40 @@
-version: '3.8'
-
 services:
   db:
     image: postgres:14
-    container_name: smart_estate_container
+    container_name: smart_estate_db
     environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: smartestatedb
     volumes:
       - pg_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   backend:
     build:
-      context: backend/
-      dockerfile: Dockerfile
-    container_name: backend_app
-    depends_on:
-      - db
-    ports:
-      - "${BACKEND_PORT}:5000"
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: smart_estate_backend
     environment:
-      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
-    restart: always
+      ASPNETCORE_ENVIRONMENT: Development
+      DB_USER: postgres
+      DB_PASSWORD: 123
+      DB_NAME: smartestatedb
+      ConnectionStrings__DefaultConnection: "Host=db;Port=5432;Database=smartestatedb;Username=postgres;Password=123"
+      APPLY_MIGRATIONS: "true"
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "5001:8080"
+    restart: unless-stopped
 
 volumes:
   pg_data:
