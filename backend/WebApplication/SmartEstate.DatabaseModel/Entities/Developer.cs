@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace DatabaseModel;
 
 public class Developer

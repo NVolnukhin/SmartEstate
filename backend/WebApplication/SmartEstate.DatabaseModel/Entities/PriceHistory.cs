@@ -1,3 +1,5 @@
+using System;
+
 namespace DatabaseModel;
 
 public class PriceHistory
