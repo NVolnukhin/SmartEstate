@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Contracts.Flats;
 using Presentation.Contracts.Flats;
 
 namespace SmartEstate.Application.Services;

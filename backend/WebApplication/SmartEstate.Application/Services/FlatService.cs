@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Contracts.Flats;
 using DatabaseContext;
 using Microsoft.EntityFrameworkCore;
 using Presentation.Contracts.Building;
@@ -10,6 +11,7 @@ using Presentation.Contracts.Developer;
 using Presentation.Contracts.Flats;
 using Presentation.Contracts.InfrastructureInfo;
 using Presentation.Contracts.Metro;
+using Presentation.Contracts.Price;
 using SmartEstate.DataAccess.Repositories;
 
 namespace SmartEstate.Application.Services;
@@ -128,15 +130,23 @@ public class FlatService : IFlatService
             .Include(infrastructureInfo => infrastructureInfo.NearestShop)
             .Include(infrastructureInfo => infrastructureInfo.NearestPharmacy)
             .FirstOrDefaultAsync(i => i.BuildingId == flat.BuildingId);
-        
+
         var metro = infrastructure?.NearestMetro;
         var school = infrastructure?.NearestSchool;
         var kindergarten = infrastructure?.NearestKindergarten;
         var shop = infrastructure?.NearestShop;
         var pharmacy = infrastructure?.NearestPharmacy;
+
         
-        string priceChartBase64 = await GetPriceChartBase64Async(flatId);
         
+        var priceHistories = await _dbContext.PriceHistories
+            .Where(ph => ph.FlatId == flatId)
+            .OrderBy(ph => ph.ChangeDate)
+            .Select(ph => new PriceDto(ph.Price, ph.ChangeDate))
+            .ToArrayAsync();
+        
+
+
         return new FlatDetailsResponse(
             flat.FlatId,
             flat.Images,
@@ -146,7 +156,7 @@ public class FlatService : IFlatService
             flat.CianLink,
             flat.FinishType,
             price?.Price ?? 0,
-            priceChartBase64,
+            priceHistories,
             flat.BuildingId,
             building.Developer.DeveloperId,
             infrastructure?.InfrastructureInfoId ?? 0,
@@ -159,59 +169,36 @@ public class FlatService : IFlatService
                 building.Developer.Name,
                 building.Developer.BuildingsCount,
                 building.Developer.Website),
-            infrastructure != null ? new NearestMetroInfo(
-                metro?.Name ?? "Не указано",
-                infrastructure.MinutesToMetro,
-                metro != null ? $"{metro.Latitude}, {metro.Longitude}" : "Координаты не указаны") : null,
-            infrastructure != null ? new NearestSchoolInfo(
-                school?.Name ?? "Не указано",
-                infrastructure.MinutesToSchool,
-                metro != null ? $"{school.Latitude}, {school.Longitude}" : "Координаты не указаны") : null,
-            infrastructure != null ? new NearestKindergartenInfo(
-                kindergarten?.Name ?? "Не указано",
-                infrastructure.MinutesToKindergarten,
-                metro != null ? $"{kindergarten.Latitude}, {kindergarten.Longitude}" : "Координаты не указаны") : null,
-            infrastructure != null ? new NearestShopInfo(
-                shop?.Name ?? "Не указано",
-                infrastructure.MinutesToShop,
-                shop != null ? $"{shop.Latitude}, {shop.Longitude}" : "Координаты не указаны") : null,
-            infrastructure != null ? new NearestPharmacyInfo(
-                pharmacy?.Name ?? "Не указано",
-                infrastructure.MinutesToPharmacy,
-                pharmacy != null ? $"{pharmacy.Latitude}, {pharmacy.Longitude}" : "Координаты не указаны") : null
+            infrastructure != null
+                ? new NearestMetroInfo(
+                    metro?.Name ?? "Не указано",
+                    infrastructure.MinutesToMetro,
+                    metro != null ? $"{metro.Latitude}, {metro.Longitude}" : "Координаты не указаны")
+                : null,
+            infrastructure != null
+                ? new NearestSchoolInfo(
+                    school?.Name ?? "Не указано",
+                    infrastructure.MinutesToSchool,
+                    metro != null ? $"{school.Latitude}, {school.Longitude}" : "Координаты не указаны")
+                : null,
+            infrastructure != null
+                ? new NearestKindergartenInfo(
+                    kindergarten?.Name ?? "Не указано",
+                    infrastructure.MinutesToKindergarten,
+                    metro != null ? $"{kindergarten.Latitude}, {kindergarten.Longitude}" : "Координаты не указаны")
+                : null,
+            infrastructure != null
+                ? new NearestShopInfo(
+                    shop?.Name ?? "Не указано",
+                    infrastructure.MinutesToShop,
+                    shop != null ? $"{shop.Latitude}, {shop.Longitude}" : "Координаты не указаны")
+                : null,
+            infrastructure != null
+                ? new NearestPharmacyInfo(
+                    pharmacy?.Name ?? "Не указано",
+                    infrastructure.MinutesToPharmacy,
+                    pharmacy != null ? $"{pharmacy.Latitude}, {pharmacy.Longitude}" : "Координаты не указаны")
+                : null
         );
     }
-    
-    private async Task<string> GetPriceChartBase64Async(int flatId)
-    {
-        var startInfo = new ProcessStartInfo
-        {
-            FileName = "python",
-            Arguments = $"-c \"import sys; sys.path.append('../../GraphDrawer'); from price_history_plotter import get_price_chart_base64; print(get_price_chart_base64({flatId}), end='')\"",
-            RedirectStandardOutput = true,
-            UseShellExecute = false,
-            CreateNoWindow = true,
-            StandardOutputEncoding = Encoding.UTF8
-        };
-
-        using (var process = Process.Start(startInfo))
-        {
-            string output = await process.StandardOutput.ReadToEndAsync().ConfigureAwait(false);
-            await process.WaitForExitAsync().ConfigureAwait(false);
-            
-            return output.Trim();
-        }
-        
-        /*
-        var prices = await _dbContext.PriceHistories
-            .Where(ph => ph.FlatId == flatId)
-            .OrderBy(ph => ph.ChangeDate)
-            .ToListAsync();
-        
-        var chartBase64 = PriceHistoryPlotter.GeneratePriceChartBase64(prices);
-        
-        return chartBase64;
-        */
-    }
-
 }

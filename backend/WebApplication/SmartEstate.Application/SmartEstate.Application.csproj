@@ -10,7 +10,6 @@
       <ProjectReference Include="..\SmartEstate.Contracts\SmartEstate.Contracts.csproj" />
       <ProjectReference Include="..\SmartEstate.DataAccess\SmartEstate.DataAccess.csproj" />
       <ProjectReference Include="..\SmartEstate.DatabaseModel\SmartEstate.DatabaseModel.csproj" />
-      <ProjectReference Include="..\SmartEstate.Plotter\SmartEstate.Plotter.csproj" />
     </ItemGroup>
 
     <ItemGroup>
