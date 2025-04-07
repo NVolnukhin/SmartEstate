@@ -30,4 +30,8 @@
       <ProjectReference Include="..\SmartEstate.DatabaseModel\SmartEstate.DatabaseModel.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Migrations\" />
+    </ItemGroup>
+
 </Project>
