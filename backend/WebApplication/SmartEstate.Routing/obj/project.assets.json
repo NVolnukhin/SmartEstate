@@ -933,6 +933,7 @@
       "packagesPath": "/Users/nikitavolnuhin/.nuget/packages/",
       "outputPath": "/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.Routing/obj/",
       "projectStyle": "PackageReference",
+      "UsingMicrosoftNETSdk": false,
       "configFilePaths": [
         "/Users/nikitavolnuhin/.nuget/NuGet/NuGet.Config"
       ],
@@ -1021,7 +1022,7 @@
       "code": "NU1608",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Версия обнаруженного пакета нарушает ограничение зависимости: AutoMapper.Extensions.Microsoft.DependencyInjection 12.0.1 требуется AutoMapper (= 12.0.1), но в результате разрешения получена версия AutoMapper 14.0.0.",
+      "message": "Detected package version outside of dependency constraint: AutoMapper.Extensions.Microsoft.DependencyInjection 12.0.1 requires AutoMapper (= 12.0.1) but version AutoMapper 14.0.0 was resolved.",
       "libraryId": "AutoMapper",
       "targetGraphs": [
         "net8.0"

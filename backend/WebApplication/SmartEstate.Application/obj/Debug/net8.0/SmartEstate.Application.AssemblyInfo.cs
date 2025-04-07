@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SmartEstate.Application")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d31d0c26bbe5ecab0624b277c08dfc46544d72f1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bd52a526c18fa412dacdc06fa48b9341a5243b49")]
 [assembly: System.Reflection.AssemblyProductAttribute("SmartEstate.Application")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SmartEstate.Application")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -13,6 +13,7 @@
         "packagesPath": "/Users/nikitavolnuhin/.nuget/packages/",
         "outputPath": "/Users/nikitavolnuhin/ghostbusters/backend/WebApplication/SmartEstate.Routing/obj/",
         "projectStyle": "PackageReference",
+        "UsingMicrosoftNETSdk": false,
         "configFilePaths": [
           "/Users/nikitavolnuhin/.nuget/NuGet/NuGet.Config"
         ],
