@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartEstate.Contracts", "Sm
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartEstate.Email", "SmartEstate.Email\SmartEstate.Email.csproj", "{8B7155FD-C3F4-4801-95F7-D5338ADC650D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartEstate.Plotter", "SmartEstate.Plotter\SmartEstate.Plotter.csproj", "{BB9E0C9E-AB69-4FCF-B72F-713183CA6543}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,5 +62,9 @@ Global
 		{8B7155FD-C3F4-4801-95F7-D5338ADC650D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B7155FD-C3F4-4801-95F7-D5338ADC650D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B7155FD-C3F4-4801-95F7-D5338ADC650D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB9E0C9E-AB69-4FCF-B72F-713183CA6543}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB9E0C9E-AB69-4FCF-B72F-713183CA6543}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB9E0C9E-AB69-4FCF-B72F-713183CA6543}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB9E0C9E-AB69-4FCF-B72F-713183CA6543}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

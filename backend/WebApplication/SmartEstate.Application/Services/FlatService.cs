@@ -201,6 +201,17 @@ public class FlatService : IFlatService
             
             return output.Trim();
         }
+        
+        /*
+        var prices = await _dbContext.PriceHistories
+            .Where(ph => ph.FlatId == flatId)
+            .OrderBy(ph => ph.ChangeDate)
+            .ToListAsync();
+        
+        var chartBase64 = PriceHistoryPlotter.GeneratePriceChartBase64(prices);
+        
+        return chartBase64;
+        */
     }
 
 }
