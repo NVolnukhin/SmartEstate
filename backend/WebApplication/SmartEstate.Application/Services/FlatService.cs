@@ -87,12 +87,24 @@ public class FlatService : IFlatService
             .Where(ii => buildingIds.Contains(ii.BuildingId))
             .ToDictionaryAsync(ii => ii.BuildingId);
 
-        return flats.Select(f =>
+        var buildings = await _dbContext.Buildings
+            .Where(b => buildingIds.Contains(b.BuildingId))
+            .ToListAsync();
+            
+            
+        
+        return flats.Select( f =>
         {
             var latestPrice = priceHistory.First(ph => ph.FlatId == f.FlatId).Price;
             infrastructureInfos.TryGetValue(f.BuildingId, out var infrastructure);
             var metro = infrastructure?.NearestMetro;
+            
+            var residentialComplex = buildings.
+                Where(b => b.BuildingId == f.BuildingId)
+                .Select(b => b.ResidentialComplex)
+                .FirstOrDefault();
 
+                
             return new FlatShortInfoResponse(
                 f.FlatId,
                 f.Images.FirstOrDefault(),
@@ -100,6 +112,7 @@ public class FlatService : IFlatService
                 f.Roominess,
                 f.Floor,
                 latestPrice,
+                residentialComplex ?? "Не указано",
                 infrastructure != null ? new NearestMetroInfo(
                     metro?.Name ?? "Не указано",
                     infrastructure.MinutesToMetro,

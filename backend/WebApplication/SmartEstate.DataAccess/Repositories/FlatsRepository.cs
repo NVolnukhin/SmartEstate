@@ -87,10 +87,9 @@ public class FlatsRepository : IFlatsRepository
                 Infrastructure = infra,
                 Metro = infra.NearestMetro
             };
-
+        
         var results = await query.ToListAsync();
-
-// Подставляем latestPrice уже в памяти
+        
         return results.Select(x =>
         {
             var price = latestPrices.FirstOrDefault(p => p.FlatId == x.Flat.FlatId)?.Price ?? 0;
@@ -102,6 +101,7 @@ public class FlatsRepository : IFlatsRepository
                 x.Flat.Roominess,
                 x.Flat.Floor,
                 price,
+                x.Building.ResidentialComplex,
                 x.Infrastructure != null ? new NearestMetroInfo(
                     x.Metro?.Name ?? "Не указано",
                     x.Infrastructure.MinutesToMetro,

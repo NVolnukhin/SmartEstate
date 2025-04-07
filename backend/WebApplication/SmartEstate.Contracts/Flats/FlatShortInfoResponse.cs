@@ -9,4 +9,5 @@ public record FlatShortInfoResponse(
     int Roominess,
     int Floor,
     decimal Price,
+    string ResidentialComplex,
     NearestMetroInfo? NearestMetro);
