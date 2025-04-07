@@ -9,3 +9,14 @@ env/
 .config
 bin/
 obj/
+*.user
+*.suo
+*.vs/
+.vs/
+TestResults/
+*.swp
+*.nupkg
+packages/
+.nuget/
+Debug/
+docker-compose.override.yml
