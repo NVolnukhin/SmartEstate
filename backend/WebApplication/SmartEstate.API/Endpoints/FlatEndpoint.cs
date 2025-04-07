@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Contracts;
+using Contracts.Flats;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.Contracts.Flats;
 using SmartEstate.Application.Services;
@@ -18,11 +20,12 @@ public class FlatEndpoint : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<FlatResponse>>> GetAllFlats()
+    public async Task<ActionResult<PagedResponse<FlatResponse>>> GetAllFlats([FromQuery] int page = 1, [FromQuery] int pageSize = 25)
     {
-        var result = await _flatService.GetAllFlatsAsync();
+        var result = await _flatService.GetAllFlatsAsync(page, pageSize);
         return Ok(result);
     }
+
 
     [HttpGet("random")]
     public async Task<ActionResult<List<FlatShortInfoResponse>>> GetRandomFlats()
