@@ -50,14 +50,14 @@ namespace Presentation.Controllers
         }
 
 
-        [HttpDelete("favorites/{favoriteId}")]
-        public async Task<IActionResult> RemoveFavorite(int favoriteId)
+        [HttpDelete("favorites/{flatId}")]
+        public async Task<IActionResult> RemoveFavorite(int flatId)
         {
             try
             {
                 var userId = Guid.Parse(User.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value);
-                Console.WriteLine($"UserID = {userId}\n deleting fav {favoriteId}");
-                await _userPreferencesService.RemoveFavoriteAsync(userId, favoriteId);
+                Console.WriteLine($"UserID = {userId}\n deleting fav {flatId}");
+                await _userPreferencesService.RemoveFavoriteAsync(userId, flatId);
                 
                 return Ok();
             }

@@ -38,22 +38,19 @@ namespace SmartEstate.ApplicationServices
             await _userPreferencesRepo.AddFavoriteAsync(userId, request.FlatId);
         }
 
-        public async Task RemoveFavoriteAsync(Guid userId, int favoriteId)
+        public async Task RemoveFavoriteAsync(Guid userId, int flatId)
         {
             var userFavorites = await _userPreferencesRepo.GetUserFavoritesAsync(userId);
-            Console.WriteLine($"{userFavorites.Count} favorites for user {userId}");
-            Console.WriteLine($"favoriteId parameter: {favoriteId} ({favoriteId.GetType()})");
             foreach (var f in userFavorites)
             {
                 Console.WriteLine($"Favorite from list: {f.FavoriteId} ({f.FavoriteId.GetType()})");
             }
-            var favorite = userFavorites.FirstOrDefault(f => f.FavoriteId == favoriteId);
+            var favorite = userFavorites.FirstOrDefault(f => f.FlatId == flatId);
             
-
             if (favorite == null)
                 throw new UnauthorizedAccessException("Favorite not found or doesn't belong to user");
 
-            await _userPreferencesRepo.RemoveFavoriteAsync(favoriteId);
+            await _userPreferencesRepo.RemoveFavoriteAsync(flatId);
         }
 
         public async Task<List<FavoriteResponse>> GetUserFavoritesAsync(Guid userId)
@@ -100,7 +97,7 @@ namespace SmartEstate.ApplicationServices
                 .FirstOrDefault(c => c.CompareId == compareId);
 
             if (comparison == null)
-                throw new UnauthorizedAccessException("Comparison not found or doesn't belong to user");
+                throw new UnauthorizedAccessException("Flat is not in favorites of user");
 
             await _userPreferencesRepo.RemoveComparisonAsync(compareId);
         }

@@ -29,10 +29,10 @@ namespace SmartEstate.DataAccess.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task RemoveFavoriteAsync(int favoriteId)
+        public async Task RemoveFavoriteAsync(int flatId)
         {
             await _dbContext.UserFavorites
-                .Where(f => f.FavoriteId == favoriteId)
+                .Where(f => f.FlatId == flatId)
                 .ExecuteDeleteAsync();
         }
 
