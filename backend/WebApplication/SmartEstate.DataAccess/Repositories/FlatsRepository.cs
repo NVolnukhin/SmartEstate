@@ -59,8 +59,7 @@ public class FlatsRepository : IFlatsRepository
     public async Task<List<FlatShortInfoResponse>> GetFlatsWithDetails(List<int> flatIds)
     {
         if (!flatIds.Any()) return new List<FlatShortInfoResponse>();
-
-        // Получаем latestPrices отдельно
+        
         var latestPrices = await _dbContext.PriceHistories
             .Where(ph => flatIds.Contains(ph.FlatId))
             .GroupBy(ph => ph.FlatId)
@@ -68,7 +67,7 @@ public class FlatsRepository : IFlatsRepository
             {
                 FlatId = g.Key,
                 Price = g.OrderByDescending(ph => ph.ChangeDate)
-                    .Select(ph => (decimal?)ph.Price) // в случае если Price decimal
+                    .Select(ph => (decimal?)ph.Price)
                     .FirstOrDefault() ?? 0
 
             })
