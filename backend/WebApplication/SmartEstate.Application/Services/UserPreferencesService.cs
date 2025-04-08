@@ -6,6 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Contracts;
+using Presentation.Contracts.Building;
+using Presentation.Contracts.Flats;
+using Presentation.Contracts.Metro;
 
 namespace SmartEstate.ApplicationServices
 {
@@ -72,6 +76,35 @@ namespace SmartEstate.ApplicationServices
             }).ToList();
         }
 
+        public async Task<PagedResponse<FavoriteResponse>>GetPagedUserFavoritesAsync(Guid userId, int page, int pageSize)
+        {
+            var favorites = await _userPreferencesRepo.GetUserFavoritesAsync(userId);
+            
+            // Применяем пагинацию
+            var paginatedFavorites = favorites
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+            
+            var flatIds = favorites.Select(f => f.FlatId).ToList();
+            var flatsInfo = await _flatsRepo.GetFlatsWithDetails(flatIds);
+
+            var result = paginatedFavorites.Select(f =>
+            {
+                var flatInfo = flatsInfo.FirstOrDefault(x => x.FlatId == f.FlatId);
+                return new FavoriteResponse(
+                        f.FavoriteId,
+                        f.FlatId,
+                        flatInfo ?? throw new Exception($"Flat info not found for ID {f.FlatId}")
+                );
+            }).ToList();
+
+            return new PagedResponse<FavoriteResponse>(result, favorites.Count, page, pageSize);
+        }
+        
+        
+        
+        
         public async Task AddComparisonAsync(Guid userId, AddComparisonRequest request)
         {
             await _usersRepo.GetById(userId); // Проверка существования пользователя

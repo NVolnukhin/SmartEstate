@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.Contracts.Comparisons;
 using Presentation.Contracts.Favorites;
+using Presentation.Contracts.Flats;
 using SmartEstate.ApplicationServices;
 
 namespace Presentation.Controllers
@@ -86,6 +88,33 @@ namespace Presentation.Controllers
             {
                 var userId = Guid.Parse(User.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value);
                 var favorites = await _userPreferencesService.GetUserFavoritesAsync(userId);
+                return Ok(favorites);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(ex.Message);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal Server Error: " + ex.Message);
+            }
+        }
+        
+        [HttpGet("paged-favorites")]
+        public async Task<ActionResult<PagedResponse<FavoriteResponse>>> GetPagedFavorites([FromQuery] int page = 1, [FromQuery] int pageSize = 25)
+        {
+            try
+            {
+                var userId = Guid.Parse(User.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value);
+                var favorites = await _userPreferencesService.GetPagedUserFavoritesAsync(userId, page, pageSize);
                 return Ok(favorites);
             }
             catch (ArgumentException ex)

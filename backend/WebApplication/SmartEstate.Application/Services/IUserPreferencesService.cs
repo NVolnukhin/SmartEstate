@@ -3,6 +3,7 @@ using Presentation.Contracts.Favorites;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Contracts;
 
 namespace SmartEstate.ApplicationServices
 {
@@ -12,6 +13,7 @@ namespace SmartEstate.ApplicationServices
         Task AddFavoriteAsync(Guid userId, AddFavoriteRequest request);
         Task RemoveFavoriteAsync(Guid userId, int favoriteId);
         Task<List<FavoriteResponse>> GetUserFavoritesAsync(Guid userId);
+        Task<PagedResponse<FavoriteResponse>>GetPagedUserFavoritesAsync(Guid userId, int page, int pageSize);
 
         // Comparisons
         Task AddComparisonAsync(Guid userId, AddComparisonRequest request);
