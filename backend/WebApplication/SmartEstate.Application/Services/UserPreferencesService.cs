@@ -80,7 +80,6 @@ namespace SmartEstate.ApplicationServices
         {
             var favorites = await _userPreferencesRepo.GetUserFavoritesAsync(userId);
             
-            // Применяем пагинацию
             var paginatedFavorites = favorites
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
@@ -168,6 +167,7 @@ namespace SmartEstate.ApplicationServices
             var comparisons = await _userPreferencesRepo.GetUserComparisonsAsync(userId);
            
             var paginatedComparisons = comparisons
+                .OrderByDescending(c => c.CompareId)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();

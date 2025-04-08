@@ -40,6 +40,7 @@ namespace SmartEstate.DataAccess.Repositories
         {
             return await _dbContext.UserFavorites
                 .Where(f => f.UserId == userId)
+                .OrderByDescending(uf => uf.FavoriteId)
                 .ToListAsync();
         }
 
