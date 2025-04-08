@@ -113,7 +113,7 @@ public class UserService : IUserService
     public async Task<UserInfoResponse> GetUserInfo(Guid userId)
     {
         var user = await _usersRepository.GetById(userId);
-        return new UserInfoResponse(user.Name ?? "", user.Email);
+        return new UserInfoResponse(user.Login, user.Name ?? "", user.Email);
     }
     
     
