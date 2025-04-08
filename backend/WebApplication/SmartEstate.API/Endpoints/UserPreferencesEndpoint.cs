@@ -109,7 +109,7 @@ namespace Presentation.Controllers
         }
         
         [HttpGet("paged-favorites")]
-        public async Task<ActionResult<PagedResponse<FavoriteResponse>>> GetPagedFavorites([FromQuery] int page = 1, [FromQuery] int pageSize = 25)
+        public async Task<ActionResult<PagedResponse<FavoriteResponse>>> GetPagedFavorites([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
         {
             try
             {
@@ -198,6 +198,33 @@ namespace Presentation.Controllers
             {
                 var userId = Guid.Parse(User.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value);
                 var comparisons = await _userPreferencesService.GetUserComparisonsAsync(userId);
+                return Ok(comparisons);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(ex.Message);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal Server Error: " + ex.Message);
+            }
+        }
+        
+        [HttpGet("paged-comparisons")]
+        public async Task<ActionResult<PagedResponse<ComparisonResponse>>> GetPagedComaprions([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
+        {
+            try
+            {
+                var userId = Guid.Parse(User.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value);
+                var comparisons = await _userPreferencesService.GetPagedUserComparisonsAsync(userId, page, pageSize);
                 return Ok(comparisons);
             }
             catch (ArgumentException ex)

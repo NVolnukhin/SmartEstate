@@ -19,5 +19,6 @@ namespace SmartEstate.ApplicationServices
         Task AddComparisonAsync(Guid userId, AddComparisonRequest request);
         Task RemoveComparisonAsync(Guid userId, int comparisonId);
         Task<List<ComparisonResponse>> GetUserComparisonsAsync(Guid userId);
+        Task<PagedResponse<ComparisonResponse>>GetPagedUserComparisonsAsync(Guid userId, int page, int pageSize);
     }
 }

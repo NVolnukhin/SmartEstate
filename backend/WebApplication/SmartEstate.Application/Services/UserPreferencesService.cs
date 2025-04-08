@@ -162,5 +162,37 @@ namespace SmartEstate.ApplicationServices
                     flat2);
             }).ToList();
         }
+        
+        public async Task<PagedResponse<ComparisonResponse>>GetPagedUserComparisonsAsync(Guid userId, int page, int pageSize)
+        {
+            var comparisons = await _userPreferencesRepo.GetUserComparisonsAsync(userId);
+           
+            var paginatedComparisons = comparisons
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+            
+            var flatIds = comparisons
+                .SelectMany(c => new[] { c.FlatId1, c.FlatId2 })
+                .Distinct()
+                .ToList();
+            var flatsInfo = await _flatsRepo.GetFlatsWithDetails(flatIds);
+
+            var result = paginatedComparisons.Select(c =>
+            {
+                var flat1 = flatsInfo.FirstOrDefault(f => f.FlatId == c.FlatId1);
+                var flat2 = flatsInfo.FirstOrDefault(f => f.FlatId == c.FlatId2);
+
+                if (flat1 == null || flat2 == null)
+                    throw new Exception($"One or both flats not found for comparison {c.CompareId}");
+
+                return new ComparisonResponse(
+                    c.CompareId,
+                    flat1,
+                    flat2);
+            }).ToList();
+            
+            return new PagedResponse<ComparisonResponse>(result, comparisons.Count, page, pageSize);
+        }
     }
 }
