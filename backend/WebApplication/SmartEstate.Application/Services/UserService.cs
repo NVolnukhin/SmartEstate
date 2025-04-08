@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using DatabaseModel;
 using FluentResults;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Presentation.Contracts.Users;
 using SmartEstate.Application.Interfaces;
 using SmartEstate.DataAccess.Repositories;
 
@@ -107,6 +109,13 @@ public class UserService : IUserService
             return Result.Fail("Произошла ошибка при входе");
         }
     }
+
+    public async Task<UserInfoResponse> GetUserInfo(Guid userId)
+    {
+        var user = await _usersRepository.GetById(userId);
+        return new UserInfoResponse(user.Name ?? "", user.Email);
+    }
+    
     
     public async Task<Result> UpdateEmail(Guid userId, string newEmail)
     {
@@ -249,8 +258,8 @@ public class UserService : IUserService
     
     private Result ValidateUserData(string login, string email, string password, string name)
     {
-        if (string.IsNullOrWhiteSpace(login) || login.Length < 4)
-            return Result.Fail("Логин должен содержать минимум 4 символа");
+        if (string.IsNullOrWhiteSpace(login) || login.Length < 3)
+            return Result.Fail("Логин должен содержать минимум 3 символа");
 
         if (!new EmailAddressAttribute().IsValid(email))
             return Result.Fail("Некорректный формат email");

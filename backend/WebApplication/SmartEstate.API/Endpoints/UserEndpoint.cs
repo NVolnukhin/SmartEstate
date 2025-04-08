@@ -69,6 +69,22 @@ public class UsersEndpoint : ControllerBase
         return Ok(new { token = result.Value });
     }
 
+    [HttpGet("me")]
+    [Authorize]
+    public async Task<IActionResult> Me()
+    {
+        try
+        {
+            var userId = GetUserIdFromClaims();
+            var information = await _userService.GetUserInfo(userId);
+            return Ok(information);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "Internal Server Error: " + ex.Message);
+        }
+    }
+    
     [HttpPut("email")]
     [Authorize]
     public async Task<IActionResult> UpdateEmail([FromBody] UpdateEmailRequest request)
