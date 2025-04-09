@@ -185,18 +185,6 @@ public class UserService : IUserService
                 return Result.Fail("Неверный текущий пароль");
             }
 
-            if (newPassword.Length < 8)
-            {
-                _logger.LogWarning("Weak password attempt for user {UserId}", userId);
-                return Result.Fail("Пароль должен содержать минимум 8 символов");
-            }
-
-            if (!Regex.IsMatch(newPassword, @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)"))
-            {
-                _logger.LogWarning("Invalid password format for user {UserId}", userId);
-                return Result.Fail("Пароль должен содержать цифры, заглавные и строчные буквы");
-            }
-
             var newPasswordHash = _passwordHasher.Generate(newPassword);
             await _usersRepository.UpdatePassword(userId, newPasswordHash);
             
@@ -266,10 +254,7 @@ public class UserService : IUserService
 
         if (string.IsNullOrWhiteSpace(password) || password.Length < 8)
             return Result.Fail("Пароль должен содержать минимум 8 символов");
-
-        if (!Regex.IsMatch(password, @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)"))
-            return Result.Fail("Пароль должен содержать цифры, заглавные и строчные буквы");
-
+        
         if (string.IsNullOrWhiteSpace(name) || name.Length < 2)
             return Result.Fail("Имя должно содержать минимум 2 символа");
 
