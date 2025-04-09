@@ -206,22 +206,12 @@ public class UserService : IUserService
             {
                 return Result.Fail("Новый пароль не может быть пустым");
             }
-        
+
             if (!newPassword.Equals(confirmPassword))
             {
                 return Result.Fail("Пароли не совпадают");
             }
-            
-            if (newPassword.Length < 8)
-            {
-                return Result.Fail("Пароль должен содержать минимум 8 символов");
-            }
-        
-            if (!Regex.IsMatch(newPassword, @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)"))
-            {
-                return Result.Fail("Пароль должен содержать цифры, заглавные и строчные буквы");
-            }
-            
+
             var user = await _usersRepository.GetById(userId);
             if (user == null)
             {
