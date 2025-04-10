@@ -20,7 +20,7 @@ public class FlatEndpoint : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<PagedResponse<FlatResponse>>> GetAllFlats([FromQuery] int page = 1, [FromQuery] int pageSize = 25)
+    public async Task<ActionResult<PagedResponse<FlatResponse>>> GetAllFlats([FromQuery] int page = 1, [FromQuery] int pageSize = 15)
     {
         var result = await _flatService.GetAllFlatsAsync(page, pageSize);
         return Ok(result);
