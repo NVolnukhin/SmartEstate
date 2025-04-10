@@ -23,7 +23,7 @@ public class FlatService : IFlatService
         _dbContext = dbContext;
     }
 
-    public async Task<PagedResponse<FlatResponse>> GetAllFlatsAsync(int page = 1, int pageSize = 25)
+    public async Task<PagedResponse<FlatResponse>> GetAllFlatsAsync(int page = 1, int pageSize = 15)
     {
         // Получаем все квартиры
         var allFlats = await _repository.GetAllFlats();
