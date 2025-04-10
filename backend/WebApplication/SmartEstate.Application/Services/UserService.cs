@@ -45,7 +45,7 @@ public class UserService : IUserService
     {
         try
         {
-            var validationResult = ValidateUserData(login, email, password, name);
+            var validationResult = ValidateUserData(login, name);
             if (validationResult.IsFailed)
                 return validationResult;
             
