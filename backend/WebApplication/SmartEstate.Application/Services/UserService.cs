@@ -238,12 +238,6 @@ public class UserService : IUserService
     {
         if (string.IsNullOrWhiteSpace(login) || login.Length < 3)
             return Result.Fail("Логин должен содержать минимум 3 символа");
-
-        if (!new EmailAddressAttribute().IsValid(email))
-            return Result.Fail("Некорректный формат email");
-
-        if (string.IsNullOrWhiteSpace(password) || password.Length < 8)
-            return Result.Fail("Пароль должен содержать минимум 8 символов");
         
         if (string.IsNullOrWhiteSpace(name) || name.Length < 2)
             return Result.Fail("Имя должно содержать минимум 2 символа");
