@@ -16,9 +16,8 @@ def dms_to_decimal(coord_str):
     return decimal
 
 
-def parse_wiki_metro_stations():
+def parse_wiki_metro_stations(url):
     """Парсит список станций московского метро из Википедии."""
-    url = "https://ru.wikipedia.org/wiki/Список_станций_Московского_метрополитена"
     headers = {'User-Agent': 'Mozilla/5.0'}
 
     try:
@@ -31,7 +30,7 @@ def parse_wiki_metro_stations():
             print("Таблицы со станциями не найдены")
             return []
 
-        main_table = tables[0]
+        main_table = tables[1]
         stations = []
 
         for row in main_table.find_all('tr')[1:]:
