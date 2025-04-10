@@ -24,6 +24,9 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IPasswordRecoveryService, PasswordRecoveryService>();
         services.AddScoped<IPasswordRecoveryTokenRepository, PasswordRecoveryTokenRepository>();
         services.AddScoped<ITokenGenerator, TokenGenerator>();
+        services.AddScoped<IMetroRepository, MetroRepository>();
+        services.AddScoped<IMetroService, MetroService>();
+
 
         
         services.AddControllers()

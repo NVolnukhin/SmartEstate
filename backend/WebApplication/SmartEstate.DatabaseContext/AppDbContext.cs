@@ -1,5 +1,6 @@
 ﻿
 using DatabaseModel;
+using DatabaseModel.Infrastucture;
 using DatabaseModels.RecoveryPassword;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,8 +9,7 @@ namespace DatabaseContext;
 public class AppDbContext : DbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
-    {
-    }
+    { }
     
     public DbSet<InfrastructureInfo> InfrastructureInfos { get; set; }
     public DbSet<Developer> Developers { get; set; }
@@ -20,6 +20,7 @@ public class AppDbContext : DbContext
     public DbSet<UserComparison> UserComparisons { get; set; }
     public DbSet<UserFavorite> UserFavorites { get; set; }
     public DbSet<PasswordRecoveryToken> PasswordRecoveryTokens { get; set; }
+    public DbSet<Metro> Metro { get; set; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
