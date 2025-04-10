@@ -234,7 +234,7 @@ public class UserService : IUserService
     }
     
     
-    private Result ValidateUserData(string login, string email, string password, string name)
+    private Result ValidateUserData(string login, string name)
     {
         if (string.IsNullOrWhiteSpace(login) || login.Length < 3)
             return Result.Fail("Логин должен содержать минимум 3 символа");
