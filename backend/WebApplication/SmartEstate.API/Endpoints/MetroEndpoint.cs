@@ -1,6 +1,7 @@
 // MetroEndpoint.cs
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Contracts.InfrastructureInfo;
 using Microsoft.AspNetCore.Mvc;
 using SmartEstate.Application.Services;
 
@@ -18,7 +19,7 @@ public class MetroEndpoint : ControllerBase
     }
     
     [HttpGet]
-    public async Task<ActionResult<List<string>>> GetAllMetroStations()
+    public async Task<ActionResult<List<MetroDto>>> GetAllMetroStations()
     {
         var result = await _metroService.GetAllMetroStationsAsync();
         return Ok(result);

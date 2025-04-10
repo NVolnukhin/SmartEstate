@@ -1,3 +1,4 @@
+using Contracts.InfrastructureInfo;
 using DatabaseContext;
 using DatabaseModel.Infrastucture;
 using Microsoft.EntityFrameworkCore;
@@ -13,12 +14,13 @@ public class MetroRepository : IMetroRepository
         _dbContext = dbContext;
     }
 
-    public async Task<List<string>> GetAllMetroStationsAsync()
+    public async Task<List<MetroDto>> GetAllMetroStationsAsync()
     {
         return await _dbContext.Metro
             .AsNoTracking()
             .OrderBy(m => m.Name)
-            .Select(m => m.Name)
+            .Select(m =>
+                new MetroDto(m.Id, m.Name))
             .ToListAsync();
     }
 }

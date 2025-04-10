@@ -1,3 +1,4 @@
+using Contracts.InfrastructureInfo;
 using DatabaseModel.Infrastucture;
 using SmartEstate.DataAccess.Repositories;
 
@@ -12,7 +13,7 @@ public class MetroService : IMetroService
         _metroRepository = metroRepository;
     }
 
-    public async Task<List<string>> GetAllMetroStationsAsync()
+    public async Task<List<MetroDto>> GetAllMetroStationsAsync()
     {
         return await _metroRepository.GetAllMetroStationsAsync();
     }
