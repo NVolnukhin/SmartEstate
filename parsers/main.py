@@ -1,4 +1,4 @@
-import cianparser as cp
+import cianparser.cianparser as cp
 
 msk_parser = cp.CianParser(location="Москва")
 data = msk_parser.get_flats(deal_type="sale",
@@ -11,7 +11,4 @@ data = msk_parser.get_flats(deal_type="sale",
                                     "new_moscow": "without",
                                     "start_page":1,
                                     "end_page": 54,
-                                    # "district": {"Некрасовка",
-                                    #              "Ново-Переделкино",
-                                    #              "Басманный"}
                                })
