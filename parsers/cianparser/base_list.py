@@ -1,7 +1,9 @@
+import hashlib
 import math
 import csv
 import os
 import sys
+from pathlib import Path
 
 from .constants import SPECIFIC_FIELDS_FOR_RENT_LONG, SPECIFIC_FIELDS_FOR_RENT_SHORT, SPECIFIC_FIELDS_FOR_SALE
 
@@ -83,11 +85,53 @@ class BaseListPageParser:
 
         return self.result
 
+
     def save_results(self):
         self.remove_unnecessary_fields()
-        keys = self.result[0].keys()
 
-        with open('/Users/nikitavolnuhin/ghostbusters/parsers/flats_parse_result.csv', 'a', newline='', encoding='utf-8') as output_file:
+        if not self.result:
+            print("Нет новых данных для сохранения")
+            return
+
+        file_path = '/Users/nikitavolnuhin/ghostbusters/parsers/flats_parse_result.csv'
+
+        self._remove_duplicates_in_current_batch()
+
+        existing_hashes = set()
+        if Path(file_path).exists():
+            with open(file_path, 'r', encoding='utf-8') as f:
+                reader = csv.DictReader(f, delimiter=';')
+                existing_hashes = {self._get_record_hash(row) for row in reader}
+
+        new_records = [
+            record for record in self.result
+            if self._get_record_hash(record) not in existing_hashes
+        ]
+
+        if not new_records:
+            print("Все записи уже существуют в файле")
+            self.result = []
+            return
+
+        keys = new_records[0].keys()
+        with open(file_path, 'a', newline='', encoding='utf-8') as output_file:
             dict_writer = csv.DictWriter(output_file, keys, delimiter=';')
-            dict_writer.writeheader()
-            dict_writer.writerows(self.result)
+
+            if output_file.tell() == 0:
+                dict_writer.writeheader()
+
+            dict_writer.writerows(new_records)
+
+        print(f"Добавлено {len(new_records)} новых записей")
+        self.result = []
+
+    def _get_record_hash(self, record):
+        unique_str = f"{record.get('id')}_{record.get('url')}_{record.get('address')}"
+        return hashlib.md5(unique_str.encode('utf-8')).hexdigest()
+
+    def _remove_duplicates_in_current_batch(self):
+        unique = {}
+        for record in self.result:
+            record_hash = self._get_record_hash(record)
+            unique[record_hash] = record
+        self.result = list(unique.values())

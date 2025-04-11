@@ -99,14 +99,24 @@ class URLBuilder:
             self.url += METRO_FOOT_MINUTE_PATH.format(additional_settings["metro_foot_minute"])
 
         if "district" in additional_settings:
-            added_districts = []
-            i = 0
-            for district_name, district_id in MOSCOW_DISTRICT:
-                for district in additional_settings["district"]:
-                    if district in district_name:
-                        added_districts.append(DISTRICT_PATH.format(i, district_id))
-                        i += 1
-            self.url += ''.join(added_districts)
+
+            try:
+                if "district" in additional_settings:
+                    added_districts = []
+                    i = 0
+                    for district_name, district_id in MOSCOW_DISTRICTS.items():  # Используем .items()
+                        for district in additional_settings["district"]:
+                            if district in district_name:
+                                added_districts.append(DISTRICT_PATH.format(i, district_id))
+                                i += 1
+                    self.url += ''.join(added_districts)
+            except NameError:
+                print("Error: MOSCOW_DISTRICTS is not defined")
+                return
+            except ValueError as e:
+                print(f"Error in MOSCOW_DISTRICTS structure: {e}")
+                return
+
 
         if "flat_share" in additional_settings.keys():
             self.url += FLAT_SHARE_PATH.format(additional_settings["flat_share"])
