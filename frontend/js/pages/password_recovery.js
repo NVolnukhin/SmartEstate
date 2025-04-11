@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const clientHashedPassword = await generateClientHash(passwordInput.value);
             const clientHashedPasswordConfirmation = await generateClientHash(confirmPasswordInput.value);
 
-            const response = await fetch(`${config.api.baseUrl}/api/password-recovery/confirm`, {
+            const response = await fetch(`${config.api.baseUrl}/password-recovery/confirm`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

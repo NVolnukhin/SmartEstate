@@ -4,7 +4,7 @@ import { config } from '../../../config.js';
 export async function registerUser({ username, email, password }) {
   const clientHashedPassword = await generateClientHash(password);
   
-  const response = await fetch(`${config.api.baseUrl}/api/users/register`, {
+  const response = await fetch(`${config.api.baseUrl}/users/register`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({

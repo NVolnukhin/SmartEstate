@@ -60,7 +60,7 @@ async function loadUserData() {
     } 
     
     try {
-        const response = await fetch(`${config.api.baseUrl}/api/users/me`, {
+        const response = await fetch(`${config.api.baseUrl}/users/me`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -143,7 +143,7 @@ window.saveChanges = async function(field) {
                     break;
                 }
                 
-                endpoint = `${config.api.baseUrl}/api/users/name`;
+                endpoint = `${config.api.baseUrl}/users/name`;
                 body = { newName: newName };
                 break;
                 
@@ -161,7 +161,7 @@ window.saveChanges = async function(field) {
                     break;
                 }
                 
-                endpoint = `${config.api.baseUrl}/api/users/email`;
+                endpoint = `${config.api.baseUrl}/users/email`;
                 body = { newEmail: newEmail };
                 break;
                 
@@ -192,7 +192,7 @@ window.saveChanges = async function(field) {
                 
                 if (!isValid) break;
                 
-                endpoint = `${config.api.baseUrl}/api/users/password`;
+                endpoint = `${config.api.baseUrl}/users/password`;
                 body = {
                     currentPassword: clientHashedCurrentPassword,
                     newPassword: clientHashedNewPassword

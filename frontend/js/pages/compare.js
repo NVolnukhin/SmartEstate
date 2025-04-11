@@ -38,8 +38,8 @@ document.addEventListener('DOMContentLoaded', function() {
             loadingIndicator.style.display = 'block';
             
             const [response1, response2] = await Promise.all([
-                fetch(`${config.api.baseUrl}/api/flats/${flat1Id}`),
-                fetch(`${config.api.baseUrl}/api/flats/${flat2Id}`)
+                fetch(`${config.api.baseUrl}/flats/${flat1Id}`),
+                fetch(`${config.api.baseUrl}/flats/${flat2Id}`)
             ]);
             
             if (!response1.ok || !response2.ok) {
@@ -425,7 +425,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     async function saveComparisonHistory() {
         try {
-            const response = await fetch(`${config.api.baseUrl}/api/user-preferences/comparisons`, {
+            const response = await fetch(`${config.api.baseUrl}/user-preferences/comparisons`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -483,7 +483,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!checkAuth()) return;
         
         try {
-            const response = await fetch(`${config.api.baseUrl}/api/user-preferences/favorites`, {
+            const response = await fetch(`${config.api.baseUrl}/user-preferences/favorites`, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('authToken')}`
                 }
@@ -513,7 +513,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     async function addToFavorites(flatId) {
         try {
-            const response = await fetch(`${config.api.baseUrl}/api/user-preferences/favorites`, {
+            const response = await fetch(`${config.api.baseUrl}/user-preferences/favorites`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -531,7 +531,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     async function removeFromFavorites(flatId) {
         try {
-            const response = await fetch(`${config.api.baseUrl}/api/user-preferences/favorites/${flatId}`, {
+            const response = await fetch(`${config.api.baseUrl}/user-preferences/favorites/${flatId}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('authToken')}`

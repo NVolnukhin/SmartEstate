@@ -26,7 +26,7 @@ import { config } from '../config.js';
                 window.history.pushState({}, '', `?page=${page}`);
                 
                 try {
-                    const response = await fetch(`${config.api.baseUrl}/api/user-preferences/paged-favorites?page=${page}&pageSize=${pageSize}`, {
+                    const response = await fetch(`${config.api.baseUrl}/user-preferences/paged-favorites?page=${page}&pageSize=${pageSize}`, {
                         headers: {
                             'Authorization': `Bearer ${localStorage.getItem('authToken')}`
                         }
@@ -210,7 +210,7 @@ import { config } from '../config.js';
 
             async function removeFromFavorites(flatId) {
                 try {
-                    const response = await fetch(`${config.api.baseUrl}/api/user-preferences/favorites/${flatId}`, {
+                    const response = await fetch(`${config.api.baseUrl}/user-preferences/favorites/${flatId}`, {
                         method: 'DELETE',
                         headers: {
                             'Authorization': `Bearer ${localStorage.getItem('authToken')}`

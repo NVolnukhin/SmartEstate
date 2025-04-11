@@ -1,5 +1,5 @@
 export async function requestPasswordRecovery(email) {
-    const response = await fetch(`${config.api.baseUrl}/api/password-recovery/request`, {
+    const response = await fetch(`${config.api.baseUrl}/password-recovery/request`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

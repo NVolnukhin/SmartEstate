@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     async function loadApartments() {
         try {
-            const response = await fetch(`${config.api.baseUrl}/api/flats/random?count=10`);
+            const response = await fetch(`${config.api.baseUrl}/flats/random?count=10`);
             const apartments = await response.json();
             
             if (response.ok) {
@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     async function loadFavorites() {
         try {
-            const response = await fetch(`${config.api.baseUrl}/api/user-preferences/favorites`, {
+            const response = await fetch(`${config.api.baseUrl}/user-preferences/favorites`, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('authToken')}`
                 }
@@ -192,7 +192,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     async function addToFavorites(flatId) {
         try {
-            const response = await fetch(`/api/user-preferences/favorites`, {
+            const response = await fetch(`${config.api.baseUrl}/user-preferences/favorites`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     async function removeFromFavorites(flatId) {
         try {
-            const response = await fetch(`${config.api.baseUrl}/api/user-preferences/favorites/${flatId}`, {
+            const response = await fetch(`${config.api.baseUrl}/user-preferences/favorites/${flatId}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('authToken')}`

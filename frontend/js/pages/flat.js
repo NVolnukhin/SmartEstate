@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('apartment-name').textContent = 'Загрузка данных...';
             
             const [response, ymaps] = await Promise.all([
-                fetch(`${config.api.baseUrl}/api/flats/${apartmentId}`, {
+                fetch(`${config.api.baseUrl}/flats/${apartmentId}`, {
                     headers: checkAuth() ? {
                         'Authorization': `Bearer ${localStorage.getItem('authToken')}`
                     } : {}
@@ -934,7 +934,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         try {
-            const response = await fetch(`${config.api.baseUrl}/api/user-preferences/favorites`, {
+            const response = await fetch(`${config.api.baseUrl}/user-preferences/favorites`, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('authToken')}`
                 }
@@ -967,7 +967,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     async function addToFavorites(flatId) {
         try {
-            const response = await fetch(`${config.api.baseUrl}/api/user-preferences/favorites`, {
+            const response = await fetch(`${config.api.baseUrl}/user-preferences/favorites`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -985,7 +985,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     async function removeFromFavorites(flatId) {
         try {
-            const response = await fetch(`${config.api.baseUrl}/api/user-preferences/favorites/${flatId}`, {
+            const response = await fetch(`${config.api.baseUrl}/user-preferences/favorites/${flatId}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('authToken')}`
