@@ -865,11 +865,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 const initialPayment = Math.round(price * percent / 100);
                 const loanTermYears = parseInt(document.getElementById('loan-term').value) || 15;
                 
-                if (initialPayment >= price) {
-                    showNotification('Первоначальный взнос не может быть больше или равен стоимости квартиры');
-                    return;
-                }
-                
                 if (loanTermYears < 1 || loanTermYears > 30) {
                     showNotification('Срок кредита должен быть от 1 до 30 лет');
                     return;
