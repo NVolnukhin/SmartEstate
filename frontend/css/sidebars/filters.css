@@ -1,0 +1,232 @@
+.filter-group {
+    margin-bottom: 20px;
+}
+
+.filter-label {
+    display: block;
+    font-weight: 700;
+    color: #5E04B5;
+    margin-bottom: 8px;
+    font-size: 15px;
+}
+
+.range-inputs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.range-input {
+    width: 100px;
+    font-size: 12px;
+    flex: 1;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid rgba(94, 4, 181, 0.3);
+    font-family: 'MuseoModerno', sans-serif;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    color: #40027E;
+}
+
+.checkbox-input {
+    margin-right: 5px;
+    accent-color: #5E04B5;
+}
+
+.select-input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid rgba(94, 4, 181, 0.3);
+    font-family: 'MuseoModerno', sans-serif;
+    background-color: white;
+    color: #40027E;
+}
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    color: #40027E;
+}
+
+.radio-input {
+    margin-right: 5px;
+    accent-color: #5E04B5;
+}
+
+.apply-filters, .reset-filters {
+    display: block !important;
+    opacity: 0.9;
+    transition: opacity 0.3s ease;
+}
+
+.apply-filters:hover, .reset-filters:hover {
+    opacity: 1;
+}
+
+.filter-actions {
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(94, 4, 181, 0.1);
+}
+
+.apply-filters, .reset-filters {
+    display: block !important;
+    transition: all 0.3s ease;
+    opacity: 1;
+    transform: scale(1);
+}
+
+.apply-filters {
+    background: #5E04B5;
+    color: #FFE4AA;
+    border: 2px solid #5E04B5;
+}
+
+.reset-filters {
+    background: rgba(255, 71, 87, 0.9);
+    color: white;
+    border: 2px solid rgba(255, 71, 87, 0.9);
+}
+
+.apply-filters:hover {
+    background: #40027E;
+    border-color: #40027E;
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(94, 4, 181, 0.3);
+}
+
+.reset-filters:hover {
+    background: #ff4757;
+    border-color: #ff4757;
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(255, 71, 87, 0.3);
+}
+
+/* метро */
+.select2-container--default .select2-selection--multiple {
+    min-height: 38px;
+    border: 1px solid rgba(94, 4, 181, 0.3);
+    border-radius: 6px;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: #5E04B5;
+    border-color: #5E04B5;
+    color: white;
+    padding: 2px 8px;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    color: white;
+    margin-right: 4px;
+    border-right: 1px solid rgba(255,255,255,0.2);
+    padding-right: 4px;
+}
+
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+    border-color: #5E04B5;
+    box-shadow: 0 0 0 2px rgba(94, 4, 181, 0.2);
+}
+
+.filters-sidebar {
+    width: 280px;
+    background: #FFE4AA;
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 10px;
+    height: fit-content;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    visibility: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    max-height: 80vh;
+    overflow-y: auto;
+    position: absolute;
+}
+
+.filters-sidebar.active {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+}
+
+.filter-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.apply-filters {
+    width: 100%;
+    background: #5E04B5;
+    color: #FFE4AA;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    display: none;
+    transition: all 0.3s ease;
+    font-size: 16px;
+    text-align: center;
+}
+
+.reset-filters {
+    width: 100%;
+    background: rgba(255, 71, 87, 0.9);
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    display: none;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    text-align: center;
+}
+
+.apply-filters:hover {
+    background: #40027E;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(94, 4, 181, 0.3);
+}
+
+.reset-filters:hover {
+    background: #ff4757;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3);
+}
+
+
+@media (max-width: 1024px) {
+    .filters-sidebar {
+        width: 100%;
+        position: static;
+    }
+}

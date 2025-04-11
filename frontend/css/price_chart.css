@@ -1,0 +1,18 @@
+.price-chart-container {
+    margin-top: 30px;
+    background-color: #FFE4AA;
+    border-radius: 8px;
+    padding: 25px;
+    color: #40027E;
+    height: 400px;
+}
+
+.price-chart-placeholder {
+    text-align: center;
+    padding: 20px;
+    color: #40027E;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
