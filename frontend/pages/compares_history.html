@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SmartEstate - История сравнений</title>
+    <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/base_settings.css">
+    <link rel="stylesheet" href="../css/logo.css">
+    <link rel="stylesheet" href="../css/decorating.css">
+    <link rel="stylesheet" href="../css/header_links.css">
+    <link rel="stylesheet" href="../css/profile.css">
+    <link rel="stylesheet" href="../css/pagination.css">
+    <link rel="stylesheet" href="../css/pages/compares_history.css">
+    
+</head>
+<body>
+    <div class="screen animated-bg">
+        <div class="decor-circle circle-1"></div>
+        <div class="decor-circle circle-2"></div>
+        
+        <div class="header">
+            <a href="./index.html" class="logo">SmartEstate</a>
+            <div class="auth-section">
+                <!-- Для неавторизованных -->
+                <div class="header-link">
+                    <a href="./login.html" class="header-link">Войти</a>
+                    <a href="./reg.html" class="header-link">Зарегистрироваться</a>
+                </div>
+                
+                <!-- Для авторизованных -->
+                <div class="profile-link-wrapper" style="display: none;">
+                    <a href="./profile.html" class="profile-link">
+                        <i class="fas fa-user"></i>
+                        Профиль
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="history-container">
+                <h1 class="history-title">История сравнений</h1>
+                
+                <div class="comparison-history" id="historyList"></div>
+                
+                <div class="empty-history" id="emptyHistory" style="display: none;">
+                    <p>Вы пока не сравнивали квартиры</p>
+                    <a href="./all_flats.html">Перейти к списку квартир</a>
+                </div>
+                
+                <div class="pagination" id="pagination"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="loading-indicator" id="loading-indicator">
+        Загрузка данных...
+    </div>
+
+    <div class="dev-footer">
+        <span class="dev-footer-text">Для разработчиков</span>
+        <div class="dev-footer-dropdown">
+          <a href="https://git.iu7.bmstu.ru/sgn3-prog/sgn3-prog-it-2025/ghostbusters" target="_blank">GitHub</a>
+          <a href="./reports.html" target="_blank">Отчеты</a>
+        </div>
+    </div>
+
+    <script type="module" src="../js/components/auth/token_сhecker.js"></script>
+    <script src="../js/components/ui/profile_dropdown.js" defer></script>
+    <script type="module" src="../js/pages/comparisons_history.js"></script>
+</body>
+</html>

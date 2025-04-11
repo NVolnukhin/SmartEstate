@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SmartEstate - Все квартиры</title>
+    <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/base_settings.css">
+    <link rel="stylesheet" href="../css/logo.css">
+    <link rel="stylesheet" href="../css/decorating.css">
+    <link rel="stylesheet" href="../css/header_links.css">
+    <link rel="stylesheet" href="../css/profile.css">
+    <link rel="stylesheet" href="../css/notification.css">
+    <link rel="stylesheet" href="../css/pagination.css">
+    <link rel="stylesheet" href="../css/sidebars/comparison.css">
+    <link rel="stylesheet" href="../css/sidebars/filters.css">
+    <link rel="stylesheet" href="../css/sidebars/dropdown.css">
+    <link rel="stylesheet" href="../css/pages/all_flats.css">
+
+</head>
+<body>
+    <div class="screen animated-bg">
+        <div class="decor-circle circle-1"></div>
+        <div class="decor-circle circle-2"></div>
+        
+
+        <div class="header">
+            <a href="./index.html" class="logo">SmartEstate</a>
+            <div class="auth-section">
+                <!-- Для неавторизованных -->
+                <div class="header-link">
+                    <a href="./login.html" class="header-link">Войти</a>
+                    <a href="./reg.html" class="header-link">Зарегистрироваться</a>
+                </div>
+                
+                <!-- Для авторизованных -->
+                <div class="profile-link-wrapper" style="display: none;">
+                    <a href="./profile.html" class="profile-link">
+                        <i class="fas fa-user"></i>
+                        Профиль
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="dropdown">
+                <button class="dropdown-toggle">
+                    <span>Квартиры для сравнения</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="comparison-sidebar">
+                    <div class="empty-comparison">Вы пока не добавили квартиры в список сравнения</div>
+                    <div class="comparison-items"></div>
+                    <div class="compare-actions">
+                        <button class="compare-btn">
+                            <i class="fas fa-balance-scale"></i> Сравнить выбранное
+                        </button>
+                        <button class="clear-comparison">
+                            <i class="fas fa-trash-alt"></i> Очистить сравнение
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flats-container">
+                <div class="flats-list-container">
+                    <div class="flats-list" id="flatsList"></div>
+                    <div class="pagination" id="pagination"></div>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <button class="dropdown-toggle" id="filtersToggle">
+                    <span>Фильтры</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                
+                <div class="filters-sidebar" id="filtersSidebar">
+                    <div class="filter-group">
+                        <label class="filter-label">Цена, ₽</label>
+                        <div class="range-inputs">
+                            <input type="number" id="minPrice" class="range-input" placeholder="От">
+                            <input type="number" id="maxPrice" class="range-input" placeholder="До">
+                        </div>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label class="filter-label">Площадь, м²</label>
+                        <div class="range-inputs">
+                            <input type="number" id="minSquare" class="range-input" placeholder="От">
+                            <input type="number" id="maxSquare" class="range-input" placeholder="До">
+                        </div>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label class="filter-label">Комнатность</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="checkbox-input" name="roominess" value="1"> 1
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="checkbox-input" name="roominess" value="2"> 2
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="checkbox-input" name="roominess" value="3"> 3
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="checkbox-input" name="roominess" value="4"> 4+
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label class="filter-label">Метро</label>
+                        <select id="metroSelect" class="select-input" multiple>
+                            <option value="" disabled selected>Выберите станции</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label class="filter-label">Минут до метро</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="metroTime" class="radio-input" value="5"> до 5 минут
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="metroTime" class="radio-input" value="10"> до 10 минут
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="metroTime" class="radio-input" value="15"> до 15 минут
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="metroTime" class="radio-input" value="0" checked> любое
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label class="filter-label">Этаж</label>
+                        <div class="range-inputs">
+                            <input type="number" id="minFloor" class="range-input" placeholder="От">
+                            <input type="number" id="maxFloor" class="range-input" placeholder="До">
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <label class="filter-label">Количество этажей в доме</label>
+                        <div class="range-inputs">
+                            <input type="number" id="minFloorCount" class="range-input" placeholder="От">
+                            <input type="number" id="maxFloorCount" class="range-input" placeholder="До">
+                        </div>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label class="filter-label">Статус здания</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="checkbox-input" name="buildingStatus" value="построено"> Построено
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="checkbox-input" name="buildingStatus" value="строится"> Строится
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="checkbox-input" name="buildingStatus" value="в процессе завершения"> В процессе завершения
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-actions">
+                        <button class="apply-filters">
+                            <i class="fas fa-filter"></i> Применить фильтры
+                        </button>
+                        <button class="reset-filters">
+                            <i class="fas fa-undo"></i> Сбросить фильтры
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="loading-indicator" id="loading-indicator">
+        Загрузка данных...
+    </div>
+
+    <div class="dev-footer">
+        <span class="dev-footer-text">Для разработчиков</span>
+        <div class="dev-footer-dropdown">
+          <a href="https://git.iu7.bmstu.ru/sgn3-prog/sgn3-prog-it-2025/ghostbusters" target="_blank">GitHub</a>
+          <a href="./reports.html" target="_blank">Отчеты</a>
+        </div>
+    </div>
+
+    <script type="module" src="../js/components/auth/token_сhecker.js"></script>
+    <script src="../js/components/ui/profile_dropdown.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wnumb/1.2.0/wNumb.min.js"></script>
+    <script type="module" src="../js/pages/all_flats.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+</body>
+</html>
