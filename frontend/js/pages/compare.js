@@ -379,6 +379,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 if (extracted.some(val => val === null)) return;
                 
+                const allEqual = extracted.every(val => val === extracted[0]);
+                if (allEqual) return; 
+
                 let bestIndex;
                 if (rule.type.includes('min')) {
                     bestIndex = extracted.indexOf(Math.min(...extracted));
