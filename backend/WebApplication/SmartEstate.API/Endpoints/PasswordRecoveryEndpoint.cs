@@ -12,13 +12,16 @@ using SmartEstate.Email;
 public class PasswordRecoveryController : ControllerBase
 {
     private readonly IPasswordRecoveryService _recoveryService;
+    private readonly IEmailEncryptor _emailEncryptor;
     private readonly ILogger<PasswordRecoveryController> _logger;
 
     public PasswordRecoveryController(
         IPasswordRecoveryService recoveryService,
+        IEmailEncryptor emailEncryptor,
         ILogger<PasswordRecoveryController> logger)
     {
         _recoveryService = recoveryService;
+        _emailEncryptor = emailEncryptor;
         _logger = logger;
     }
 
@@ -28,7 +31,10 @@ public class PasswordRecoveryController : ControllerBase
     {
         try
         {
-            var result = await _recoveryService.RequestRecoveryAsync(request.Email);
+            var encryptedEmail = _emailEncryptor.Encrypt(request.Email.Trim().ToLower());
+            var result = await _recoveryService.RequestRecoveryAsync(encryptedEmail);
+            
+            Console.WriteLine($"recovering for {encryptedEmail}");
             
             if (!result.IsSuccess)
             {

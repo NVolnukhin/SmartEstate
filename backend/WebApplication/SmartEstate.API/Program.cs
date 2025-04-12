@@ -81,6 +81,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.Configure<PasswordHashingSettings>(
     builder.Configuration.GetSection("PasswordHashing"));
 
+builder.Services.Configure<EmailEncryptionSettings>(builder.Configuration.GetSection("EmailEncryptionSettings"));
 
 builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("JwtOptions"));
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

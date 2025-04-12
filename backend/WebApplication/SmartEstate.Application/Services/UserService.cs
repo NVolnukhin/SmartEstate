@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -17,6 +18,7 @@ namespace SmartEstate.Application.Services;
 public class UserService : IUserService
 {
     private readonly IPasswordHasher _passwordHasher;
+    private readonly IEmailEncryptor _emailEncryptor;
     private readonly IUsersRepository _usersRepository;
     private readonly IJwtProvider _jwtProvider;
     private readonly ILogger<UserService> _logger;
@@ -26,12 +28,14 @@ public class UserService : IUserService
         IUsersRepository usersRepository,
         IPasswordRecoveryTokenRepository recoveryTokenRepository,
         IPasswordHasher passwordHasher,
+        IEmailEncryptor emailEncryptor,
         IJwtProvider jwtProvider,
         ILogger<UserService> logger)
     {
         _usersRepository = usersRepository ?? throw new ArgumentNullException(nameof(usersRepository));
         _recoveryTokenRepository = recoveryTokenRepository ?? throw new ArgumentNullException(nameof(recoveryTokenRepository));
         _passwordHasher = passwordHasher ?? throw new ArgumentNullException(nameof(passwordHasher));
+        _emailEncryptor = emailEncryptor ?? throw new ArgumentNullException(nameof(emailEncryptor));
         _jwtProvider = jwtProvider ?? throw new ArgumentNullException(nameof(jwtProvider));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
@@ -49,17 +53,21 @@ public class UserService : IUserService
             if (validationResult.IsFailed)
                 return validationResult;
             
-            if (await _usersRepository.GetByEmail(email) != null)
+            var encryptedEmail = _emailEncryptor.Encrypt(email.Trim().ToLower());
+            
+            if (await _usersRepository.GetByEmail(encryptedEmail) != null)
                 return Result.Fail("Пользователь с таким email уже существует");
 
             if (await _usersRepository.GetByLogin(login) != null)
                 return Result.Fail("Пользователь с таким логином уже существует");
             
+            Console.WriteLine($"{encryptedEmail}");
+            
             var hashedPassword = _passwordHasher.Generate(password);
             var user = User.Create(
                 Guid.NewGuid(),
                 login.Trim(),
-                email.Trim().ToLower(),
+                encryptedEmail,
                 hashedPassword,
                 name.Trim());
 
@@ -83,9 +91,10 @@ public class UserService : IUserService
             if (string.IsNullOrWhiteSpace(loginOrEmail) || string.IsNullOrWhiteSpace(password))
                 return Result.Fail("Логин/email и пароль обязательны");
 
-            var user = await _usersRepository.GetByLogin(loginOrEmail) ??
-                       await _usersRepository.GetByEmail(loginOrEmail);
-
+            var encryptedEmail = _emailEncryptor.Encrypt(loginOrEmail.Trim().ToLower()); 
+            Console.WriteLine($"{encryptedEmail}");
+            var user = await _usersRepository.GetByEmail(encryptedEmail) ?? await _usersRepository.GetByLogin(loginOrEmail);
+            
             if (user == null)
             {
                 _logger.LogWarning("Login attempt for non-existent user: {Login}", loginOrEmail);
@@ -113,38 +122,63 @@ public class UserService : IUserService
     public async Task<UserInfoResponse> GetUserInfo(Guid userId)
     {
         var user = await _usersRepository.GetById(userId);
-        return new UserInfoResponse(user.Login, user.Name ?? "", user.Email);
+        var decryptedEmail = _emailEncryptor.Decrypt(user.Email);
+        return new UserInfoResponse(user.Login, user.Name ?? "", decryptedEmail);
     }
-    
+
     
     public async Task<Result> UpdateEmail(Guid userId, string newEmail)
+{
+    try
     {
-        try
+        // 1. Проверка формата email
+        if (!new EmailAddressAttribute().IsValid(newEmail))
         {
-            if (!new EmailAddressAttribute().IsValid(newEmail))
-            {
-                _logger.LogWarning("Invalid email format attempt for user {UserId}: {Email}", userId, newEmail);
-                return Result.Fail("Некорректный формат email");
-            }
-
-            var existingUser = await _usersRepository.GetByEmail(newEmail);
-            if (existingUser != null && existingUser.UserId != userId)
-            {
-                _logger.LogWarning("Email conflict for user {UserId}: {Email} already taken", userId, newEmail);
-                return Result.Fail("Этот email уже используется");
-            }
-
-            await _usersRepository.UpdateEmail(userId, newEmail);
-            _logger.LogInformation("Email updated for user {UserId}", userId);
-            
-            return Result.Ok();
+            _logger.LogWarning("Invalid email format attempt for user {UserId}: {Email}", userId, newEmail);
+            return Result.Fail("Некорректный формат email");
         }
-        catch (Exception ex)
+
+        // 2. Шифруем новый email
+        var encryptedNewEmail = _emailEncryptor.Encrypt(newEmail.Trim().ToLower());
+
+        // 3. Проверка на уникальность email
+        var existingUser = await _usersRepository.GetByEmail(encryptedNewEmail);
+        if (existingUser != null && existingUser.UserId != userId)
         {
-            _logger.LogError(ex, "Error updating email for user {UserId}", userId);
-            return Result.Fail("Произошла ошибка при обновлении email");
+            _logger.LogWarning("Email conflict for user {UserId}: {Email} already taken", userId, newEmail);
+            return Result.Fail("Этот email уже используется");
         }
+
+        // 4. Получаем текущего пользователя для логгирования
+        var currentUser = await _usersRepository.GetById(userId);
+        if (currentUser == null)
+        {
+            _logger.LogWarning("User not found for email update: {UserId}", userId);
+            return Result.Fail("Пользователь не найден");
+        }
+
+        // 5. Обновляем email
+        await _usersRepository.UpdateEmail(userId, encryptedNewEmail);
+
+        // 6. Логгируем изменение (без раскрытия email в логах)
+        _logger.LogInformation("Email updated for user {UserId}. Old email hash: {OldHash}, New email hash: {NewHash}",
+            userId,
+            currentUser.Email?.GetHashCode(),
+            encryptedNewEmail.GetHashCode());
+        
+        return Result.Ok();
     }
+    catch (CryptographicException ex)
+    {
+        _logger.LogError(ex, "Encryption error during email update for user {UserId}", userId);
+        return Result.Fail("Ошибка шифрования email");
+    }
+    catch (Exception ex)
+    {
+        _logger.LogError(ex, "Error updating email for user {UserId}", userId);
+        return Result.Fail("Произошла ошибка при обновлении email");
+    }
+}
 
     public async Task<Result> UpdateName(Guid userId, string newName)
     {

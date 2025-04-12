@@ -19,6 +19,7 @@ namespace SmartEstate.Application.Services
         private readonly IUserService _userService;
         private readonly ITokenGenerator _tokenGenerator;
         private readonly IEmailService _emailService;
+        private readonly IEmailEncryptor _emailEncryptor;
 
 
         public PasswordRecoveryService(
@@ -27,7 +28,8 @@ namespace SmartEstate.Application.Services
             ILogger<PasswordRecoveryService> logger,
             IUserService userService,
             ITokenGenerator tokenGenerator,
-            IEmailService emailService)
+            IEmailService emailService,
+            IEmailEncryptor emailEncryptor)
         {
             _tokenRepository = tokenRepository;
             _usersRepository = usersRepository;
@@ -35,13 +37,14 @@ namespace SmartEstate.Application.Services
             _userService = userService;
             _tokenGenerator = tokenGenerator;
             _emailService = emailService;
+            _emailEncryptor = emailEncryptor;
         }
 
-        public async Task<Result<PasswordRecoveryResponse>> RequestRecoveryAsync(string email)
+        public async Task<Result<PasswordRecoveryResponse>> RequestRecoveryAsync(string encryptedEmail)
         {
             try
             {
-                var user = await _usersRepository.GetByEmail(email);
+                var user = await _usersRepository.GetByEmail(encryptedEmail);
                 if (user is null)
                 {
                     return Result.Ok(new PasswordRecoveryResponse(
@@ -64,7 +67,8 @@ namespace SmartEstate.Application.Services
 
                 try
                 {
-                    await _emailService.SendPasswordRecoveryEmailAsync(user.Email, token.Token);
+                    var email = _emailEncryptor.Decrypt(user.Email);
+                    await _emailService.SendPasswordRecoveryEmailAsync(email, token.Token);
                     return Result.Ok(new PasswordRecoveryResponse(
                         true,
                         "Если аккаунт с таким email существует, письмо отправлено"));

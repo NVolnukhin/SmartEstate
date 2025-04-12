@@ -23,7 +23,7 @@ public class User
         {
             UserId = id,
             Login = login.Trim(),
-            Email = email.Trim().ToLower(),
+            Email = email,
             HashedPassword = passwordHash ?? throw new ArgumentNullException(nameof(passwordHash)),
             Name = name?.Trim()
         };
