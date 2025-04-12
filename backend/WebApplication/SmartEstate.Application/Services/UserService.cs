@@ -131,36 +131,30 @@ public class UserService : IUserService
 {
     try
     {
-        // 1. Проверка формата email
         if (!new EmailAddressAttribute().IsValid(newEmail))
         {
             _logger.LogWarning("Invalid email format attempt for user {UserId}: {Email}", userId, newEmail);
             return Result.Fail("Некорректный формат email");
         }
-
-        // 2. Шифруем новый email
+        
         var encryptedNewEmail = _emailEncryptor.Encrypt(newEmail.Trim().ToLower());
-
-        // 3. Проверка на уникальность email
+        
         var existingUser = await _usersRepository.GetByEmail(encryptedNewEmail);
         if (existingUser != null && existingUser.UserId != userId)
         {
             _logger.LogWarning("Email conflict for user {UserId}: {Email} already taken", userId, newEmail);
             return Result.Fail("Этот email уже используется");
         }
-
-        // 4. Получаем текущего пользователя для логгирования
+        
         var currentUser = await _usersRepository.GetById(userId);
         if (currentUser == null)
         {
             _logger.LogWarning("User not found for email update: {UserId}", userId);
             return Result.Fail("Пользователь не найден");
         }
-
-        // 5. Обновляем email
+        
         await _usersRepository.UpdateEmail(userId, encryptedNewEmail);
-
-        // 6. Логгируем изменение (без раскрытия email в логах)
+        
         _logger.LogInformation("Email updated for user {UserId}. Old email hash: {OldHash}, New email hash: {NewHash}",
             userId,
             currentUser.Email?.GetHashCode(),
