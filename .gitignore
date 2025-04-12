@@ -23,3 +23,5 @@ Debug/
 docker-compose.override.yml
 *.csv
 config.js
+appsettings.json
+appsettings.Development.json
