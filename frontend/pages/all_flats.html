@@ -6,17 +6,17 @@
     <title>SmartEstate - Все квартиры</title>
     <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="../css/base_settings.css">
-    <link rel="stylesheet" href="../css/logo.css">
-    <link rel="stylesheet" href="../css/decorating.css">
-    <link rel="stylesheet" href="../css/header_links.css">
-    <link rel="stylesheet" href="../css/profile.css">
-    <link rel="stylesheet" href="../css/notification.css">
-    <link rel="stylesheet" href="../css/pagination.css">
-    <link rel="stylesheet" href="../css/sidebars/comparison.css">
-    <link rel="stylesheet" href="../css/sidebars/filters.css">
-    <link rel="stylesheet" href="../css/sidebars/dropdown.css">
-    <link rel="stylesheet" href="../css/pages/all_flats.css">
+    <link rel="stylesheet" href="/css/base_settings.css">
+    <link rel="stylesheet" href="/css/logo.css">
+    <link rel="stylesheet" href="/css/decorating.css">
+    <link rel="stylesheet" href="/css/header_links.css">
+    <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="/css/notification.css">
+    <link rel="stylesheet" href="/css/pagination.css">
+    <link rel="stylesheet" href="/css/sidebars/comparison.css">
+    <link rel="stylesheet" href="/css/sidebars/filters.css">
+    <link rel="stylesheet" href="/css/sidebars/dropdown.css">
+    <link rel="stylesheet" href="/css/pages/all_flats.css">
 
 </head>
 <body>
@@ -26,17 +26,17 @@
         
 
         <div class="header">
-            <a href="./index.html" class="logo">SmartEstate</a>
+            <a href="./index" class="logo">SmartEstate</a>
             <div class="auth-section">
                 <!-- Для неавторизованных -->
                 <div class="header-link">
-                    <a href="./login.html" class="header-link">Войти</a>
-                    <a href="./reg.html" class="header-link">Зарегистрироваться</a>
+                    <a href="./login" class="header-link">Войти</a>
+                    <a href="./reg" class="header-link">Зарегистрироваться</a>
                 </div>
                 
                 <!-- Для авторизованных -->
                 <div class="profile-link-wrapper" style="display: none;">
-                    <a href="./profile.html" class="profile-link">
+                    <a href="./profile" class="profile-link">
                         <i class="fas fa-user"></i>
                         Профиль
                     </a>
@@ -182,21 +182,21 @@
     </div>
 
     <div class="loading-indicator" id="loading-indicator">
-        Загрузка данных...
+        Загрузка данных.
     </div>
 
     <div class="dev-footer">
         <span class="dev-footer-text">Для разработчиков</span>
         <div class="dev-footer-dropdown">
           <a href="https://git.iu7.bmstu.ru/sgn3-prog/sgn3-prog-it-2025/ghostbusters" target="_blank">GitHub</a>
-          <a href="./reports.html" target="_blank">Отчеты</a>
+          <a href="./reports" target="_blank">Отчеты</a>
         </div>
     </div>
 
-    <script type="module" src="../js/components/auth/token_сhecker.js"></script>
-    <script src="../js/components/ui/profile_dropdown.js" defer></script>
+    <script type="module" src="/js/components/auth/token_сhecker.js"></script>
+    <script src="/js/components/ui/profile_dropdown.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wnumb/1.2.0/wNumb.min.js"></script>
-    <script type="module" src="../js/pages/all_flats.js"></script>
+    <script type="module" src="/js/pages/all_flats.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>

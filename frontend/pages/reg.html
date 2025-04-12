@@ -6,14 +6,14 @@
     <title>SmartEstate - Регистрация</title>
     <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="../css/profile.css">
-    <link rel="stylesheet" href="../css/logo.css">
-    <link rel="stylesheet" href="../css/decorating.css">
-    <link rel="stylesheet" href="../css/form_group.css">
-    <link rel="stylesheet" href="../css/header_links.css">
-    <link rel="stylesheet" href="../css/base_settings.css">
-    <link rel="stylesheet" href="../css/password_strength.css">
-    <link rel="stylesheet" href="../css/notification.css">
+    <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="/css/logo.css">
+    <link rel="stylesheet" href="/css/decorating.css">
+    <link rel="stylesheet" href="/css/form_group.css">
+    <link rel="stylesheet" href="/css/header_links.css">
+    <link rel="stylesheet" href="/css/base_settings.css">
+    <link rel="stylesheet" href="/css/password_strength.css">
+    <link rel="stylesheet" href="/css/notification.css">
 </head>
 <body>
     <div class="screen animated-bg">
@@ -21,8 +21,8 @@
         <div class="decor-circle circle-2"></div>
         
         <div class="header">
-            <a href="./index.html" class="logo">SmartEstate</a>
-            <a href="./login.html" class="header-link">Войти</a>
+            <a href="./index" class="logo">SmartEstate</a>
+            <a href="./login" class="header-link">Войти</a>
         </div>
         
         <div class="form-container">
@@ -77,13 +77,13 @@
         <span class="dev-footer-text">Для разработчиков</span>
         <div class="dev-footer-dropdown">
           <a href="https://git.iu7.bmstu.ru/sgn3-prog/sgn3-prog-it-2025/ghostbusters" target="_blank">GitHub</a>
-          <a href="./reports.html" target="_blank">Отчеты</a>
+          <a href="./reports" target="_blank">Отчеты</a>
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
     <script type="module">
-        import { RegistrationManager } from '../js/components/auth/registration/registration_manager.js';
-        import { initNotification } from '../js/components/ui/notification.js';
+        import { RegistrationManager } from '/js/components/auth/registration/registration_manager.js';
+        import { initNotification } from '/js/components/ui/notification.js';
       
         document.addEventListener('DOMContentLoaded', () => {
           new RegistrationManager();

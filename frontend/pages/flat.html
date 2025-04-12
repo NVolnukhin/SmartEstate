@@ -7,20 +7,20 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="../css/base_settings.css">
-    <link rel="stylesheet" href="../css/logo.css">
-    <link rel="stylesheet" href="../css/decorating.css">
-    <link rel="stylesheet" href="../css/header_links.css">
-    <link rel="stylesheet" href="../css/profile.css">
-    <link rel="stylesheet" href="../css/back_link.css">
-    <link rel="stylesheet" href="../css/photo/photo_navigation.css">
-    <link rel="stylesheet" href="../css/photo/apartament_photo_flat.css">
-    <link rel="stylesheet" href="../css/photo/fullscreen_photo.css">
-    <link rel="stylesheet" href="../css/price_hint.css">
-    <link rel="stylesheet" href="../css/notification.css">
-    <link rel="stylesheet" href="../css/price_chart.css">    
-    <link rel="stylesheet" href="../css/pages/flat.css">    
-    <link rel="stylesheet" href="../css/mortgagecalculator.css">        
+    <link rel="stylesheet" href="/css/base_settings.css">
+    <link rel="stylesheet" href="/css/logo.css">
+    <link rel="stylesheet" href="/css/decorating.css">
+    <link rel="stylesheet" href="/css/header_links.css">
+    <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="/css/back_link.css">
+    <link rel="stylesheet" href="/css/photo/photo_navigation.css">
+    <link rel="stylesheet" href="/css/photo/apartament_photo_flat.css">
+    <link rel="stylesheet" href="/css/photo/fullscreen_photo.css">
+    <link rel="stylesheet" href="/css/price_hint.css">
+    <link rel="stylesheet" href="/css/notification.css">
+    <link rel="stylesheet" href="/css/price_chart.css">    
+    <link rel="stylesheet" href="/css/pages/flat.css">    
+    <link rel="stylesheet" href="/css/mortgagecalculator.css">        
 </head>
 <body>
     <div class="screen animated-bg">
@@ -28,17 +28,17 @@
         <div class="decor-circle circle-2"></div>
         
         <div class="header">
-            <a href="./index.html" class="logo">SmartEstate</a>
+            <a href="./index" class="logo">SmartEstate</a>
             <div class="auth-section">
                 <!-- Для неавторизованных -->
                 <div class="header-link">
-                    <a href="./login.html" class="header-link">Войти</a>
-                    <a href="./reg.html" class="header-link">Зарегистрироваться</a>
+                    <a href="./login" class="header-link">Войти</a>
+                    <a href="./reg" class="header-link">Зарегистрироваться</a>
                 </div>
                 
                 <!-- Для авторизованных -->
                 <div class="profile-link-wrapper" style="display: none;">
-                    <a href="./profile.html" class="profile-link">
+                    <a href="./profile" class="profile-link">
                         <i class="fas fa-user"></i>
                         Профиль
                     </a>
@@ -48,7 +48,7 @@
 
         <div class="apartment-container">
             <div class="apartment-title">
-                <h1 id="apartment-name">Загрузка...</h1>
+                <h1 id="apartment-name">Загрузка.</h1>
                 <p id="apartment-description"></p>
             </div>
 
@@ -69,12 +69,12 @@
                     <div class="detail-item">
                         <div class="detail-label">Цена</div>
                         <div class="detail-value" id="apartment-price">
-                            <span id="price-value">Загрузка...</span>
+                            <span id="price-value">Загрузка.</span>
                             <span class="price-hint">
                                 <i class="fas fa-history"></i>
                                 <span class="tooltip">
                                     <div id="price-tooltip-content">
-                                        Загрузка данных о ценах...
+                                        Загрузка данных о ценах.
                                     </div>
                                 </span>
                             </span>
@@ -82,24 +82,24 @@
                     </div>
                     <div class="detail-item">
                         <div class="detail-label">Площадь</div>
-                        <div class="detail-value" id="apartment-square">Загрузка...</div>
+                        <div class="detail-value" id="apartment-square">Загрузка.</div>
                     </div>
                     <div class="detail-item">
                         <div class="detail-label">Комнатность</div>
-                        <div class="detail-value" id="apartment-rooms">Загрузка...</div>
+                        <div class="detail-value" id="apartment-rooms">Загрузка.</div>
                     </div>
                     <div class="detail-item">
                         <div class="detail-label">Этаж</div>
-                        <div class="detail-value" id="apartment-floor">Загрузка...</div>
+                        <div class="detail-value" id="apartment-floor">Загрузка.</div>
                     </div>
                     <div class="detail-item">
                         <div class="detail-label">Тип отделки</div>
-                        <div class="detail-value" id="apartment-finish">Загрузка...</div>
+                        <div class="detail-value" id="apartment-finish">Загрузка.</div>
                     </div>
                     <div class="detail-item">
                         <div class="detail-label">Ссылка на квартиру (Cian)</div>
                         <div class="detail-value" id="apartment-link">
-                            <a href="#" target="_blank" id="cian-link">Загрузка...</a>
+                            <a href="#" target="_blank" id="cian-link">Загрузка.</a>
                         </div>
                     </div>
                 </div>
@@ -108,19 +108,19 @@
                 <div class="details-grid">
                     <div class="detail-item">
                         <div class="detail-label">Статус здания</div>
-                        <div class="detail-value" id="building-status">Загрузка...</div>
+                        <div class="detail-value" id="building-status">Загрузка.</div>
                     </div>
                     <div class="detail-item">
                         <div class="detail-label">Количество этажей</div>
-                        <div class="detail-value" id="building-floors">Загрузка...</div>
+                        <div class="detail-value" id="building-floors">Загрузка.</div>
                     </div>
                     <div class="detail-item">
                         <div class="detail-label">Адрес</div>
-                        <div class="detail-value" id="building-address">Загрузка...</div>
+                        <div class="detail-value" id="building-address">Загрузка.</div>
                     </div>
                     <div class="detail-item">
                         <div class="detail-label">ЖК</div>
-                        <div class="detail-value" id="building-complex">Загрузка...</div>
+                        <div class="detail-value" id="building-complex">Загрузка.</div>
                     </div>
                 </div>
 
@@ -128,23 +128,23 @@
                 <div class="details-grid">
                     <div class="detail-item">
                         <div class="detail-label">До ближайшего метро</div>
-                        <div class="detail-value" id="metro-info">Загрузка...</div>
+                        <div class="detail-value" id="metro-info">Загрузка.</div>
                     </div>
                     <div class="detail-item">
                         <div class="detail-label">До школы</div>
-                        <div class="detail-value" id="school-info">Загрузка...</div>
+                        <div class="detail-value" id="school-info">Загрузка.</div>
                     </div>
                     <div class="detail-item">
                         <div class="detail-label">До детского сада</div>
-                        <div class="detail-value" id="kindergarten-info">Загрузка...</div>
+                        <div class="detail-value" id="kindergarten-info">Загрузка.</div>
                     </div>
                     <div class="detail-item">
                         <div class="detail-label">До магазина</div>
-                        <div class="detail-value" id="shop-info">Загрузка...</div>
+                        <div class="detail-value" id="shop-info">Загрузка.</div>
                     </div>
                     <div class="detail-item">
                         <div class="detail-label">До аптеки</div>
-                        <div class="detail-value" id="pharmacy-info">Загрузка...</div>
+                        <div class="detail-value" id="pharmacy-info">Загрузка.</div>
                     </div>
                 </div>
 
@@ -152,16 +152,16 @@
                 <div class="details-grid">
                     <div class="detail-item">
                         <div class="detail-label">Имя</div>
-                        <div class="detail-value" id="developer-name">Загрузка...</div>
+                        <div class="detail-value" id="developer-name">Загрузка.</div>
                     </div>
                     <div class="detail-item">
                         <div class="detail-label">Построенных зданий</div>
-                        <div class="detail-value" id="developer-buildings">Загрузка...</div>
+                        <div class="detail-value" id="developer-buildings">Загрузка.</div>
                     </div>
                     <div class="detail-item">
                         <div class="detail-label">Веб-сайт</div>
                         <div class="detail-value">
-                            <a href="#" target="_blank" id="developer-website">Загрузка...</a>
+                            <a href="#" target="_blank" id="developer-website">Загрузка.</a>
                         </div>
                     </div>
                 </div>
@@ -232,7 +232,7 @@
                 <div class="price-chart-container">
                     <h3 class="section-title">История изменения цен</h3>
                     <div id="price-chart-full" class="price-chart-placeholder">
-                        Загрузка данных...
+                        Загрузка данных.
                     </div>
                 </div>
             </div>
@@ -240,19 +240,19 @@
         </div>
     </div>
     <div class="loading-indicator" id="loading-indicator">
-        Загрузка данных...
+        Загрузка данных.
     </div>
 
     <div class="dev-footer">
         <span class="dev-footer-text">Для разработчиков</span>
         <div class="dev-footer-dropdown">
           <a href="https://git.iu7.bmstu.ru/sgn3-prog/sgn3-prog-it-2025/ghostbusters" target="_blank">GitHub</a>
-          <a href="./reports.html" target="_blank">Отчеты</a>
+          <a href="./reports" target="_blank">Отчеты</a>
         </div>
     </div>
     
-    <script type="module" src="../js/components/auth/token_сhecker.js"></script>
-    <script src="../js/components/ui/profile_dropdown.js" defer></script>
-    <script type="module" src = "../js/pages/flat.js"></script>
+    <script type="module" src="/js/components/auth/token_сhecker.js"></script>
+    <script src="/js/components/ui/profile_dropdown.js" defer></script>
+    <script type="module" src = "/js/pages/flat.js"></script>
 </body>
 </html>
