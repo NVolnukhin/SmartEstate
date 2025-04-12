@@ -31,7 +31,7 @@ export class LoginManager {
     // Обработчик "Забыли пароль"
     document.querySelector('.forgot-password')?.addEventListener('click', (e) => {
       e.preventDefault();
-      window.location.href = './forgot_password.html';
+      window.location.href = './forgot_password';
     });
   }
 
@@ -58,7 +58,7 @@ export class LoginManager {
       });
       
       localStorage.setItem('authToken', response.token);
-      window.location.href = './index.html';
+      window.location.href = './index';
     } catch (error) {
       showNotification(error.message);
     } finally {

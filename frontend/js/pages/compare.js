@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const flat2Id = urlParams.get('id2');
     
     if (!flat1Id || !flat2Id) {
-        window.location.href = 'all_flats.html';
+        window.location.href = 'all_flats';
         return;
     }
     
@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div style="background: rgba(255, 255, 255, 0.9); padding: 8px; border-radius: 6px; color: #40027E; font-weight: 700;">
                         ${formatPrice(flat1Data.price)}
                     </div>
-                    <a href="flat.html?id=${flat1Id}" class="view-details-btn">
+                    <a href="flat?id=${flat1Id}" class="view-details-btn">
                         <i class="fas fa-info-circle"></i> Подробнее
                     </a>
                 </div>
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div style="background: rgba(255, 255, 255, 0.9); padding: 8px; border-radius: 6px; color: #40027E; font-weight: 700;">
                         ${formatPrice(flat2Data.price)}
                     </div>
-                    <a href="flat.html?id=${flat2Id}" class="view-details-btn">
+                    <a href="flat?id=${flat2Id}" class="view-details-btn">
                         <i class="fas fa-info-circle"></i> Подробнее
                     </a>
                 </div>
@@ -451,7 +451,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 e.stopPropagation();
                 
                 if (!checkAuth()) {
-                    window.location.href = 'login.html';
+                    window.location.href = 'login';
                     return;
                 }
                 

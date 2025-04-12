@@ -98,7 +98,7 @@ function showSessionExpiredModal() {
     });
     
     modal.querySelector('.modal-login-btn').addEventListener('click', () => {
-        window.location.href = './login.html?session_expired=true';
+        window.location.href = './login?session_expired=true';
     });
     
     function closeModal() {

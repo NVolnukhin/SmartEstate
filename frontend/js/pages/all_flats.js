@@ -449,7 +449,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     e.stopPropagation();
                     
                     if (!checkAuth()) {
-                        window.location.href = 'login.html';
+                        window.location.href = 'login';
                         return;
                     }
                     
@@ -530,12 +530,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function goToFlatPage(flatId) {
-        window.location.href = `flat.html?id=${flatId}`;
+        window.location.href = `flat?id=${flatId}`;
     }
 
     compareBtn.addEventListener('click', function() {
         if (comparisonList.length === 2) {
-            window.location.href = `compare.html?id1=${comparisonList[0].flatId}&id2=${comparisonList[1].flatId}`;
+            window.location.href = `compare?id1=${comparisonList[0].flatId}&id2=${comparisonList[1].flatId}`;
         }
     });
 

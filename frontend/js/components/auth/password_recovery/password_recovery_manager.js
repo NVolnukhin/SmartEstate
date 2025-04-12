@@ -1,6 +1,7 @@
 import { showNotification } from '../../ui/notification.js';
 import { requestPasswordRecovery } from './password_recovery_api.js';
 import { validateEmail } from '../../../utils/validation.js';
+import { config } from '/js/config.js';
 
 export class PasswordRecoveryManager {
   constructor() {
@@ -32,7 +33,7 @@ export class PasswordRecoveryManager {
       
       showNotification('Письмо с инструкциями отправлено на вашу почту', false);
       setTimeout(() => {
-        window.location.href = './index.html';
+        window.location.href = './index';
       }, 3000);
     } catch (error) {
       showNotification(error.message);

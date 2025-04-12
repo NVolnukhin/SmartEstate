@@ -1,9 +1,9 @@
 const profileDropdown = document.createElement('div');
 profileDropdown.className = 'profile-dropdown';
 profileDropdown.innerHTML = `
-    <a href="./compares_history.html">История сравнений</a>
-    <a href="./favorite.html">Избранное</a>
-    <a href="./profile.html">Настройки</a>
+    <a href="./compares_history">История сравнений</a>
+    <a href="./favorite">Избранное</a>
+    <a href="./profile">Настройки</a>
     <a href="#" class="logout-btn">Выйти</a>
 `;
 document.body.appendChild(profileDropdown);
@@ -23,5 +23,5 @@ document.addEventListener('click', function(e) {
 document.querySelector('.logout-btn').addEventListener('click', function(e) {
     e.preventDefault();
     localStorage.removeItem('authToken');
-    window.location.href = './index.html';
+    window.location.href = './index';
 });

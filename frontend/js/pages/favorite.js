@@ -16,7 +16,7 @@ import { config } from '../config.js';
             
             async function loadFavorites(page = 1) {
                 if (!checkAuth()) {
-                    window.location.href = 'login.html';
+                    window.location.href = 'login';
                     return;
                 }
                 
@@ -180,7 +180,7 @@ import { config } from '../config.js';
                         ${isError ? 
                             '<p>Произошла ошибка при загрузке избранного</p>' : 
                             '<p>В избранном пока нет квартир</p>'}
-                        <a href="./all_flats.html">Перейти к поиску квартир</a>
+                        <a href="./all_flats">Перейти к поиску квартир</a>
                     </div>
                 `;
                 
@@ -226,11 +226,11 @@ import { config } from '../config.js';
     
 
             function goToFlatPage(flatId) {
-                window.location.href = `flat.html?id=${flatId}`;
+                window.location.href = `flat?id=${flatId}`;
             }
             
             if (!checkAuth()) {
-                window.location.href = 'login.html';
+                window.location.href = 'login';
             } else {
                 loadFavorites(currentPage);
             }

@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const apartmentId = urlParams.get('id');
     
     if (!apartmentId) {
-        window.location.href = 'all_flats.html';
+        window.location.href = 'all_flats';
         return;
     }
 
@@ -335,7 +335,7 @@ document.addEventListener('DOMContentLoaded', function() {
             e.stopPropagation();
             
             if (!checkAuth()) {
-                window.location.href = 'login.html';
+                window.location.href = 'login';
                 return;
             }
             
@@ -770,7 +770,7 @@ document.addEventListener('DOMContentLoaded', function() {
             e.stopPropagation();
             
             if (!checkAuth()) {
-                window.location.href = 'login.html';
+                window.location.href = 'login';
                 return;
             }
             

@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 
                 const apartmentId = this.getAttribute('data-id');
-                window.location.href = `./flat.html?id=${apartmentId}`;
+                window.location.href = `./flat?id=${apartmentId}`;
             });
         });
         
@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 e.stopPropagation();
                 
                 if (!isAuth) {
-                    window.location.href = './login.html';
+                    window.location.href = './login';
                     return;
                 }
                 

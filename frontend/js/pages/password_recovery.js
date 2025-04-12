@@ -2,7 +2,7 @@ import { setupTogglePassword } from '../components/auth/toggle_password.js';
 import { initPasswordStrengthMeter } from '../components/auth/password_strength.js';
 import { validatePassword, validateConfirmPassword } from '../utils/validation.js';
 import { showNotification, initNotification } from '../components/ui/notification.js';
-import { config } from '../config.js';
+import { config } from '/js/config.js';
 
 document.addEventListener('DOMContentLoaded', function() {
     initNotification();

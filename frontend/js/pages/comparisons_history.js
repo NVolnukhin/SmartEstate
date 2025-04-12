@@ -28,7 +28,7 @@ import { config } from '../config.js';
             
             async function loadComparisonHistory(page = 1) {
                 if (!checkAuth()) {
-                    window.location.href = 'login.html';
+                    window.location.href = 'login';
                     return;
                 }
                 
@@ -235,7 +235,7 @@ import { config } from '../config.js';
                 emptyHistory.style.display = 'block';
                 emptyHistory.innerHTML = `
                     <p>${isError ? 'Произошла ошибка при загрузке истории' : 'Вы пока не сравнивали квартиры'}</p>
-                    <a href="./all_flats.html">Перейти к списку квартир</a>
+                    <a href="./all_flats">Перейти к списку квартир</a>
                 `;
                 
                 document.getElementById('pagination').innerHTML = '';
@@ -261,15 +261,15 @@ import { config } from '../config.js';
             }
             
             function goToFlatPage(flatId) {
-                window.location.href = `flat.html?id=${flatId}`;
+                window.location.href = `flat?id=${flatId}`;
             }
             
             function goToComparisonPage(id1, id2) {
-                window.location.href = `compare.html?id1=${id1}&id2=${id2}`;
+                window.location.href = `compare?id1=${id1}&id2=${id2}`;
             }
             
             if (!checkAuth()) {
-                window.location.href = 'login.html';
+                window.location.href = 'login';
             } else {
                 loadComparisonHistory(currentPage);
             }

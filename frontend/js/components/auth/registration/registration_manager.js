@@ -60,7 +60,7 @@ export class RegistrationManager {
       this.setLoadingState(true);
       await registerUser(formData);
       showNotification('Регистрация прошла успешно!', false);
-      setTimeout(() => window.location.href = './index.html', 1500);
+      setTimeout(() => window.location.href = './index', 1500);
     } catch (error) {
       showNotification(error.message);
     } finally {

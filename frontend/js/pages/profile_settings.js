@@ -55,7 +55,7 @@ async function loadUserData() {
     }
 
     if (!checkAuth()) {
-        window.location.href = './login.html';
+        window.location.href = './login';
         return;
     } 
     
@@ -119,7 +119,7 @@ async function generateClientHash(password) {
 window.saveChanges = async function(field) {
     const token = localStorage.getItem('authToken');
     if (!token) {
-        window.location.href = './login.html';
+        window.location.href = './login';
         return;
     }
     
