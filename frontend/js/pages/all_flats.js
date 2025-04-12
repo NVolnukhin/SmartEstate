@@ -575,10 +575,10 @@ document.addEventListener('DOMContentLoaded', function() {
             if (filters.metroTime && filters.metroTime !== '0') params.append('maxMetroTime', filters.metroTime);
             if (filters.minFloor) params.append('minFloor', filters.minFloor);
             if (filters.maxFloor) params.append('maxFloor', filters.maxFloor);
-            if (filters.minFloorCount) params.append('minFloorCount', filters.minFloor);
-            if (filters.maxFloorCount) params.append('maxFloorCount', filters.maxFloor);
+            if (filters.minFloorCount) params.append('minFloorCount', filters.minFloorCount);
+            if (filters.maxFloorCount) params.append('maxFloorCount', filters.maxFloorCount);
             if (filters.buildingStatus.length > 0) params.append('buildingStatus', filters.buildingStatus.join(','));
-            
+
             params.append('page', 1);
             
             const response = await fetch(`${config.api.baseUrl}/flats?${params.toString()}`);
@@ -588,7 +588,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 allFlatsData = data.items;
                 renderFlats(data.items);
                 updatePagination(data.totalPages, 1);
-                showNotification("Фильтры применены", false);
+                showNotification(`Фильтры применены. Найдено ${data.totalCount} квартир`, false);
                 
                 window.history.pushState({}, '', `?${params.toString()}`);
             } else {
