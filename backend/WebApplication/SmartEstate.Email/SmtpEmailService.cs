@@ -37,7 +37,7 @@ public class SmtpEmailService : IEmailService, IDisposable
     public async Task SendPasswordRecoveryEmailAsync(string email, string token)
     {
         
-        var recoveryLink = $"http://smartestate:5500/pages/password_recovery.html?token={token}";
+        var recoveryLink = $"http://smartestate/pages/password_recovery.html?token={token}";
         var subject = "Восстановление пароля";
 
         await SendEmailAsync(email, subject, EmailTemplates.GetPasswordRecoveryTemplate(recoveryLink));
