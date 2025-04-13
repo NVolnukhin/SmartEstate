@@ -63,50 +63,62 @@ body {
     transition: all 0.3s ease;
   }
   
-  .dev-footer-text {
-    padding: 5px 10px;
-    background-color: #FFE4AA;
-    border-radius: 15px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    display: inline-block;
-  }
-  
-  .dev-footer:hover .dev-footer-text {
-    background-color: rgba(94, 4, 181, 0.1);
-    color: #5E04B5;
-  }
-  
-  .dev-footer-dropdown {
-    position: absolute;
-    bottom: 100%;
-    right: 0;
-    background: #FFE4AA;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    padding: 10px 0;
-    min-width: 150px;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    transform: translateY(10px);
-  }
-  
-  .dev-footer:hover .dev-footer-dropdown {
-    opacity: 2;
-    visibility: visible;
-    transform: translateY(0);
-  }
-  
-  .dev-footer-dropdown a {
-    display: block;
-    padding: 8px 15px;
-    color: #333;
-    text-decoration: none;
-    font-size: 13px;
-    transition: all 0.2s ease;
-  }
-  
-  .dev-footer-dropdown a:hover {
-    background-color: #FFE4AA;
-    color: #5E04B5;
-  }
+.dev-footer-text {
+  padding: 5px 10px;
+  background-color: #FFE4AA;
+  border-radius: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: inline-block;
+}
+
+.dev-footer:hover .dev-footer-text {
+  background-color: rgba(94, 4, 181, 0.1);
+  color: #5E04B5;
+}
+
+.dev-footer-dropdown {
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+  background: #FFE4AA;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 10px 0;
+  min-width: 150px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  transform: translateY(10px);
+}
+
+.dev-footer:hover .dev-footer-dropdown {
+  opacity: 2;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dev-footer-dropdown a {
+  display: block;
+  padding: 8px 15px;
+  color: #333;
+  text-decoration: none;
+  font-size: 13px;
+  transition: all 0.2s ease;
+}
+
+.dev-footer-dropdown a:hover {
+  background-color: #FFE4AA;
+  color: #5E04B5;
+}
+
+.data-actual {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  font-size: 14px;
+  color: #666;
+  background: #FFE4AA;
+  padding: 5px 10px;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
