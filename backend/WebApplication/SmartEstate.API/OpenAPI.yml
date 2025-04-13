@@ -757,9 +757,6 @@ components:
           type: integer
         flatId:
           type: integer
-        addedAt:
-          type: string
-          format: date-time
         flat:
           $ref: '#/components/schemas/FlatShortInfoResponse'
 
