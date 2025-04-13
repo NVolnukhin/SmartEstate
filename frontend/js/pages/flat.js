@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function renderApartmentData(data) {
         document.getElementById('apartment-name').textContent = `ЖК ${data.buildingInfo.residentialComplex}`;
         document.getElementById('apartment-description').textContent = 
-            `${data.roominess}-комнатная квартира ${data.square} м² на ${data.floor} этаже`;
+       `${data.roominess === -1 ? 'Студия' : `${data.roominess}-комнатная квартира`} ${data.square} м² на ${data.floor} этаже`;
         
         const formattedPrice = new Intl.NumberFormat('ru-RU', {
             style: 'currency',

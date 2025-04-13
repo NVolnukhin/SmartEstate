@@ -239,8 +239,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="comparison-value">${flat2Data.square} м²</div>
                 
                 <div class="comparison-label">Комнатность</div>
-                <div class="comparison-value">${flat1Data.roominess}-комнатная</div>
-                <div class="comparison-value">${flat2Data.roominess}-комнатная</div>
+                <div class="comparison-value">${flat1Data.roominess === -1 ? 'Студия' : `${flat1Data.roominess}-комнатная`}</div>
+                <div class="comparison-value">${flat2Data.roominess === -1 ? 'Студия' : `${flat2Data.roominess}-комнатная`}</div>
                 
                 <div class="comparison-label">Этаж</div>
                 <div class="comparison-value">${flat1Data.floor} / ${flat1Data.buildingInfo.floorCount}</div>
@@ -401,8 +401,22 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     
         function extractRoominess(text) {
-            const match = text.match(/(\d+)-комнатная/);
-            return match ? parseInt(match[1]) : null;
+            if (typeof text !== 'string') {
+                return null;
+            }
+        
+            const normalizedText = text.trim().toLowerCase();
+        
+            if (normalizedText.includes('студия')) {
+                return 0;
+            }
+        
+            const match = normalizedText.match(/^(\d+)-комнатная$/);
+            if (match) {
+                return parseInt(match[1], 10);
+            }
+        
+            return null;
         }
     
         function extractBuildingsCount(text) {

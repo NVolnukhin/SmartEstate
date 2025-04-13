@@ -103,7 +103,7 @@ import { config } from '../config.js';
                                         </div>
                                         <div class="detail-item">
                                             <div class="detail-label">Комнатность</div>
-                                            <div class="detail-value">${flat1.roominess}-комнатная</div>
+                                            <div class="detail-value">${flat1.roominess === -1 ? 'Студия' : `${flat1.roominess}-комнатная`}</div>
                                         </div>
                                         <div class="detail-item">
                                             <div class="detail-label">Этаж</div>
@@ -132,7 +132,7 @@ import { config } from '../config.js';
                                         </div>
                                         <div class="detail-item">
                                             <div class="detail-label">Комнатность</div>
-                                            <div class="detail-value">${flat2.roominess}-комнатная</div>
+                                            <div class="detail-value">${flat2.roominess === -1 ? 'Студия' : `${flat2.roominess}-комнатная`}</div>
                                         </div>
                                         <div class="detail-item">
                                             <div class="detail-label">Этаж</div>

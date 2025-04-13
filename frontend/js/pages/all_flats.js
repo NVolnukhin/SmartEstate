@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                         <div class="detail-item">
                             <div class="detail-label">Комнатность</div>
-                            <div>${flat.roominess}-комнатная</div>
+                            <div>${flat.roominess === -1 ? 'Студия' : `${flat.roominess}-комнатная`}</div>
                         </div>
                         <div class="detail-item">
                             <div class="detail-label">Этаж</div>
@@ -323,7 +323,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="comparison-details">
                     <div class="comparison-detail">
                         <div class="comparison-detail-label">Комнатность</div>
-                        <div>${flat.roominess}-комнатная</div>
+                        <div>${flat.roominess === -1 ? 'Студия' : `${flat.roominess}-комнатная`}</div>
                     </div>
                     <div class="comparison-detail">
                         <div class="comparison-detail-label">Площадь</div>

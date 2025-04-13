@@ -85,7 +85,7 @@ import { config } from '../config.js';
                                 </div>
                                 <div class="detail-item">
                                     <div class="detail-label">Комнатность</div>
-                                    <div>${flat.roominess}-комнатная</div>
+                                    <div>${flat.roominess === -1 ? 'Студия' : `${flat.roominess}-комнатная`}</div>
                                 </div>
                                 <div class="detail-item">
                                     <div class="detail-label">Этаж</div>
