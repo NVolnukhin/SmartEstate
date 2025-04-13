@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: SmartEstate API
+  title: SmartEstate.API
   description: Веб-приложение для сравнения квартир в Москве. Разработано в рамках дисциплины Web-технологии в МГТУ им. Н. Э. Баумана.
   version: 1.0.0
 servers:
