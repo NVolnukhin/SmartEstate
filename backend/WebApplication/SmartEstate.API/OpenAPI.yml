@@ -93,12 +93,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PagedResponseFlatResponse'
-        '500':
-          description: Внутренняя ошибка сервера
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
 
   /flats/random:
     get:
@@ -121,12 +115,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/FlatShortInfoResponse'
-        '500':
-          description: Внутренняя ошибка сервера
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
 
   /flats/{flatId}:
     get:
@@ -148,12 +136,6 @@ paths:
                 $ref: '#/components/schemas/FlatDetailsResponse'
         '404':
           description: Квартира не найдена
-        '500':
-          description: Внутренняя ошибка сервера
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
 
   /metro:
     get:
@@ -169,12 +151,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/MetroDto'
-        '500':
-          description: Внутренняя ошибка сервера
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
 
   /password-recovery/request:
     post:
@@ -259,12 +235,6 @@ paths:
                     type: string
         '400':
           description: Ошибка при регистрации
-        '500':
-          description: Внутренняя ошибка сервера
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
 
   /users/login:
     post:
@@ -289,12 +259,6 @@ paths:
                     type: string
         '400':
           description: Ошибка при авторизации
-        '500':
-          description: Внутренняя ошибка сервера
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
 
   /users/me:
     get:
@@ -306,23 +270,8 @@ paths:
       responses:
         '200':
           description: Успешный запрос
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  login:
-                    type: string
-                  name:
-                    type: string
-                  email:
-                    type: string
         '500':
           description: Внутренняя ошибка сервера
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
 
   /users/email:
     put:
@@ -342,12 +291,6 @@ paths:
           description: Успешное обновление
         '400':
           description: Ошибка при обновлении
-        '500':
-          description: Внутренняя ошибка сервера
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
 
   /users/name:
     put:
@@ -367,12 +310,6 @@ paths:
           description: Успешное обновление
         '400':
           description: Ошибка при обновлении
-        '500':
-          description: Внутренняя ошибка сервера
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
 
   /users/password:
     put:
@@ -392,12 +329,6 @@ paths:
           description: Успешное обновление
         '400':
           description: Ошибка при обновлении
-        '500':
-          description: Внутренняя ошибка сервера
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
 
   /user-preferences/favorites:
     post:
@@ -423,10 +354,6 @@ paths:
           description: Конфликт
         '500':
           description: Внутренняя ошибка сервера
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
 
     get:
       tags:
@@ -451,10 +378,6 @@ paths:
           description: Конфликт
         '500':
           description: Внутренняя ошибка сервера
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
 
   /user-preferences/favorites/{flatId}:
     delete:
@@ -480,10 +403,6 @@ paths:
           description: Конфликт
         '500':
           description: Внутренняя ошибка сервера
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
 
   /user-preferences/paged-favorites:
     get:
@@ -518,10 +437,6 @@ paths:
           description: Конфликт
         '500':
           description: Внутренняя ошибка сервера
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
 
   /user-preferences/comparisons:
     post:
@@ -547,10 +462,6 @@ paths:
           description: Конфликт
         '500':
           description: Внутренняя ошибка сервера
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
 
     get:
       tags:
@@ -575,10 +486,6 @@ paths:
           description: Конфликт
         '500':
           description: Внутренняя ошибка сервера
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
 
   /user-preferences/comparisons/{comparisonId}:
     delete:
@@ -604,10 +511,6 @@ paths:
           description: Конфликт
         '500':
           description: Внутренняя ошибка сервера
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
 
   /user-preferences/paged-comparisons:
     get:
@@ -642,10 +545,6 @@ paths:
           description: Конфликт
         '500':
           description: Внутренняя ошибка сервера
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
 
 components:
   securitySchemes:
@@ -749,10 +648,6 @@ components:
         id:
           type: integer
         name:
-          type: string
-        line:
-          type: string
-        color:
           type: string
 
     PasswordRecoveryRequest:
@@ -902,9 +797,6 @@ components:
           $ref: '#/components/schemas/FlatShortInfoResponse'
         flat2:
           $ref: '#/components/schemas/FlatShortInfoResponse'
-        comparedAt:
-          type: string
-          format: date-time
 
     PagedResponseComparisonResponse:
       type: object
