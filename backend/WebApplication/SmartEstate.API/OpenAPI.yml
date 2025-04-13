@@ -1,0 +1,921 @@
+openapi: 3.0.1
+info:
+  title: SmartEstate API
+  description: Веб-приложение для сравнения квартир в Москве. Разработано в рамках дисциплины Web-технологии в МГТУ им. Н. Э. Баумана.
+  version: 1.0.0
+servers:
+  - url: /api
+    description: Основной API сервер
+
+paths:
+  /flats:
+    get:
+      tags:
+        - Flats
+      summary: Получить список квартир с фильтрацией
+      parameters:
+        - name: page
+          in: query
+          description: Номер страницы
+          schema:
+            type: integer
+            default: 1
+        - name: pageSize
+          in: query
+          description: Количество элементов на странице
+          schema:
+            type: integer
+            default: 15
+        - name: roominess
+          in: query
+          description: Количество комнат (через запятую)
+          schema:
+            type: string
+        - name: metroStations
+          in: query
+          description: ID станций метро (через запятую)
+          schema:
+            type: string
+        - name: maxMetroTime
+          in: query
+          description: Максимальное время до метро (мин)
+          schema:
+            type: integer
+        - name: minFloor
+          in: query
+          description: Минимальный этаж
+          schema:
+            type: integer
+        - name: maxFloor
+          in: query
+          description: Максимальный этаж
+          schema:
+            type: integer
+        - name: minFloorCount
+          in: query
+          description: Минимальное количество этажей в доме
+          schema:
+            type: integer
+        - name: maxFloorCount
+          in: query
+          description: Максимальное количество этажей в доме
+          schema:
+            type: integer
+        - name: buildingStatus
+          in: query
+          description: Статус дома (через запятую)
+          schema:
+            type: string
+        - name: minPrice
+          in: query
+          description: Минимальная цена
+          schema:
+            type: number
+        - name: maxPrice
+          in: query
+          description: Максимальная цена
+          schema:
+            type: number
+        - name: minSquare
+          in: query
+          description: Минимальная площадь
+          schema:
+            type: number
+        - name: maxSquare
+          in: query
+          description: Максимальная площадь
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Успешный запрос
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedResponseFlatResponse'
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /flats/random:
+    get:
+      tags:
+        - Flats
+      summary: Получить случайные квартиры
+      parameters:
+        - name: count
+          in: query
+          description: Количество квартир
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: Успешный запрос
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FlatShortInfoResponse'
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /flats/{flatId}:
+    get:
+      tags:
+        - Flats
+      summary: Получить детальную информацию о квартире
+      parameters:
+        - name: flatId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Успешный запрос
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlatDetailsResponse'
+        '404':
+          description: Квартира не найдена
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /metro:
+    get:
+      tags:
+        - Metro
+      summary: Получить список всех станций метро
+      responses:
+        '200':
+          description: Успешный запрос
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MetroDto'
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /password-recovery/request:
+    post:
+      tags:
+        - Auth
+      summary: Запрос восстановления пароля
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordRecoveryRequest'
+      responses:
+        '200':
+          description: Успешный запрос
+        '400':
+          description: Ошибка при запросе восстановления
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /password-recovery/confirm:
+    post:
+      tags:
+        - Auth
+      summary: Подтверждение восстановления пароля
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordRecoveryConfirm'
+      responses:
+        '200':
+          description: Успешный запрос
+        '400':
+          description: Ошибка при подтверждении
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /users/register:
+    post:
+      tags:
+        - Users
+      summary: Регистрация пользователя
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterUserRequest'
+      responses:
+        '200':
+          description: Успешная регистрация
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  UserId:
+                    type: string
+                  Email:
+                    type: string
+                  Name:
+                    type: string
+                  Token:
+                    type: string
+        '400':
+          description: Ошибка при регистрации
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /users/login:
+    post:
+      tags:
+        - Users
+      summary: Авторизация пользователя
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginUserRequest'
+      responses:
+        '200':
+          description: Успешная авторизация
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+        '400':
+          description: Ошибка при авторизации
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /users/me:
+    get:
+      tags:
+        - Users
+      summary: Получить информацию о текущем пользователе
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Успешный запрос
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  login:
+                    type: string
+                  name:
+                    type: string
+                  email:
+                    type: string
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /users/email:
+    put:
+      tags:
+        - Users
+      summary: Обновить email пользователя
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateEmailRequest'
+      responses:
+        '200':
+          description: Успешное обновление
+        '400':
+          description: Ошибка при обновлении
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /users/name:
+    put:
+      tags:
+        - Users
+      summary: Обновить имя пользователя
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateNameRequest'
+      responses:
+        '200':
+          description: Успешное обновление
+        '400':
+          description: Ошибка при обновлении
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /users/password:
+    put:
+      tags:
+        - Users
+      summary: Обновить пароль пользователя
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePasswordRequest'
+      responses:
+        '200':
+          description: Успешное обновление
+        '400':
+          description: Ошибка при обновлении
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /user-preferences/favorites:
+    post:
+      tags:
+        - UserPreferences
+      summary: Добавить квартиру в избранное
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddFavoriteRequest'
+      responses:
+        '200':
+          description: Успешное добавление
+        '400':
+          description: Неверный запрос
+        '401':
+          description: Не авторизован
+        '409':
+          description: Конфликт
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    get:
+      tags:
+        - UserPreferences
+      summary: Получить список избранных квартир
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Успешный запрос
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FavoriteResponse'
+        '400':
+          description: Неверный запрос
+        '401':
+          description: Не авторизован
+        '409':
+          description: Конфликт
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /user-preferences/favorites/{flatId}:
+    delete:
+      tags:
+        - UserPreferences
+      summary: Удалить квартиру из избранного
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: flatId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Успешное удаление
+        '400':
+          description: Неверный запрос
+        '401':
+          description: Не авторизован
+        '409':
+          description: Конфликт
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /user-preferences/paged-favorites:
+    get:
+      tags:
+        - UserPreferences
+      summary: Получить список избранных квартир (с пагинацией)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: Успешный запрос
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedResponseFavoriteResponse'
+        '400':
+          description: Неверный запрос
+        '401':
+          description: Не авторизован
+        '409':
+          description: Конфликт
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /user-preferences/comparisons:
+    post:
+      tags:
+        - UserPreferences
+      summary: Добавить сравнение квартир
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddComparisonRequest'
+      responses:
+        '200':
+          description: Успешное добавление
+        '400':
+          description: Неверный запрос
+        '401':
+          description: Не авторизован
+        '409':
+          description: Конфликт
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    get:
+      tags:
+        - UserPreferences
+      summary: Получить список сравнений
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Успешный запрос
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ComparisonResponse'
+        '400':
+          description: Неверный запрос
+        '401':
+          description: Не авторизован
+        '409':
+          description: Конфликт
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /user-preferences/comparisons/{comparisonId}:
+    delete:
+      tags:
+        - UserPreferences
+      summary: Удалить сравнение
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: comparisonId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Успешное удаление
+        '400':
+          description: Неверный запрос
+        '401':
+          description: Не авторизован
+        '409':
+          description: Конфликт
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /user-preferences/paged-comparisons:
+    get:
+      tags:
+        - UserPreferences
+      summary: Получить список сравнений (с пагинацией)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: Успешный запрос
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedResponseComparisonResponse'
+        '400':
+          description: Неверный запрос
+        '401':
+          description: Не авторизован
+        '409':
+          description: Конфликт
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    PagedResponseFlatResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/FlatResponse'
+        totalCount:
+          type: integer
+        page:
+          type: integer
+        pageSize:
+          type: integer
+
+    FlatResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        price:
+          type: number
+        square:
+          type: number
+        roomCount:
+          type: integer
+        floor:
+          type: integer
+        totalFloors:
+          type: integer
+        address:
+          type: string
+        metroStation:
+          type: string
+        metroTime:
+          type: integer
+        images:
+          type: array
+          items:
+            type: string
+
+    FlatShortInfoResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        price:
+          type: number
+        square:
+          type: number
+        roomCount:
+          type: integer
+        address:
+          type: string
+        image:
+          type: string
+
+    FlatDetailsResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        price:
+          type: number
+        square:
+          type: number
+        roomCount:
+          type: integer
+        floor:
+          type: integer
+        totalFloors:
+          type: integer
+        address:
+          type: string
+        metroStation:
+          type: string
+        metroTime:
+          type: integer
+        buildingType:
+          type: string
+        buildingYear:
+          type: integer
+        description:
+          type: string
+        images:
+          type: array
+          items:
+            type: string
+
+    MetroDto:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        line:
+          type: string
+        color:
+          type: string
+
+    PasswordRecoveryRequest:
+      type: object
+      properties:
+        email:
+          type: string
+      required:
+        - email
+
+    PasswordRecoveryConfirm:
+      type: object
+      properties:
+        token:
+          type: string
+        newPassword:
+          type: string
+      required:
+        - token
+        - newPassword
+
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+
+    ErrorDetail:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+
+    RegisterUserRequest:
+      type: object
+      properties:
+        login:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        name:
+          type: string
+      required:
+        - login
+        - email
+        - password
+        - name
+
+    LoginUserRequest:
+      type: object
+      properties:
+        login:
+          type: string
+        password:
+          type: string
+      required:
+        - login
+        - password
+
+    UpdateEmailRequest:
+      type: object
+      properties:
+        newEmail:
+          type: string
+      required:
+        - newEmail
+
+    UpdateNameRequest:
+      type: object
+      properties:
+        newName:
+          type: string
+      required:
+        - newName
+
+    UpdatePasswordRequest:
+      type: object
+      properties:
+        currentPassword:
+          type: string
+        newPassword:
+          type: string
+      required:
+        - currentPassword
+        - newPassword
+
+    AddFavoriteRequest:
+      type: object
+      properties:
+        flatId:
+          type: integer
+      required:
+        - flatId
+
+    FavoriteResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        flatId:
+          type: integer
+        addedAt:
+          type: string
+          format: date-time
+        flat:
+          $ref: '#/components/schemas/FlatShortInfoResponse'
+
+    PagedResponseFavoriteResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/FavoriteResponse'
+        totalCount:
+          type: integer
+        page:
+          type: integer
+        pageSize:
+          type: integer
+
+    AddComparisonRequest:
+      type: object
+      properties:
+        flatId1:
+          type: integer
+        flatId2:
+          type: integer
+      required:
+        - flatId1
+        - flatId2
+
+    ComparisonResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        flat1:
+          $ref: '#/components/schemas/FlatShortInfoResponse'
+        flat2:
+          $ref: '#/components/schemas/FlatShortInfoResponse'
+        comparedAt:
+          type: string
+          format: date-time
+
+    PagedResponseComparisonResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComparisonResponse'
+        totalCount:
+          type: integer
+        page:
+          type: integer
+        pageSize:
+          type: integer
