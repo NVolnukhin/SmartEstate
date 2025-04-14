@@ -1,9 +1,9 @@
-from batcher import process_flats_batch
+from .batcher import process_flats_batch
 import time
 from os import getenv
 from dotenv import load_dotenv
 
-def main():
+def get_actual_prices():
     load_dotenv()
     db_params = {
         "dbname": getenv("DB_NAME"),
@@ -24,10 +24,7 @@ def main():
         total_processed += processed
         offset += 10
 
-        time.sleep(5)
+        time.sleep(10)
 
     print(f"Обработка завершена. Всего обработано квартир: {total_processed}")
 
-
-if __name__ == "__main__":
-    main()

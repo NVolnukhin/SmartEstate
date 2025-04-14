@@ -1,5 +1,5 @@
 import psycopg2
-from get_actual_price import get_cian_price
+from .get_actual_price import get_cian_price
 
 def process_flats_batch(offset, db_params):
     """Обрабатывает партию из 10 квартир"""
