@@ -1,13 +1,13 @@
+from itertools import cycle
+
 import psycopg2
 import requests
 from typing import Dict, Optional
 import time
-from location import Location
+from .location import Location
 import random
 from os import getenv
 from dotenv import load_dotenv
-
-
 
 
 class WalkingTimeCalculator:
@@ -27,6 +27,7 @@ class WalkingTimeCalculator:
         self.db_config = db_config
         self.base_url = "https://graphhopper.com/api/1/route"
         self.conn = None
+        self.key = cycle([f"GRAPH_HOOPER_API_KEY_{i}" for i in range(1, 8)])
 
     def connect_db(self):
         """Установка соединения с БД"""
@@ -71,7 +72,7 @@ class WalkingTimeCalculator:
         params = {
             'point': [f"{start.latitude},{start.longitude}", f"{end.latitude},{end.longitude}"],
             'vehicle': 'foot',
-            'key': getenv(f"GRAPH_HOOPER_API_KEY_{random.randint(1, 4)}"),
+            'key': getenv(next(self.key)),
             'calc_points': False
         }
 

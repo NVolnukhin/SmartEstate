@@ -1,7 +1,6 @@
-from calculator import WalkingTimeCalculator
+from .calculator import WalkingTimeCalculator
 
 
-if __name__ == "__main__":
-
+def process_time_calculating():
     calculator = WalkingTimeCalculator()
     calculator.process_buildings(batch_size=27)
