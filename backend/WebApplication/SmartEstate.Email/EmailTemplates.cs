@@ -35,7 +35,7 @@ public static class EmailTemplates
         </html>";
     }
     
-    public static string GetEmailConfirmationTemplate(string confirmationLink)
+    public static string GetWelocmeEmaiilTemplate()
     {
         return $@"
         <!DOCTYPE html>

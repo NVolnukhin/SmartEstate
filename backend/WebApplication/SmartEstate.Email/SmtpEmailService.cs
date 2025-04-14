@@ -42,6 +42,13 @@ public class SmtpEmailService : IEmailService, IDisposable
 
         await SendEmailAsync(email, subject, EmailTemplates.GetPasswordRecoveryTemplate(recoveryLink));
     }
+    
+    public async Task SendWelcomeEmailAsync(string email)
+    {
+        var subject = "Приветственное письмо";
+
+        await SendEmailAsync(email, subject, EmailTemplates.GetWelocmeEmaiilTemplate());
+    }
 
     public async Task SendEmailAsync(string toEmail, string subject, string htmlContent)
     {

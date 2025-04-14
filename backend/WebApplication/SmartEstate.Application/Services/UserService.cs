@@ -11,6 +11,8 @@ using Microsoft.Extensions.Logging;
 using Presentation.Contracts.Users;
 using SmartEstate.Application.Interfaces;
 using SmartEstate.DataAccess.Repositories;
+using SmartEstate.Email;
+
 
 namespace SmartEstate.Application.Services;
 
@@ -21,6 +23,7 @@ public class UserService : IUserService
     private readonly IEmailEncryptor _emailEncryptor;
     private readonly IUsersRepository _usersRepository;
     private readonly IJwtProvider _jwtProvider;
+    private readonly IEmailService _emailService;
     private readonly ILogger<UserService> _logger;
     private readonly IPasswordRecoveryTokenRepository _recoveryTokenRepository;
     
@@ -29,6 +32,7 @@ public class UserService : IUserService
         IPasswordRecoveryTokenRepository recoveryTokenRepository,
         IPasswordHasher passwordHasher,
         IEmailEncryptor emailEncryptor,
+        IEmailService emailService,
         IJwtProvider jwtProvider,
         ILogger<UserService> logger)
     {
@@ -36,6 +40,7 @@ public class UserService : IUserService
         _recoveryTokenRepository = recoveryTokenRepository ?? throw new ArgumentNullException(nameof(recoveryTokenRepository));
         _passwordHasher = passwordHasher ?? throw new ArgumentNullException(nameof(passwordHasher));
         _emailEncryptor = emailEncryptor ?? throw new ArgumentNullException(nameof(emailEncryptor));
+        _emailService = emailService ?? throw new ArgumentNullException(nameof(emailService));
         _jwtProvider = jwtProvider ?? throw new ArgumentNullException(nameof(jwtProvider));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
@@ -74,6 +79,8 @@ public class UserService : IUserService
             await _usersRepository.Add(user);
             _logger.LogInformation("User registered with ID: {UserId}", user.UserId);
 
+            await _emailService.SendWelcomeEmailAsync(email);
+            
             var token = _jwtProvider.GenerateToken(user);
             return Result.Ok((user, token));
         }
@@ -128,51 +135,51 @@ public class UserService : IUserService
 
     
     public async Task<Result> UpdateEmail(Guid userId, string newEmail)
-{
-    try
     {
-        if (!new EmailAddressAttribute().IsValid(newEmail))
+        try
         {
-            _logger.LogWarning("Invalid email format attempt for user {UserId}: {Email}", userId, newEmail);
-            return Result.Fail("Некорректный формат email");
+            if (!new EmailAddressAttribute().IsValid(newEmail))
+            {
+                _logger.LogWarning("Invalid email format attempt for user {UserId}: {Email}", userId, newEmail);
+                return Result.Fail("Некорректный формат email");
+            }
+            
+            var encryptedNewEmail = _emailEncryptor.Encrypt(newEmail.Trim().ToLower());
+            
+            var existingUser = await _usersRepository.GetByEmail(encryptedNewEmail);
+            if (existingUser != null && existingUser.UserId != userId)
+            {
+                _logger.LogWarning("Email conflict for user {UserId}: {Email} already taken", userId, newEmail);
+                return Result.Fail("Этот email уже используется");
+            }
+            
+            var currentUser = await _usersRepository.GetById(userId);
+            if (currentUser == null)
+            {
+                _logger.LogWarning("User not found for email update: {UserId}", userId);
+                return Result.Fail("Пользователь не найден");
+            }
+            
+            await _usersRepository.UpdateEmail(userId, encryptedNewEmail);
+            
+            _logger.LogInformation("Email updated for user {UserId}. Old email hash: {OldHash}, New email hash: {NewHash}",
+                userId,
+                currentUser.Email?.GetHashCode(),
+                encryptedNewEmail.GetHashCode());
+            
+            return Result.Ok();
         }
-        
-        var encryptedNewEmail = _emailEncryptor.Encrypt(newEmail.Trim().ToLower());
-        
-        var existingUser = await _usersRepository.GetByEmail(encryptedNewEmail);
-        if (existingUser != null && existingUser.UserId != userId)
+        catch (CryptographicException ex)
         {
-            _logger.LogWarning("Email conflict for user {UserId}: {Email} already taken", userId, newEmail);
-            return Result.Fail("Этот email уже используется");
+            _logger.LogError(ex, "Encryption error during email update for user {UserId}", userId);
+            return Result.Fail("Ошибка шифрования email");
         }
-        
-        var currentUser = await _usersRepository.GetById(userId);
-        if (currentUser == null)
+        catch (Exception ex)
         {
-            _logger.LogWarning("User not found for email update: {UserId}", userId);
-            return Result.Fail("Пользователь не найден");
+            _logger.LogError(ex, "Error updating email for user {UserId}", userId);
+            return Result.Fail("Произошла ошибка при обновлении email");
         }
-        
-        await _usersRepository.UpdateEmail(userId, encryptedNewEmail);
-        
-        _logger.LogInformation("Email updated for user {UserId}. Old email hash: {OldHash}, New email hash: {NewHash}",
-            userId,
-            currentUser.Email?.GetHashCode(),
-            encryptedNewEmail.GetHashCode());
-        
-        return Result.Ok();
     }
-    catch (CryptographicException ex)
-    {
-        _logger.LogError(ex, "Encryption error during email update for user {UserId}", userId);
-        return Result.Fail("Ошибка шифрования email");
-    }
-    catch (Exception ex)
-    {
-        _logger.LogError(ex, "Error updating email for user {UserId}", userId);
-        return Result.Fail("Произошла ошибка при обновлении email");
-    }
-}
 
     public async Task<Result> UpdateName(Guid userId, string newName)
     {
