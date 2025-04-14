@@ -47,7 +47,14 @@ public class SmtpEmailService : IEmailService, IDisposable
     {
         var subject = "Приветственное письмо";
 
-        await SendEmailAsync(email, subject, EmailTemplates.GetWelocmeEmaiilTemplate());
+        await SendEmailAsync(email, subject, EmailTemplates.GetWelocmeEmailTemplate());
+    }
+    
+    public async Task SendChangeEmailAsync(string email, string userName)
+    {
+        var subject = "Смена почты";
+
+        await SendEmailAsync(email, subject, EmailTemplates.GetChangeEmailTemplate(userName));
     }
 
     public async Task SendEmailAsync(string toEmail, string subject, string htmlContent)

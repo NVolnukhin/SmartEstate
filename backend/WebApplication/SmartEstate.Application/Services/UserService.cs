@@ -143,8 +143,9 @@ public class UserService : IUserService
                 _logger.LogWarning("Invalid email format attempt for user {UserId}: {Email}", userId, newEmail);
                 return Result.Fail("Некорректный формат email");
             }
-            
-            var encryptedNewEmail = _emailEncryptor.Encrypt(newEmail.Trim().ToLower());
+
+            newEmail = newEmail.Trim().ToLower();
+            var encryptedNewEmail = _emailEncryptor.Encrypt(newEmail);
             
             var existingUser = await _usersRepository.GetByEmail(encryptedNewEmail);
             if (existingUser != null && existingUser.UserId != userId)
@@ -161,6 +162,7 @@ public class UserService : IUserService
             }
             
             await _usersRepository.UpdateEmail(userId, encryptedNewEmail);
+            await _emailService.SendChangeEmailAsync(newEmail, currentUser.Login);
             
             _logger.LogInformation("Email updated for user {UserId}. Old email hash: {OldHash}, New email hash: {NewHash}",
                 userId,

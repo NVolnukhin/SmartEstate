@@ -35,7 +35,7 @@ public static class EmailTemplates
         </html>";
     }
     
-    public static string GetWelocmeEmaiilTemplate()
+    public static string GetWelocmeEmailTemplate()
     {
         return $@"
         <!DOCTYPE html>
@@ -59,6 +59,36 @@ public static class EmailTemplates
                 <h2>Подтверждение электронной почты</h2>
                 <p>Благодарим вас за регистрацию в SmartEstate!</p>
                 <p>Если вы не регистрировались в нашем сервисе, пожалуйста, проигнорируйте это письмо.</p>
+                <p>С уважением,<br>Команда SmartEstate</p>
+            </div>
+        </body>
+        </html>";
+    }
+    
+    public static string GetChangeEmailTemplate(string userName)
+    {
+        return $@"
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <style>
+                body {{ font-family: Arial, sans-serif; line-height: 1.6; }}
+                .container {{ max-width: 600px; margin: 0 auto; padding: 20px; }}
+                .button {{ 
+                    display: inline-block; 
+                    padding: 10px 20px; 
+                    background-color: #4CAF50; 
+                    color: white; 
+                    text-decoration: none; 
+                    border-radius: 5px;
+                }}
+            </style>
+        </head>
+        <body>
+            <div class='container'>
+                <h2>Смена электронной почты</h2>
+                <p>Почта от аккаунта {userName} в SmartEstate изменена на данную!</p>
+                <p>Если вы не меняли почту в нашем сервисе, пожалуйста, проигнорируйте это письмо.</p>
                 <p>С уважением,<br>Команда SmartEstate</p>
             </div>
         </body>
