@@ -1,11 +1,9 @@
-from os import getenv
-from dotenv import load_dotenv
 import sys
 from pathlib import Path
 import psycopg2
 from psycopg2 import sql
 sys.path.append(str(Path(__file__).parent.parent))
-from distance_calculator import get_infrastructure_info
+from ..distance_calculator import get_infrastructure_info
 
 
 def set_infrastructure_info(db_params):
@@ -79,20 +77,3 @@ def set_infrastructure_info(db_params):
     finally:
         if conn:
             conn.close()
-
-
-
-def main():
-    load_dotenv()
-    db_params = {
-        "dbname": getenv("DB_NAME"),
-        "user": getenv("DB_USER"),
-        "password": getenv("DB_PASSWORD"),
-        "host": getenv("DB_HOST"),
-        "port": getenv("DB_PORT"),
-    }
-
-    set_infrastructure_info(db_params)
-
-if __name__ == "__main__":
-    main()
