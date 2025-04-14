@@ -25,177 +25,161 @@ public class FlatService : IFlatService
     }
     
     public async Task<PagedResponse<FlatResponse>> GetAllFlatsAsync(int page = 1, int pageSize = 15, FlatFilterRequest? filters = null)
-{
-    // 1. Получаем последние цены для всех квартир
-    var latestPricesQuery = from ph in _dbContext.PriceHistories
-                           group ph by ph.FlatId into g
-                           select new
-                           {
-                               FlatId = g.Key,
-                               Price = g.OrderByDescending(ph => ph.ChangeDate)
-                                       .Select(ph => ph.Price)
-                                       .FirstOrDefault()
-                           };
-
-    var latestPrices = await latestPricesQuery.ToDictionaryAsync(x => x.FlatId, x => x.Price);
-
-    // 2. Базовый запрос для квартир с фильтрами
-    var flatsQuery = _dbContext.Flats.AsQueryable();
-
-    // 3. Применяем фильтры
-    if (filters != null)
     {
-        // Фильтр по цене
-        if (filters.MinPrice.HasValue || filters.MaxPrice.HasValue)
+
+        var latestPricesQuery = from ph in _dbContext.PriceHistories
+                            group ph by ph.FlatId into g
+                            select new
+                            {
+                                FlatId = g.Key,
+                                Price = g.OrderByDescending(ph => ph.ChangeDate)
+                                        .Select(ph => ph.Price)
+                                        .FirstOrDefault()
+                            };
+
+        var latestPrices = await latestPricesQuery.ToDictionaryAsync(x => x.FlatId, x => x.Price);
+        var flatsQuery = _dbContext.Flats.AsQueryable();
+
+        if (filters != null)
         {
-            var filteredFlatIds = latestPrices
-                .Where(x => (!filters.MinPrice.HasValue || x.Value >= filters.MinPrice.Value) &&
-                           (!filters.MaxPrice.HasValue || x.Value <= filters.MaxPrice.Value))
-                .Select(x => x.Key)
-                .ToList();
-
-            flatsQuery = flatsQuery.Where(f => filteredFlatIds.Contains(f.FlatId));
-        }
-
-        // Фильтр по комнатности
-        if (filters.Roominess != null && filters.Roominess.Any())
-        {
-            flatsQuery = flatsQuery.Where(f => filters.Roominess.Contains(f.Roominess) || 
-                   (f.Roominess >= 4 && filters.Roominess.Contains(4)));
-        }
-
-        // Фильтр по площади
-        if (filters.MinSquare.HasValue)
-        {
-            flatsQuery = flatsQuery.Where(f => f.Square >= filters.MinSquare.Value);
-        }
-        if (filters.MaxSquare.HasValue)
-        {
-            flatsQuery = flatsQuery.Where(f => f.Square <= filters.MaxSquare.Value);
-        }
-
-        // Фильтр по этажу
-        if (filters.MinFloor.HasValue)
-        {
-            flatsQuery = flatsQuery.Where(f => f.Floor >= filters.MinFloor.Value);
-        }
-        if (filters.MaxFloor.HasValue)
-        {
-            flatsQuery = flatsQuery.Where(f => f.Floor <= filters.MaxFloor.Value);
-        }
-
-        // Фильтр по метро
-        // Фильтр по станциям метро (независимый фильтр)
-        if (filters.MetroStations != null && filters.MetroStations.Any())
-        {
-            var buildingIdsWithMetroStations = await _dbContext.InfrastructureInfos
-                .Where(ii => ii.NearestMetroId != null && 
-                             filters.MetroStations.Contains(ii.NearestMetroId.Value))
-                .Select(ii => ii.BuildingId)
-                .Distinct()
-                .ToListAsync();
-
-            flatsQuery = flatsQuery.Where(f => buildingIdsWithMetroStations.Contains(f.BuildingId));
-        }
-
-        // Фильтр по времени до метро (независимый фильтр)
-        if (filters.MaxMetroTime.HasValue)
-        {
-            var buildingIdsWithMetroTime = await _dbContext.InfrastructureInfos
-                    .Where(ii => ii.MinutesToMetro != null && 
-                                 ii.MinutesToMetro <= filters.MaxMetroTime.Value)
-                .Select(ii => ii.BuildingId)
-                .Distinct()
-                .ToListAsync();
-
-            flatsQuery = flatsQuery.Where(f => buildingIdsWithMetroTime.Contains(f.BuildingId));
-        }
-
-        // Фильтр по этажности дома
-        if (filters.MinFloorCount.HasValue || filters.MaxFloorCount.HasValue)
-        {
-            var buildingsQuery = _dbContext.Buildings.AsQueryable();
-
-            if (filters.MinFloorCount.HasValue)
+            if (filters.MinPrice.HasValue || filters.MaxPrice.HasValue)
             {
-                buildingsQuery = buildingsQuery.Where(b => b.FloorCount >= filters.MinFloorCount.Value);
-            }
-            if (filters.MaxFloorCount.HasValue)
-            {
-                buildingsQuery = buildingsQuery.Where(b => b.FloorCount <= filters.MaxFloorCount.Value);
+                var filteredFlatIds = latestPrices
+                    .Where(x => (!filters.MinPrice.HasValue || x.Value >= filters.MinPrice.Value) &&
+                            (!filters.MaxPrice.HasValue || x.Value <= filters.MaxPrice.Value))
+                    .Select(x => x.Key)
+                    .ToList();
+
+                flatsQuery = flatsQuery.Where(f => filteredFlatIds.Contains(f.FlatId));
             }
 
-            var filteredBuildingIds = await buildingsQuery
-                .Select(b => b.BuildingId)
-                .ToListAsync();
+            if (filters.Roominess != null && filters.Roominess.Any())
+            {
+                flatsQuery = flatsQuery.Where(f => filters.Roominess.Contains(f.Roominess) || 
+                    (f.Roominess >= 4 && filters.Roominess.Contains(4)));
+            }
 
-            flatsQuery = flatsQuery.Where(f => filteredBuildingIds.Contains(f.BuildingId));
+            if (filters.MinSquare.HasValue)
+            {
+                flatsQuery = flatsQuery.Where(f => f.Square >= filters.MinSquare.Value);
+            }
+            if (filters.MaxSquare.HasValue)
+            {
+                flatsQuery = flatsQuery.Where(f => f.Square <= filters.MaxSquare.Value);
+            }
+
+            if (filters.MinFloor.HasValue)
+            {
+                flatsQuery = flatsQuery.Where(f => f.Floor >= filters.MinFloor.Value);
+            }
+            if (filters.MaxFloor.HasValue)
+            {
+                flatsQuery = flatsQuery.Where(f => f.Floor <= filters.MaxFloor.Value);
+            }
+
+            if (filters.MetroStations != null && filters.MetroStations.Any())
+            {
+                var buildingIdsWithMetroStations = await _dbContext.InfrastructureInfos
+                    .Where(ii => ii.NearestMetroId != null && 
+                                filters.MetroStations.Contains(ii.NearestMetroId.Value))
+                    .Select(ii => ii.BuildingId)
+                    .Distinct()
+                    .ToListAsync();
+
+                flatsQuery = flatsQuery.Where(f => buildingIdsWithMetroStations.Contains(f.BuildingId));
+            }
+
+            if (filters.MaxMetroTime.HasValue)
+            {
+                var buildingIdsWithMetroTime = await _dbContext.InfrastructureInfos
+                        .Where(ii => ii.MinutesToMetro != null && 
+                                    ii.MinutesToMetro <= filters.MaxMetroTime.Value)
+                    .Select(ii => ii.BuildingId)
+                    .Distinct()
+                    .ToListAsync();
+
+                flatsQuery = flatsQuery.Where(f => buildingIdsWithMetroTime.Contains(f.BuildingId));
+            }
+
+            if (filters.MinFloorCount.HasValue || filters.MaxFloorCount.HasValue)
+            {
+                var buildingsQuery = _dbContext.Buildings.AsQueryable();
+
+                if (filters.MinFloorCount.HasValue)
+                {
+                    buildingsQuery = buildingsQuery.Where(b => b.FloorCount >= filters.MinFloorCount.Value);
+                }
+                if (filters.MaxFloorCount.HasValue)
+                {
+                    buildingsQuery = buildingsQuery.Where(b => b.FloorCount <= filters.MaxFloorCount.Value);
+                }
+
+                var filteredBuildingIds = await buildingsQuery
+                    .Select(b => b.BuildingId)
+                    .ToListAsync();
+
+                flatsQuery = flatsQuery.Where(f => filteredBuildingIds.Contains(f.BuildingId));
+            }
+
+            if (filters.BuildingStatus != null && filters.BuildingStatus.Any())
+            {
+                var buildingIdsWithStatus = await _dbContext.Buildings
+                    .Where(b => filters.BuildingStatus.Contains(b.ConstructionStatus))
+                    .Select(b => b.BuildingId)
+                    .ToListAsync();
+
+                flatsQuery = flatsQuery.Where(f => buildingIdsWithStatus.Contains(f.BuildingId));
+            }
         }
 
-        // Фильтр по статусу здания
-        if (filters.BuildingStatus != null && filters.BuildingStatus.Any())
+        var totalCount = await flatsQuery.CountAsync();
+
+        var paginatedFlats = await flatsQuery
+            .OrderBy(f => f.FlatId)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+
+        var buildingIds = paginatedFlats.Select(f => f.BuildingId).Distinct().ToList();
+
+        var buildings = await _dbContext.Buildings
+            .Include(b => b.Developer)
+            .Where(b => buildingIds.Contains(b.BuildingId))
+            .ToDictionaryAsync(b => b.BuildingId);
+
+        var infrastructureInfos = await _dbContext.InfrastructureInfos
+            .Include(ii => ii.NearestMetro)
+            .Where(ii => buildingIds.Contains(ii.BuildingId))
+            .ToDictionaryAsync(ii => ii.BuildingId);
+
+        var result = paginatedFlats.Select(f =>
         {
-            var buildingIdsWithStatus = await _dbContext.Buildings
-                .Where(b => filters.BuildingStatus.Contains(b.ConstructionStatus))
-                .Select(b => b.BuildingId)
-                .ToListAsync();
+            buildings.TryGetValue(f.BuildingId, out var building);
+            infrastructureInfos.TryGetValue(f.BuildingId, out var infrastructure);
+            var metro = infrastructure?.NearestMetro;
 
-            flatsQuery = flatsQuery.Where(f => buildingIdsWithStatus.Contains(f.BuildingId));
-        }
+            return new FlatResponse(
+                f.FlatId,
+                f.Images,
+                f.Square,
+                f.Roominess,
+                f.Floor,
+                latestPrices.TryGetValue(f.FlatId, out var price) ? price : 0,
+                f.BuildingId,
+                building != null ? new BuildingInfoDto(
+                    building.ConstructionStatus,
+                    building.FloorCount,
+                    building.Address,
+                    building.ResidentialComplex) : null,
+                infrastructure != null ? new NearestMetroInfo(
+                    metro?.Name ?? "Не указано",
+                    infrastructure.MinutesToMetro,
+                    metro != null ? $"{metro.Latitude}, {metro.Longitude}" : "Координаты не указаны") : null
+            );
+        }).ToList();
+
+        return new PagedResponse<FlatResponse>(result, totalCount, page, pageSize);
     }
-
-    // 4. Получаем общее количество (до пагинации)
-    var totalCount = await flatsQuery.CountAsync();
-
-    // 5. Применяем пагинацию
-    var paginatedFlats = await flatsQuery
-        .OrderBy(f => f.FlatId)
-        .Skip((page - 1) * pageSize)
-        .Take(pageSize)
-        .ToListAsync();
-
-    // 6. Получаем дополнительные данные для результата
-    var buildingIds = paginatedFlats.Select(f => f.BuildingId).Distinct().ToList();
-
-    var buildings = await _dbContext.Buildings
-        .Include(b => b.Developer)
-        .Where(b => buildingIds.Contains(b.BuildingId))
-        .ToDictionaryAsync(b => b.BuildingId);
-
-    var infrastructureInfos = await _dbContext.InfrastructureInfos
-        .Include(ii => ii.NearestMetro)
-        .Where(ii => buildingIds.Contains(ii.BuildingId))
-        .ToDictionaryAsync(ii => ii.BuildingId);
-
-    // 7. Формируем результат
-    var result = paginatedFlats.Select(f =>
-    {
-        buildings.TryGetValue(f.BuildingId, out var building);
-        infrastructureInfos.TryGetValue(f.BuildingId, out var infrastructure);
-        var metro = infrastructure?.NearestMetro;
-
-        return new FlatResponse(
-            f.FlatId,
-            f.Images,
-            f.Square,
-            f.Roominess,
-            f.Floor,
-            latestPrices.TryGetValue(f.FlatId, out var price) ? price : 0,
-            f.BuildingId,
-            building != null ? new BuildingInfoDto(
-                building.ConstructionStatus,
-                building.FloorCount,
-                building.Address,
-                building.ResidentialComplex) : null,
-            infrastructure != null ? new NearestMetroInfo(
-                metro?.Name ?? "Не указано",
-                infrastructure.MinutesToMetro,
-                metro != null ? $"{metro.Latitude}, {metro.Longitude}" : "Координаты не указаны") : null
-        );
-    }).ToList();
-
-    return new PagedResponse<FlatResponse>(result, totalCount, page, pageSize);
-}
     
     public async Task<List<FlatShortInfoResponse>> GetRandomFlatsAsync(int count = 10)
     {
