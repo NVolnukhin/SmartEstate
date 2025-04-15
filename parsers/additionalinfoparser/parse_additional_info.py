@@ -53,6 +53,8 @@ def parse_additional_info():
                     f"Прогресс: {processed_flats}/{min(BATCH_SIZE, total_flats)} ({processed_flats / min(BATCH_SIZE, total_flats):.1%})")
 
                 time.sleep(2)
+                if (processed_flats == 1):
+                    time.sleep(10) # time for login to parse price history
 
             except Exception as e:
                 print(f"Ошибка при обработке квартиры {flat_id}: {e}")
