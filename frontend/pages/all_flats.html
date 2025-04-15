@@ -79,6 +79,16 @@
                 
                 <div class="filters-sidebar" id="filtersSidebar">
                     <div class="filter-group">
+                        <label class="filter-label">Сортировка</label>
+                        <select id="sortSelect" class="select-input">
+                            <option value="">По умолчанию</option>
+                            <option value="orderByPrice">По цене (сначала дешевле)</option>
+                            <option value="orderByPriceDesc">По цене (сначала дороже)</option>
+                            <option value="orderBySquareDesc">По площади</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
                         <label class="filter-label">Цена, ₽</label>
                         <div class="range-inputs">
                             <input type="number" id="minPrice" class="range-input" placeholder="От">

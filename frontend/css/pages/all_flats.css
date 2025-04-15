@@ -166,6 +166,19 @@
     z-index: 1000;
 }
 
+.filter-group .select-input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #40027E;
+    border-radius: 7px;
+    background-color: #FFE4AA;
+    margin-top: 5px;
+}
+
+.filter-group .select-input:focus {
+    outline: none;
+}
+
 @media (max-width: 1200px) {
     .flats-container {
         margin-left: 0;
