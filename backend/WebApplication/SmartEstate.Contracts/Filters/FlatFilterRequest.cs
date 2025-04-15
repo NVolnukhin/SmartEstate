@@ -1,6 +1,7 @@
 namespace Contracts.Filters;
 
 public record FlatFilterRequest(
+    string? Order,
     decimal? MinPrice,
     decimal? MaxPrice,
     decimal? MinSquare,

@@ -141,12 +141,47 @@ public class FlatService : IFlatService
 
                 flatsQuery = flatsQuery.Where(f => buildingIdsWithStatus.Contains(f.BuildingId));
             }
+            
+            if (filters.Order != null)
+            {
+                Console.WriteLine("SORTINGGGGGGG\n\n\n\n");
+                switch (filters.Order)
+                {
+                    case "orderBySquare":
+                        Console.WriteLine("SORTINGGGGGGG BY SQUARE\n\n\n\n");
+                        flatsQuery = flatsQuery.OrderBy(f => f.Square);
+                        break;
+            
+                    case "orderBySquareDesc":
+                        flatsQuery = flatsQuery.OrderByDescending(f => f.Square);
+                        break;
+            
+                    case "orderByPrice":
+                    case "orderByPriceDesc":
+                        var filteredIds = await flatsQuery.Select(f => f.FlatId).ToListAsync();
+                        
+                        var sortedIds = filters.Order == "orderByPrice"
+                            ? filteredIds.OrderBy(id => latestPrices.TryGetValue(id, out var price) ? price : 0).ToList()
+                            : filteredIds.OrderByDescending(id => latestPrices.TryGetValue(id, out var price) ? price : 0).ToList();
+            
+                        flatsQuery = _dbContext.Flats
+                            .Where(f => sortedIds.Contains(f.FlatId))
+                            .OrderBy(f => sortedIds.IndexOf(f.FlatId));
+                        break;
+                    default:
+                        flatsQuery = flatsQuery.OrderBy(f => f.FlatId);
+                        break;
+                }
+            }
+            else
+            {
+                flatsQuery = flatsQuery.OrderBy(f => f.FlatId);
+            }
         }
 
         var totalCount = await flatsQuery.CountAsync();
 
         var paginatedFlats = await flatsQuery
-            .OrderBy(f => f.FlatId)
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync();

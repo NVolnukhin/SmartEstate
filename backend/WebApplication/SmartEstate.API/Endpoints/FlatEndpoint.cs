@@ -22,6 +22,7 @@ public class FlatEndpoint : ControllerBase
 
     [HttpGet]
     public async Task<ActionResult<PagedResponse<FlatResponse>>> GetAllFlats(
+        [FromQuery] string? order = null,
         [FromQuery] int page = 1,
         [FromQuery] int pageSize = 15,
         [FromQuery] string? roominess = null,
@@ -39,6 +40,7 @@ public class FlatEndpoint : ControllerBase
         [FromQuery] decimal? maxSquare = null)
     {
         var filters = new FlatFilterRequest(
+            order,
             minPrice,
             maxPrice,
             minSquare,
