@@ -166,6 +166,23 @@ public class FlatService : IFlatService
                             .Where(f => sortedIds.Contains(f.FlatId))
                             .OrderBy(f => sortedIds.IndexOf(f.FlatId));
                         break;
+                    case "orderByTimeMetro":
+                        flatsQuery = flatsQuery
+                            .Join(
+                                _dbContext.Buildings,
+                                flat => flat.BuildingId,
+                                building => building.BuildingId,
+                                (flat, building) => new { flat, building }
+                            )
+                            .Join(
+                                _dbContext.InfrastructureInfos,
+                                fb => fb.building.BuildingId,
+                                infra => infra.BuildingId,
+                                (fb, infra) => new { fb.flat, infra.MinutesToMetro }
+                            )
+                            .OrderBy(x => x.MinutesToMetro)
+                            .Select(x => x.flat);
+                        break;
                     default:
                         flatsQuery = flatsQuery.OrderBy(f => f.FlatId);
                         break;
