@@ -75,6 +75,47 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    async function loadDevelopers() {
+        try {
+            const response = await fetch(`${config.api.baseUrl}/developer`);
+            if (!response.ok) throw new Error(`Ошибка HTTP: ${response.status}`);
+            
+            const developers = await response.json();
+            const developerSelect = $('#developerSelect');
+            
+            // Полностью очищаем select перед заполнением
+            developerSelect.empty();
+            
+            developers.forEach(developer => {
+                if (developer.name && developer.developerId !== undefined) {
+                    developerSelect.append(new Option(developer.name, developer.developerId));
+                }
+            });
+            
+            developerSelect.select2({
+                placeholder: "Выберите застройщиков...",
+                allowClear: true,
+                width: '100%',
+                dropdownParent: $(filtersSidebar),
+                closeOnSelect: true,
+                // minimumResultsForSearch: 1
+            }).on('select2:select', function() {
+                $(this).select2('close');
+            }).on('select2:unselect', function(e) {
+                e.params.originalEvent.stopPropagation();
+            });
+            
+            const savedFilters = JSON.parse(localStorage.getItem('flatFilters')) || {};
+            if (savedFilters.developers && savedFilters.developers.length > 0) {
+                developerSelect.val(savedFilters.developers).trigger('change');
+            }
+            
+        } catch (error) {
+            console.error('Ошибка загрузки застройщиков:', error);
+            showNotification('Ошибка загрузки списка застройщиков');
+        }
+    }
+
     filtersToggle.addEventListener('click', function() {
         this.classList.toggle('active');
         filtersSidebar.classList.toggle('active');
@@ -101,6 +142,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (savedFilters.roominess?.length > 0) params.append('roominess', savedFilters.roominess.join(','));
             if (savedFilters.metroStations?.length > 0) params.append('metroStations', savedFilters.metroStations.join(','));
             if (savedFilters.metroTime && savedFilters.metroTime !== '0') params.append('maxMetroTime', savedFilters.metroTime);
+            if (savedFilters.developers?.length > 0) params.append('developers', savedFilters.developers.join(','));
             if (savedFilters.minFloor) params.append('minFloor', savedFilters.minFloor);
             if (savedFilters.maxFloor) params.append('maxFloor', savedFilters.maxFloor);
             if (savedFilters.minFloorCount) params.append('minFloorCount', savedFilters.minFloorCount);
@@ -550,6 +592,7 @@ document.addEventListener('DOMContentLoaded', function() {
             roominess: Array.from(document.querySelectorAll('.checkbox-input[name="roominess"]:checked')).map(el => el.value),
             metroStations: $('#metroSelect').val() || [],
             metroTime: document.querySelector('input[name="metroTime"]:checked').value,
+            developers: $('#developerSelect').val() || [],
             minFloor: document.getElementById('minFloor').value,
             maxFloor: document.getElementById('maxFloor').value,
             minFloorCount: document.getElementById('minFloorCount').value,
@@ -573,6 +616,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 params.append('metroStations', filters.metroStations.join(','));
             }
             if (filters.metroTime && filters.metroTime !== '0') params.append('maxMetroTime', filters.metroTime);
+            if (filters.developers.length > 0) {
+                params.append('developers', filters.developers.join(','));
+            }     
             if (filters.minFloor) params.append('minFloor', filters.minFloor);
             if (filters.maxFloor) params.append('maxFloor', filters.maxFloor);
             if (filters.minFloorCount) params.append('minFloorCount', filters.minFloorCount);
@@ -616,6 +662,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
         $('#metroSelect').val(null).trigger('change');
+        $('#developerSelect').val(null).trigger('change');
         
         localStorage.removeItem('flatFilters');
         
@@ -624,6 +671,7 @@ document.addEventListener('DOMContentLoaded', function() {
         showNotification("Фильтры сброшены");
         
         $('#metroSelect').select2('close');
+        $('#developerSelect').select2('close');
         
         document.querySelector('input[name="metroTime"][value="0"]').checked = true;
         
@@ -672,6 +720,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 const radio = document.querySelector(`input[name="metroTime"][value="${savedFilters.metroTime}"]`);
                 if (radio) radio.checked = true;
             }
+
+            if (savedFilters.developers && savedFilters.developers.length > 0) {
+                $('#developerSelect').val(savedFilters.developers).trigger('change');
+            }
             
             if (savedFilters.buildingStatus && savedFilters.buildingStatus.length > 0) {
                 savedFilters.buildingStatus.forEach(value => {
@@ -685,6 +737,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     loadFlats(currentPage);
     loadMetroStations();
+    loadDevelopers();
     loadSavedFilters();
     renderComparisonList(); 
 
