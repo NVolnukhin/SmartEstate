@@ -1,10 +1,10 @@
 using Contracts;
+using Contracts.Developer;
 using Contracts.Filters;
 using Contracts.Flats;
 using DatabaseContext;
 using Microsoft.EntityFrameworkCore;
 using Presentation.Contracts.Building;
-using Presentation.Contracts.Developer;
 using Presentation.Contracts.Flats;
 using Presentation.Contracts.InfrastructureInfo;
 using Presentation.Contracts.Metro;

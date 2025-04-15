@@ -1,4 +1,4 @@
-namespace Presentation.Contracts.Developer;
+namespace Contracts.Developer;
 
 public record DeveloperInfoDto(
     string Name,

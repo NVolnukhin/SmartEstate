@@ -1,5 +1,5 @@
+using Contracts.Developer;
 using Presentation.Contracts.Building;
-using Presentation.Contracts.Developer;
 using Presentation.Contracts.InfrastructureInfo;
 using Presentation.Contracts.Metro;
 using Presentation.Contracts.Price;

@@ -26,6 +26,8 @@ public static class ServiceCollectionExtensions
         services.AddScoped<ITokenGenerator, TokenGenerator>();
         services.AddScoped<IMetroRepository, MetroRepository>();
         services.AddScoped<IMetroService, MetroService>();
+        services.AddScoped<IDeveloperService, DeveloperService>();
+        services.AddScoped<IDeveloperRepository, DeveloperRepository>();
         services.AddSingleton<IEmailEncryptor, EmailEncryptor>();
 
 
