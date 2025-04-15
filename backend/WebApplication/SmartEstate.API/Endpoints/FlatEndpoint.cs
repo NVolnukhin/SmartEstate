@@ -27,6 +27,7 @@ public class FlatEndpoint : ControllerBase
         [FromQuery] string? roominess = null,
         [FromQuery] string? metroStations = null,
         [FromQuery] int? maxMetroTime = null,
+        [FromQuery] string? developers = null,
         [FromQuery] int? minFloor = null,
         [FromQuery] int? maxFloor = null,
         [FromQuery] int? minFloorCount = null,
@@ -49,6 +50,7 @@ public class FlatEndpoint : ControllerBase
             maxMetroTime,
             roominess?.Split(',').Select(int.Parse).ToList(),
             metroStations?.Split(',').Select(int.Parse).ToList(),
+            developers?.Split(',').Select(int.Parse).ToList(),
             buildingStatus?.Split(',').ToList());
         
         var result = await _flatService.GetAllFlatsAsync(page, pageSize, filters);

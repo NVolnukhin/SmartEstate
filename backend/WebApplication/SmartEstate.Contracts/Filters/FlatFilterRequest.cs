@@ -12,5 +12,6 @@ public record FlatFilterRequest(
     int? MaxMetroTime,
     List<int>? Roominess,
     List<int>? MetroStations,
+    List<int>? Developers,
     List<string>? BuildingStatus
     );

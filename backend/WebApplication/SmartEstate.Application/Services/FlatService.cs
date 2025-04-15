@@ -76,6 +76,17 @@ public class FlatService : IFlatService
             {
                 flatsQuery = flatsQuery.Where(f => f.Floor <= filters.MaxFloor.Value);
             }
+            
+            if (filters.Developers != null && filters.Developers.Any())
+            {
+                var buildingIdsFromDevelopers = await _dbContext.Buildings
+                    .Where(b => filters.Developers.Contains(b.DeveloperId))
+                    .Select(b => b.BuildingId)
+                    .Distinct()
+                    .ToListAsync();
+
+                flatsQuery = flatsQuery.Where(f => buildingIdsFromDevelopers.Contains(f.BuildingId));
+            }
 
             if (filters.MetroStations != null && filters.MetroStations.Any())
             {
