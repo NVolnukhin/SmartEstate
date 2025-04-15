@@ -25,7 +25,7 @@ def get_null_img_links(db_config) -> dict[int, str]:
     SELECT "FlatId", "CianLink" 
     FROM "Flats"
     WHERE "Images" = ''
-    ORDER BY "FlatId"
+    ORDER BY "FlatId" DESC
     """)
     results = cursor.fetchall()
 

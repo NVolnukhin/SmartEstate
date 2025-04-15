@@ -35,13 +35,11 @@ class CianParser:
         """Настраиваем драйвер с анти-детект параметрами"""
         options = Options()
 
-        # Anti-bot measures
         options.add_argument("--disable-blink-features=AutomationControlled")
         options.add_experimental_option("excludeSwitches", ["enable-automation"])
         options.add_argument(f"user-agent={self.user_agent}")
         options.add_argument("--start-maximized")
 
-        # Proxy and other settings can be added here if needed
         self.driver = webdriver.Chrome(options=options)
         self.load_cookies()
 
@@ -49,14 +47,14 @@ class CianParser:
         """Загружаем сохраненные куки для поддержания сессии"""
         if os.path.exists(self.cookies_file):
             try:
-                self.driver.get("https://cian.ru")  # Необходимо открыть домен перед загрузкой кук
+                self.driver.get("https://cian.ru")
                 time.sleep(2)
 
                 with open(self.cookies_file, 'rb') as f:
                     cookies = pickle.load(f)
 
                 for cookie in cookies:
-                    if 'expiry' in cookie:  # Удаляем просроченные куки
+                    if 'expiry' in cookie:
                         del cookie['expiry']
                     self.driver.add_cookie(cookie)
 
@@ -87,25 +85,19 @@ class CianParser:
     def parse_single_page(self, url):
         """Парсим данные с одной страницы"""
         try:
-            # Рандомные задержки между запросами
+
             time.sleep(random.uniform(1, 3))
 
             self.driver.get(url)
             time.sleep(random.uniform(2, 4))
 
-            # Проверяем на капчу
             if self.handle_captcha():
-                # Повторяем запрос после решения капчи
                 time.sleep(5)
                 self.driver.get(url)
                 time.sleep(random.uniform(2, 4))
 
             soup = BeautifulSoup(self.driver.page_source, 'html.parser')
-
-            # Парсинг изображений
             images = self.parse_images(soup)
-
-            # Парсинг истории цен
             price_history = self.parse_price_history(soup)
 
             return images, price_history
@@ -119,17 +111,14 @@ class CianParser:
         images = set()
 
         try:
-            # Главное изображение
             main_img = soup.find('li', class_='a10a3f92e9--container--Havpv')
             if main_img and (img := main_img.find('img')) and img.get('src'):
                 images.add(img['src'])
 
-            # Планировка
             floor_plan = soup.find('div', {'data-name': 'FloorPlan'})
             if floor_plan and (img := floor_plan.find('img')) and img.get('src'):
                 images.add(img['src'])
 
-            # Дополнительные изображения
             for div in soup.find_all('div', class_='a10a3f92e9--container--zARIJ'):
                 if img := div.find('img'):
                     if src := img.get('src'):
