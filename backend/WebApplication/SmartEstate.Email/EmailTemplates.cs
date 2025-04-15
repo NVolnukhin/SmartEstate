@@ -35,7 +35,7 @@ public static class EmailTemplates
         </html>";
     }
     
-    public static string GetWelocmeEmailTemplate()
+    public static string GetWelcomeEmailTemplate()
     {
         return $@"
         <!DOCTYPE html>
@@ -56,7 +56,7 @@ public static class EmailTemplates
         </head>
         <body>
             <div class='container'>
-                <h2>Подтверждение электронной почты</h2>
+                <h2>Приветственное письмо</h2>
                 <p>Благодарим вас за регистрацию в SmartEstate!</p>
                 <p>Если вы не регистрировались в нашем сервисе, пожалуйста, проигнорируйте это письмо.</p>
                 <p>С уважением,<br>Команда SmartEstate</p>
