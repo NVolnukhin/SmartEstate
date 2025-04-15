@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const params = new URLSearchParams();
             params.append('page', page);
-            
+            if (savedFilters.sort) params.append('order', savedFilters.sort);
             if (savedFilters.minPrice) params.append('minPrice', savedFilters.minPrice);
             if (savedFilters.maxPrice) params.append('maxPrice', savedFilters.maxPrice);
             if (savedFilters.minSquare) params.append('minSquare', savedFilters.minSquare);
@@ -585,6 +585,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     applyFiltersBtn.addEventListener('click', async function() {
         const filters = {
+            sort: document.getElementById('sortSelect').value,
             minPrice: document.getElementById('minPrice').value,
             maxPrice: document.getElementById('maxPrice').value,
             minSquare: document.getElementById('minSquare').value,
@@ -606,7 +607,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         try {
             const params = new URLSearchParams();
-            
+            if (filters.sort) params.append('order', filters.sort);
             if (filters.minPrice) params.append('minPrice', filters.minPrice);
             if (filters.maxPrice) params.append('maxPrice', filters.maxPrice);
             if (filters.minSquare) params.append('minSquare', filters.minSquare);
@@ -650,6 +651,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
 
     resetFiltersBtn.addEventListener('click', function() {
+        document.getElementById('sortSelect').value = '';
+        $('#sortSelect').val('').trigger('change');
+
         document.getElementById('minFloor').value = '';
         document.getElementById('maxFloor').value = '';
 
@@ -689,6 +693,11 @@ document.addEventListener('DOMContentLoaded', function() {
     function loadSavedFilters() {
         const savedFilters = JSON.parse(localStorage.getItem('flatFilters'));
         if (savedFilters) {
+            if (savedFilters.sort) {
+                document.getElementById('sortSelect').value = savedFilters.sort;
+                $('#sortSelect').trigger('change');
+            }
+            
             if (savedFilters.minFloor) {
                 document.getElementById('minFloor').value = savedFilters.minFloor;
             }
