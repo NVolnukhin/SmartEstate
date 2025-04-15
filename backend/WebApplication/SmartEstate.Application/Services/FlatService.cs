@@ -144,11 +144,9 @@ public class FlatService : IFlatService
             
             if (filters.Order != null)
             {
-                Console.WriteLine("SORTINGGGGGGG\n\n\n\n");
                 switch (filters.Order)
                 {
                     case "orderBySquare":
-                        Console.WriteLine("SORTINGGGGGGG BY SQUARE\n\n\n\n");
                         flatsQuery = flatsQuery.OrderBy(f => f.Square);
                         break;
             
