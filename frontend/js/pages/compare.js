@@ -239,8 +239,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="comparison-value">${flat2Data.square} м²</div>
                 
                 <div class="comparison-label">Комнатность</div>
-                <div class="comparison-value">${flat1Data.roominess === -1 ? 'Студия' : `${flat1Data.roominess}-комнатная`}</div>
-                <div class="comparison-value">${flat2Data.roominess === -1 ? 'Студия' : `${flat2Data.roominess}-комнатная`}</div>
+                <div class="comparison-value">${flat1Data.roominess === -1 ? 'Студия' : flat1Data.roominess === -2 ? 'Своб. планировка' : `${flat1Data.roominess}-комнатная`}</div>
+                <div class="comparison-value">${flat2Data.roominess === -1 ? 'Студия' : flat2Data.roominess === -2 ? 'Своб. планировка' : `${flat2Data.roominess}-комнатная`}</div>
                 
                 <div class="comparison-label">Этаж</div>
                 <div class="comparison-value">${flat1Data.floor} / ${flat1Data.buildingInfo.floorCount}</div>
@@ -409,6 +409,10 @@ document.addEventListener('DOMContentLoaded', function() {
         
             if (normalizedText.includes('студия')) {
                 return 0;
+            }
+
+            if (normalizedText.includes('своб. планировка')) {
+                return 10;
             }
         
             const match = normalizedText.match(/^(\d+)-комнатная$/);

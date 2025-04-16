@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         ${apartment.nearestMetro.name} (${apartment.nearestMetro.minutesToMetro} мин)
                     </div>
                     <div>
-                        ${apartment.roominess === -1 ? 'Студия' : `${apartment.roominess}-комнатная`} <br>
+                        ${apartment.roominess === -1 ? 'Студия' : apartment.roominess === -2 ? 'Своб. планировка' : `${apartment.roominess}-комнатная`} <br>
                         ${apartment.square} м²<br>
                         Этаж ${apartment.floor}
                     </div>

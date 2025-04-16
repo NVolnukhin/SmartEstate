@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function renderApartmentData(data) {
         document.getElementById('apartment-name').textContent = `ЖК ${data.buildingInfo.residentialComplex}`;
         document.getElementById('apartment-description').textContent = 
-       `${data.roominess === -1 ? 'Студия' : `${data.roominess}-комнатная квартира`} ${data.square} м² на ${data.floor} этаже`;
+       `${data.roominess === -1 ? 'Студия' : data.roominess === -2 ? 'Квартира со свободной планировкой' : `${data.roominess}-комнатная квартира`} ${data.square} м² на ${data.floor} этаже`;
         
         const formattedPrice = new Intl.NumberFormat('ru-RU', {
             style: 'currency',
@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         document.getElementById('price-value').textContent = formattedPrice;
         document.getElementById('apartment-square').textContent = `${data.square} м²`;
-        document.getElementById('apartment-rooms').textContent = `${data.roominess}-комнатная`;
+        document.getElementById('apartment-rooms').textContent = data.roominess === -1 ? 'Студия' : data.roominess === -2 ? 'Свободная планировка' : `${data.roominess}-комнатная`;
         document.getElementById('apartment-floor').textContent = `${data.floor}/${data.buildingInfo.floorCount}`;
         document.getElementById('apartment-finish').textContent = data.finishType;
         

@@ -41,6 +41,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const applyFiltersBtn = document.querySelector('.apply-filters');
     const resetFiltersBtn = document.querySelector('.reset-filters');
     
+    const FLATS_CONTAINER_ID = 'flats-container'; 
+
     async function loadMetroStations() {
         try {
             const response = await fetch(`${config.api.baseUrl}/metro`);
@@ -157,6 +159,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 renderFlats(data.items);
                 updatePagination(data.totalPages, page);
                 renderComparisonList();
+
+                setTimeout(() => {
+                    const container = document.getElementById(FLATS_CONTAINER_ID);
+                    if (container) {
+                        container.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }, 500); 
+
             } else {
                 console.error('Ошибка загрузки квартир:', data.message);
                 renderError();
@@ -168,6 +181,30 @@ document.addEventListener('DOMContentLoaded', function() {
             loadingIndicator.style.display = 'none';
         }
     }
+
+    function scrollToFlatsAnchor() {
+        const anchor = document.getElementById('flats-anchor');
+        console.log('Anchor position:', document.getElementById('flats-anchor').getBoundingClientRect());
+        if (!anchor) {
+            console.error('Anchor element not found!');
+            return;
+        }
+        
+        console.log('Scrolling to anchor...'); // Для отладки
+        
+        anchor.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+        
+        // Альтернативный вариант с полифилом для старых браузеров
+        if (typeof anchor.scrollIntoView !== 'function') {
+            const yOffset = -120; // Компенсация для фиксированного хедера
+            const y = anchor.getBoundingClientRect().top + window.pageYOffset + yOffset;
+            window.scrollTo({top: y, behavior: 'smooth'});
+        }
+    }
+    
     
     function renderFlats(flats) {
         const container = document.getElementById('flatsList');
@@ -203,7 +240,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                         <div class="detail-item">
                             <div class="detail-label">Комнатность</div>
-                            <div>${flat.roominess === -1 ? 'Студия' : `${flat.roominess}-комнатная`}</div>
+                            <div>${flat.roominess === -1 ? 'Студия' : flat.roominess === -2 ? 'Своб. планировка' : `${flat.roominess}-комнатная`}</div>
                         </div>
                         <div class="detail-item">
                             <div class="detail-label">Этаж</div>
@@ -259,6 +296,21 @@ document.addEventListener('DOMContentLoaded', function() {
         totalPages = totalPagesCount;
         const pagination = document.getElementById('pagination');
         pagination.innerHTML = '';
+
+        const scrollToFlats = () => {
+            const container = document.getElementById(FLATS_CONTAINER_ID);
+            if (container) {
+                // Используем якорь вместо контейнера для более точной прокрутки
+                const anchor = document.getElementById('flats-anchor');
+                if (anchor) {
+                    anchor.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start' 
+                    });
+                }
+            }
+        };
+        
         
         const prevBtn = document.createElement('button');
         prevBtn.className = 'pagination-btn';
@@ -266,7 +318,7 @@ document.addEventListener('DOMContentLoaded', function() {
         prevBtn.disabled = currentPage === 1;
         prevBtn.addEventListener('click', () => {
             if (currentPage > 1) {
-                loadFlats(currentPage - 1);
+                loadFlats(currentPage - 1).then(scrollToFlats);
             }
         });
         pagination.appendChild(prevBtn);
@@ -280,7 +332,9 @@ document.addEventListener('DOMContentLoaded', function() {
             pageBtn.textContent = i;
             pageBtn.addEventListener('click', () => {
                 if (i !== currentPage) {
-                    loadFlats(i);
+                    loadFlats(i).then(() => {
+                        setTimeout(scrollToFlatsAnchor, 100);
+                    });
                 }
             });
             pagination.appendChild(pageBtn);
@@ -292,7 +346,7 @@ document.addEventListener('DOMContentLoaded', function() {
         nextBtn.disabled = currentPage === totalPages;
         nextBtn.addEventListener('click', () => {
             if (currentPage < totalPages) {
-                loadFlats(currentPage + 1);
+                loadFlats(currentPage + 1).then(scrollToFlats);
             }
         });
         pagination.appendChild(nextBtn);
@@ -365,7 +419,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="comparison-details">
                     <div class="comparison-detail">
                         <div class="comparison-detail-label">Комнатность</div>
-                        <div>${flat.roominess === -1 ? 'Студия' : `${flat.roominess}-комнатная`}</div>
+                        <div>${flat.roominess === -1 ? 'Студия' : flat.roominess === -2 ? 'Своб. планировка' : `${flat.roominess}-комнатная`}</div>
                     </div>
                     <div class="comparison-detail">
                         <div class="comparison-detail-label">Площадь</div>
@@ -636,6 +690,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 renderFlats(data.items);
                 updatePagination(data.totalPages, 1);
                 showNotification(`Фильтры применены. Найдено ${data.totalCount} квартир`, false);
+
+                setTimeout(() => {
+                    const anchor = document.getElementById('flats-anchor');
+                    if (anchor) {
+                        anchor.scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'start' 
+                        });
+                    }
+                }, 300);
                 
                 window.history.pushState({}, '', `?${params.toString()}`);
             } else {
@@ -745,6 +809,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     loadFlats(currentPage);
+    setTimeout(() => {
+        const anchor = document.getElementById('flats-anchor');
+        if (anchor) {
+            anchor.scrollIntoView({ 
+                behavior: 'auto', // Для первоначальной загрузки без анимации
+                block: 'start' 
+            });
+        }
+    }, 100);    
     loadMetroStations();
     loadDevelopers();
     loadSavedFilters();
@@ -760,4 +833,11 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(100);
         renderComparisonList();
     });
+
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            scrollToFlatsAnchor();
+        }, 300);
+    });
+    
 });
