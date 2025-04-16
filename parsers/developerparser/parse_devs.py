@@ -4,7 +4,7 @@ from storage.db_storage import save_to_postgresql
 from os import getenv
 from dotenv import load_dotenv
 
-def main():
+def parse_devs():
     # Получаем данные
     developers = developersparser.get_developers_data()
 

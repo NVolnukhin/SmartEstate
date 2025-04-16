@@ -9,6 +9,7 @@ from actualpriceparser.actual_price_getter import get_actual_prices
 from geodistance_calculator.infrastructure_info_processor import process_infrastructure_info
 from graphhooper.process_calculating import process_time_calculating
 from additionalinfoparser.parse_additional_info import parse_additional_info
+from developerparser import parse_devs
 
 db_params = {
         "dbname": getenv("DB_NAME"),
@@ -48,6 +49,9 @@ districts_groups = [
     ['Лефортово', 'Люблино', 'Марьино', 'Некрасовка', 'Нижегородский'],
     ['Печатники', 'Рязанский', 'Текстильщики', 'Южнопортовый']
 ]
+
+"""Парсим застройщиков"""
+parse_devs()
 
 """
 Запускаем парсер циана по группам районов из 5 штук.
