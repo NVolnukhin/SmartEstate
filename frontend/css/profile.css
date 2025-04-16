@@ -1,0 +1,64 @@
+/** ==============================
+ *  Ссылка на профиль и
+ *  выпадающее окно профиля
+ *  ==============================
+*/
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    position: relative;
+    z-index: 2;
+}
+
+.profile-link {
+    color: #FFE4AA;
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 19px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.profile-link:hover {
+    text-shadow: 0 0 10px rgba(255, 228, 170, 0.7);
+    transform: translateY(-2px);
+}
+
+.profile-link i {
+    font-size: 16px;
+}
+
+.profile-dropdown {
+    display: none;
+    position: absolute;
+    top: 50px;
+    right: 20px;
+    background: #FFE4AA;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.profile-dropdown.show {
+    display: block;
+}
+
+.profile-dropdown a {
+    display: block;
+    color: #40027E;
+    padding: 8px 15px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+.profile-dropdown a:hover {
+    background: #ffdc8d;
+    border-radius: 4px;
+}

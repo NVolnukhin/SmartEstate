@@ -1,0 +1,100 @@
+.price-hint {
+    position: relative;
+    display: inline-block;
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+.price-hint .tooltip {
+    visibility: hidden;
+    width: 500px;
+    max-width: 90vw;
+    background-color: white;
+    color: #40027E;
+    text-align: left;
+    border-radius: 8px;
+    padding: 15px;
+    position: absolute;
+    z-index: 1001;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-11%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    box-sizing: border-box;
+}
+
+.price-hint .tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 10%;
+    margin-left: -5px;
+    border-width: 8px;
+    border-style: solid;
+    border-color: white transparent transparent transparent;
+}
+
+
+.price-hint:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+.price-change-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    table-layout: fixed;
+}
+
+.price-change-table th, 
+.price-change-table td {
+    padding: 8px 8px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    white-space: nowrap;
+}
+
+.price-change-table th {
+    font-weight: 700;
+    background-color: #f8f8f8;
+    position: sticky;
+    top: 0;
+}
+
+.price-change-table tr:last-child td {
+    border-bottom: none;
+}    
+
+.price-up {
+    color: #e74c3c;
+}
+
+.price-down {
+    color: #2ecc71;
+}
+
+.price-change-arrow {
+    margin-left: 5px;
+}
+
+
+@media (max-width: 768px) {
+    .price-hint .tooltip {
+        width: 280px;
+        left: 0;
+        transform: translateX(0);
+    }
+
+    .price-hint .tooltip::after {
+        left: 30px;
+    }
+
+    .price-change-table th, 
+    .price-change-table td {
+        padding: 6px 8px;
+        font-size: 14px;
+    }
+}

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SmartEstate - Просмотр квартиры</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/base_settings.css">
+    <link rel="stylesheet" href="/css/logo.css">
+    <link rel="stylesheet" href="/css/decorating.css">
+    <link rel="stylesheet" href="/css/header_links.css">
+    <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="/css/back_link.css">
+    <link rel="stylesheet" href="/css/photo/photo_navigation.css">
+    <link rel="stylesheet" href="/css/photo/apartament_photo_flat.css">
+    <link rel="stylesheet" href="/css/photo/fullscreen_photo.css">
+    <link rel="stylesheet" href="/css/price_hint.css">
+    <link rel="stylesheet" href="/css/notification.css">
+    <link rel="stylesheet" href="/css/price_chart.css">    
+    <link rel="stylesheet" href="/css/pages/flat.css">    
+    <link rel="stylesheet" href="/css/mortgagecalculator.css">        
+</head>
+<body>
+    <div class="screen animated-bg">
+        <div class="decor-circle circle-1"></div>
+        <div class="decor-circle circle-2"></div>
+        
+        <div class="header">
+            <a href="./index" class="logo">SmartEstate</a>
+            <div class="auth-section">
+                <!-- Для неавторизованных -->
+                <div class="header-link">
+                    <a href="./login" class="header-link">Войти</a>
+                    <a href="./reg" class="header-link">Зарегистрироваться</a>
+                </div>
+                
+                <!-- Для авторизованных -->
+                <div class="profile-link-wrapper" style="display: none;">
+                    <a href="./profile" class="profile-link">
+                        <i class="fas fa-user"></i>
+                        Профиль
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="apartment-container">
+            <div class="apartment-title">
+                <h1 id="apartment-name">Загрузка.</h1>
+                <p id="apartment-description"></p>
+            </div>
+
+            <div class="apartment-photo" id="apartment-photo">
+                <button class="favorite-btn">
+                    <i class="far fa-heart"></i>
+                </button>
+                
+                <div class="photo-nav photo-prev"><i class="fas fa-chevron-left"></i></div>
+                <div class="photo-nav photo-next"><i class="fas fa-chevron-right"></i></div>
+                <div class="photo-controls" id="photo-controls"></div>
+            </div>
+
+            <div class="details-container">
+                <h2 class="section-title">Подробное описание квартиры</h2>
+                
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <div class="detail-label">Цена</div>
+                        <div class="detail-value" id="apartment-price">
+                            <span id="price-value">Загрузка.</span>
+                            <span class="price-hint">
+                                <i class="fas fa-history"></i>
+                                <span class="tooltip">
+                                    <div id="price-tooltip-content">
+                                        Загрузка данных о ценах.
+                                    </div>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Площадь</div>
+                        <div class="detail-value" id="apartment-square">Загрузка.</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Комнатность</div>
+                        <div class="detail-value" id="apartment-rooms">Загрузка.</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Этаж</div>
+                        <div class="detail-value" id="apartment-floor">Загрузка.</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Тип отделки</div>
+                        <div class="detail-value" id="apartment-finish">Загрузка.</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Ссылка на квартиру (Cian)</div>
+                        <div class="detail-value" id="apartment-link">
+                            <a href="#" target="_blank" id="cian-link">Загрузка.</a>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="section-title">Информация о здании</h3>
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <div class="detail-label">Статус здания</div>
+                        <div class="detail-value" id="building-status">Загрузка.</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Количество этажей</div>
+                        <div class="detail-value" id="building-floors">Загрузка.</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Адрес</div>
+                        <div class="detail-value" id="building-address">Загрузка.</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">ЖК</div>
+                        <div class="detail-value" id="building-complex">Загрузка.</div>
+                    </div>
+                </div>
+
+                <h3 class="section-title">Инфраструктура</h3>
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <div class="detail-label">До ближайшего метро</div>
+                        <div class="detail-value" id="metro-info">Загрузка.</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">До школы</div>
+                        <div class="detail-value" id="school-info">Загрузка.</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">До детского сада</div>
+                        <div class="detail-value" id="kindergarten-info">Загрузка.</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">До магазина</div>
+                        <div class="detail-value" id="shop-info">Загрузка.</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">До аптеки</div>
+                        <div class="detail-value" id="pharmacy-info">Загрузка.</div>
+                    </div>
+                </div>
+
+                <h3 class="section-title">Информация о застройщике</h3>
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <div class="detail-label">Имя</div>
+                        <div class="detail-value" id="developer-name">Загрузка.</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Построенных зданий</div>
+                        <div class="detail-value" id="developer-buildings">Загрузка.</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Веб-сайт</div>
+                        <div class="detail-value">
+                            <a href="#" target="_blank" id="developer-website">Загрузка.</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mortgage-calculator">
+                    <h3 class="section-title">Калькулятор ипотеки</h3>
+                    <div class="calculator-container">
+                        <div class="calculator-form">
+                            <div class="form-group">
+                                <label for="mortgage-type">Тип ипотеки:</label>
+                                <select id="mortgage-type" class="form-control">
+                                    <option value="standard">Стандартная</option>
+                                    <option value="it">IT-ипотека</option>
+                                    <option value="family">Семейная</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="initial-payment-percent">Первоначальный взнос:</label>
+                                <div class="percent-input-container">
+                                    <input type="number" id="initial-payment-percent" class="form-control" min="0" max="100" value="15">
+                                    <span>%</span>
+                                </div>
+                                <div class="slider-container">
+                                    <input type="range" id="initial-payment-slider" class="percent-slider" min="0" max="100" value="15" step="1">
+                                    <div class="slider-labels">
+                                        <span>0%</span>
+                                        <span>100%</span>
+                                    </div>
+                                </div>
+                                <div class="payment-in-rub">
+                                    <span id="initial-payment-rub">0 ₽</span>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="loan-term">Срок кредита (лет):</label>
+                                <input type="number" id="loan-term" class="form-control" min="1" max="30" value="15">
+                            </div>
+                            
+                            <button id="calculate-btn" class="calculate-btn">Рассчитать</button>
+                        </div>
+                        
+                        <div class="calculator-results">
+                            <div class="result-item">
+                                <span class="result-label">Ставка:</span>
+                                <span id="interest-rate" class="result-value">-</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-label">Ежемесячный платеж:</span>
+                                <span id="monthly-payment" class="result-value">-</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-label">Общая сумма выплат:</span>
+                                <span id="total-payment" class="result-value">-</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-label">Переплата:</span>
+                                <span id="overpayment" class="result-value">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="map-title">Расположение на карте</h3>
+                <div id="map"></div>
+
+                <div class="price-chart-container">
+                    <h3 class="section-title">История изменения цен</h3>
+                    <div id="price-chart-full" class="price-chart-placeholder">
+                        Загрузка данных.
+                    </div>
+                </div>
+            </div>
+            <a href="javascript:history.back()" class="back-link">← Вернуться назад</a>
+        </div>
+    </div>
+    <div class="loading-indicator" id="loading-indicator">
+        Загрузка данных.
+    </div>
+
+    <div class="dev-footer">
+        <span class="dev-footer-text">Для разработчиков</span>
+        <div class="dev-footer-dropdown">
+          <a href="https://git.iu7.bmstu.ru/sgn3-prog/sgn3-prog-it-2025/ghostbusters" target="_blank">GitHub</a>
+          <a href="./reports" target="_blank">Отчеты</a>
+        </div>
+    </div>
+    
+    <div class="data-actual">
+        Данные актуальны на <span id="actual-date"></span>
+    </div>
+    <script type="module" src="/js/components/ui/date.js"></script>
+    <script type="module" src="/js/components/auth/token_сhecker.js"></script>
+    <script src="/js/components/ui/profile_dropdown.js" defer></script>
+    <script type="module" src = "/js/pages/flat.js"></script>
+</body>
+</html>

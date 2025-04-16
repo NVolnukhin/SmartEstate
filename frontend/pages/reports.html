@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SmartEstate - Отчеты</title>
+    <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/base_settings.css">
+    <link rel="stylesheet" href="/css/logo.css">
+    <link rel="stylesheet" href="/css/decorating.css">
+    <link rel="stylesheet" href="/css/header_links.css">
+    <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="/css/back_link.css">
+    <link rel="stylesheet" href="/css/pages/reports.css">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+</head>
+<body>
+    <div class="screen animated-bg">
+        <div class="decor-circle circle-1"></div>
+        <div class="decor-circle circle-2"></div>
+        
+        <div class="header">
+            <a href="./index" class="logo">SmartEstate</a>
+            <div class="auth-section">
+                <!-- Для неавторизованных -->
+                <div class="header-link">
+                    <a href="./login" class="header-link">Войти</a>
+                    <a href="./reg" class="header-link">Зарегистрироваться</a>
+                </div>
+                
+                <!-- Для авторизованных -->
+                <div class="profile-link-wrapper" style="display: none;">
+                    <a href="./profile" class="profile-link">
+                        <i class="fas fa-user"></i>
+                        Профиль
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="reports-container">
+            <div class="reports-menu">
+                <div class="report-item active" data-report="1">ЛР 1: Web как источник данных</div>
+                <div class="report-item" data-report="2">ЛР 2: Сбор данных и проектирование приложения</div>
+                <div class="report-item" data-report="3">ЛР 3: Прототип приложения</div>
+                <div class="report-item" data-report="4">ЛР 4: Приложение</div>
+                <div class="report-item" data-report="5">Дополнительная информация и ограничения</div>
+            </div>
+            
+            <div class="report-content active" id="report-1">
+                <h2 class="report-title">ЛР 1: Web как источник данных</h2>
+                <div class="report-text">
+                <h3><p>Критерии выполненности:</p></h3>
+                    <ul>
+                        <strong><li>Наличие в групповом репозитории на git.iu7.bmstu.ru кода в составе:</strong>
+                            <ul>
+                                <li>Выполнено: Код вызова API</li>
+                                <ul>
+                                    <li><a href="https://git.iu7.bmstu.ru/sgn3-prog/sgn3-prog-it-2025/ghostbusters/-/blob/develop/parsers/graphhooper/main.py" target="_blank">GraphHooper для рассчета времени ходьбы</a></li>
+                                    <li><a href="https://git.iu7.bmstu.ru/sgn3-prog/sgn3-prog-it-2025/ghostbusters/-/blob/develop/parsers/flats_processor/main.py" target="_blank">Яндекс.Карт для геокодинга</a></li>
+                                </ul>
+                                <li>Выполнено: Код парсинга Web-страниц</a></li>
+                                <ul>
+                                    <li><a href="https://git.iu7.bmstu.ru/sgn3-prog/sgn3-prog-it-2025/ghostbusters/-/tree/develop/parsers/cianparser" target="_blank">Cian квартиры</a></li>
+                                    <li><a href="https://git.iu7.bmstu.ru/sgn3-prog/sgn3-prog-it-2025/ghostbusters/-/tree/develop/parsers/developerparser" target="_blank">Cian застройщики</a></li>
+                                    <li><a href="https://git.iu7.bmstu.ru/sgn3-prog/sgn3-prog-it-2025/ghostbusters/-/tree/develop/parsers/additionalinfoparser" target="_blank">Cian для получения изображений квартир и истории цен</a></li>
+                                    <li><a href="https://git.iu7.bmstu.ru/sgn3-prog/sgn3-prog-it-2025/ghostbusters/-/tree/develop/parsers/actualpriceparser" target="_blank">Cian для получения текущей цены для квартир в БД</a></li>
+                                    <li><a href="https://git.iu7.bmstu.ru/sgn3-prog/sgn3-prog-it-2025/ghostbusters/-/tree/develop/parsers/metroparser" target="_blank">Wikipedia (для получения координат станций метро)</a></li>
+                                    
+                                </ul>
+                                <li>Выполнено: <a href="https://git.iu7.bmstu.ru/sgn3-prog/sgn3-prog-it-2025/ghostbusters/-/blob/develop/backend/WebApplication/SmartEstate.DatabaseContext/AppDbContext.cs" target="_blank">Код инициализации базы данных</a></li>
+                            </ul>
+                        </li>
+
+                        <br>
+
+                        <strong><li>Наличие в групповом репозитории на git.iu7.bmstu.ru ридми-файла:</strong>
+                            <ul>
+                                <li>Выполнено: <a href="https://git.iu7.bmstu.ru/sgn3-prog/sgn3-prog-it-2025/ghostbusters/-/blob/develop/README.md" target="_blank">README.md</a></li>
+                            </ul>
+                        </li>
+
+                        <br>
+                        
+                        <strong><li>Весь добавленный в групповом репозиторий контент помещён в отдельную ветку:</strong>
+                            <ul>
+                                <li>Выполнено: <a href="https://git.iu7.bmstu.ru/sgn3-prog/sgn3-prog-it-2025/ghostbusters/-/tree/develop?ref_type=heads" target="_blank">Ветка develop</a></li>
+                                <li>Выполнено: <a href="https://git.iu7.bmstu.ru/sgn3-prog/sgn3-prog-it-2025/ghostbusters/-/merge_requests/5" target="_blank">Merge Request</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    
+                    <br>
+                    
+                    <h3><p>Дополнительно:</p></h3>
+                    <ul>
+                        <li><strong>Фактический сбор и помещение в БД данных</strong></li>
+
+                        <img src="/images/DB/FlatsDB.png" alt="БД с квартирами" width="850">
+                        <img src="/images/DB/BuildingsDB.png" alt="БД со зданиями>" width="850">
+                        <img src="/images/DB/DevelopersDB.png" alt="БД с застройщиками>" width="850">
+                        <img src="/images/DB/KindergartenDB.png" alt="БД с детскими садами>" width="850">
+                        <img src="/images/DB/SchoolDB.png" alt="БД с школами>" width="850">
+                        <img src="/images/DB/ShopDB.png" alt="БД с магазинами>" width="850">
+                        <img src="/images/DB/PharmacyDB.png" alt="БД с аптеками>" width="850">
+                        <img src="/images/DB/MetroDB.png" alt="БД со станциями метро>" width="850">
+                        <img src="/images/DB/InfrastructureInfoDB.png" alt="БД с информацией о инфраструктуре>" width="850">
+                    </ul>
+                </div>
+            </div>
+
+            <div class="report-content" id="report-2">
+                <h2 class="report-title">ЛР 2: Сбор данных и проектирование приложения</h2>
+                <div class="report-text">
+                    <h3><p>Критерии выполненности:</p></h3>
+                    <ul>
+                        <strong><li>Наличие в репозитории на git.iu7.bmstu.ru кода в составе:</strong>
+                            <ul>
+                                <li>Выполнено: <a href="https://git.iu7.bmstu.ru/sgn3-prog/sgn3-prog-it-2025/ghostbusters/-/blob/develop/parsers/normalizer/normalizer.py" target="_blank">Код обработки данных</a></li>
+                            </ul>
+                        </li>
+                        
+                        <br>
+
+                        <strong><li>Наличие в БД собранных данных:</strong>
+                            <ul>
+                                <li>Выполнено: см. ЛР 1 "Дополнительно"</li>
+                                <li>Пример работы скрипта сбора данных по квартирам</li>
+                                <img src="/images/Examples/parsing.png" alt="Лог сбора данных">
+                            </ul>
+                        </li>
+                        
+                        <br>
+
+                        <strong><li>Наличие описания в формате OpenAPI:</strong>
+                            <ul>
+                                <li>Выполнено: <a href="https://git.iu7.bmstu.ru/sgn3-prog/sgn3-prog-it-2025/ghostbusters/-/blob/develop/backend/WebApplication/SmartEstate.API/OpenAPI.yml" target="_blank">Описание в формате OpenAPI API доступа к данным</a></li>
+                            </ul>
+                        </li>
+
+                        <br>
+                        
+                        <li><strong>Наличие диаграмм:</strong>
+                            <ul>
+                                <li>Выполнено: ERD диаграмма</li>
+                                <img src="../images/Diagrams/ERD.jpg" alt="ERD>">
+                                <li>Выполнено: DFD диаграмма</a></li>
+                                <ul>
+                                    <li>DFD для гостя (пользователя без аккаунта)</a></li>
+                                    <img src="../images/Diagrams/DFD_guest.jpeg" alt="DFD>" width="950">
+                                    <li>DFD для клиента (зарегистрированного пользователя)</a></li>
+                                    <img src="../images/Diagrams/DFD_client.jpeg" alt="DFD>" width="950">
+                                </ul>
+                                <li>Выполнено: IDEF0 диаграмма</li>
+                                <ul>
+                                    <img src="../images/Diagrams/IDEF0_1.png" alt="IDEF0>">
+                                    <img src="../images/Diagrams/IDEF0_2.png" alt="IDEF0>">
+                                    <img src="../images/Diagrams/IDEF0_3.png" alt="IDEF0>">
+                                </ul>
+                            </ul>
+                        </li>
+
+                        <br>
+                        
+                        <li><strong>Наличие описания в README:</strong>
+                            <ul>
+                                <li>Выполнено: <a href="https://git.iu7.bmstu.ru/sgn3-prog/sgn3-prog-it-2025/ghostbusters/-/blob/develop/README.md" target="_blank">README.md</a></li>
+                            </ul>
+                        </li>
+
+                        <br>
+                        
+                        <li><strong>Весь добавленный в групповом репозиторий контент помещён в отдельную ветку:</strong>
+                            <ul>
+                                <li>Выполнено: <a href="https://git.iu7.bmstu.ru/sgn3-prog/sgn3-prog-it-2025/ghostbusters/-/tree/develop?ref_type=heads" target="_blank">Ветка develop</a></li>
+                                <li>Выполнено: <a href="https://git.iu7.bmstu.ru/sgn3-prog/sgn3-prog-it-2025/ghostbusters/-/merge_requests/5" target="_blank">Merge Request</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="report-content" id="report-3">
+                <h2 class="report-title">ЛР 3: Прототип приложения</h2>
+                <div class="report-text">
+                    <h3><p>Критерии выполненности:</p></h3>
+                    <ul>
+                        <li><strong>Реализация API доступа к данным:</strong>
+                            <ul>
+                                <li>Выполнено: <a href="https://git.iu7.bmstu.ru/sgn3-prog/sgn3-prog-it-2025/ghostbusters/-/tree/develop/backend/WebApplication/SmartEstate.API" target="_blank">Реализованное API</a></li>
+                                <li>Выполнено: <a href="https://git.iu7.bmstu.ru/sgn3-prog/sgn3-prog-it-2025/ghostbusters/-/blob/develop/backend/WebApplication/SmartEstate.API/OpenAPI.yml" target="_blank">Документация API</a></li>
+                                <li>Скриншот работы API: <br>
+                                    <img src="/images/API.png" alt="Пример работы API">
+                                </li>
+                            </ul>
+                        </li>
+                        <br>
+                        <li><strong>Подготовка макетов в Figma:</strong>
+                            <ul>
+                                <li>Выполнено: <a href="https://www.figma.com/design/QxKgxkM5SDK7bhFUZQnDyI/%D0%9C%D0%B0%D0%BA%D0%B5%D1%82-%D1%81%D0%B0%D0%B9%D1%82%D0%B0-%D0%B4%D0%BB%D1%8F-%D1%81%D1%80%D0%B0%D0%B2%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F-%D0%BA%D0%B2%D0%B0%D1%80%D1%82%D0%B8%D1%80?node-id=0-1&t=bmTVzsfH3Zwcet8n-1" target="_blank">Figma прототип</a></li>
+                                <li>Основные экраны: <br>
+                                    <ul>
+                                        <li>Главный</li>
+                                        <img src="/images/Figma/main.png" alt="Макеты интерфейса">
+                                        <li>Выбор квартир</li>
+                                        <img src="/images/Figma/choose.png" alt="Макеты интерфейса">
+                                        <li>Сравнение квартир</li>
+                                        <img src="/images/Figma/compare.png" alt="Макеты интерфейса">
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <br>
+                        <li><strong>Инициализация клиентской части:</strong>
+                            <ul>
+                                <li>Выполнено: <a href="https://git.iu7.bmstu.ru/sgn3-prog/sgn3-prog-it-2025/ghostbusters/-/tree/develop/frontend" target="_blank">Инициализировать клиентскую часть приложения, Proof of Concept реализация</a></li>
+                                <li>Скриншот с демонстрацией рабочего запрос/ответа: <br>
+                                    <img src="/images/Examples/api_request.png" alt="Прототип приложения" width="600">
+                                </li>
+                            </ul>
+                        </li>
+                        <br>
+                        <li><strong>Соответствие требованиям:</strong>
+                            <ul>
+                                <li>API соответствует <a href="https://git.iu7.bmstu.ru/sgn3-prog/sgn3-prog-it-2025/ghostbusters/-/blob/develop/backend/WebApplication/SmartEstate.API/OpenAPI.yml" target="_blank">формализации задачи</a></li>
+                                <li>Макеты соответствуют <a href="https://www.figma.com/design/QxKgxkM5SDK7bhFUZQnDyI/%D0%9C%D0%B0%D0%BA%D0%B5%D1%82-%D1%81%D0%B0%D0%B9%D1%82%D0%B0-%D0%B4%D0%BB%D1%8F-%D1%81%D1%80%D0%B0%D0%B2%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F-%D0%BA%D0%B2%D0%B0%D1%80%D1%82%D0%B8%D1%80?node-id=0-1&t=bmTVzsfH3Zwcet8n-1" target="_blank">концепции</a></li>
+                            </ul>
+                        </li>
+                        <br>
+                        <li><strong>Работа с репозиторием:</strong>
+                            <ul>
+                                <li><a href="https://git.iu7.bmstu.ru/sgn3-prog/sgn3-prog-it-2025/ghostbusters/-/tree/develop?ref_type=heads" target="_blank">Ветка develop</a></li>
+                                <li><a href="https://git.iu7.bmstu.ru/sgn3-prog/sgn3-prog-it-2025/ghostbusters/-/merge_requests/5" target="_blank">Merge Request</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    
+                    <br>
+                </div>
+            </div>
+            
+            <div class="report-content" id="report-4">
+                <h2 class="report-title">ЛР 4: Приложение</h2>
+                <div class="report-text">
+                    <h3><p>Критерии выполненности:</p></h3>
+                    <ul>
+                        <li><strong>Реализация интерфейса:</strong>
+                            <ul>
+                                <li>Выполнено: <a href="https://git.iu7.bmstu.ru/sgn3-prog/sgn3-prog-it-2025/ghostbusters/-/tree/develop/frontend" target="_blank">Код интерфейса</a></li>
+                                <li>Сравнение с макетами <a href="https://www.figma.com/design/QxKgxkM5SDK7bhFUZQnDyI/%D0%9C%D0%B0%D0%BA%D0%B5%D1%82-%D1%81%D0%B0%D0%B9%D1%82%D0%B0-%D0%B4%D0%BB%D1%8F-%D1%81%D1%80%D0%B0%D0%B2%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F-%D0%BA%D0%B2%D0%B0%D1%80%D1%82%D0%B8%D1%80?node-id=0-1&t=bmTVzsfH3Zwcet8n-1" target="_blank">Figma</a></li>
+                                <li>Скрины реализованного интерфейса: <br>
+                                    <img src="/images/Frontend/main.png" alt="Главный экран">
+                                    <img src="/images/Frontend/choose.png" alt="Выбор квартир">
+                                    <img src="/images/Frontend/compare.png" alt="Сравнение">
+                                    <img src="/images/Frontend/flat.png" alt="Просмотр квартиры">
+                                </li>
+                            </ul>
+                        </li>
+
+                        <br>
+                        
+                        <li><strong>Логика клиентской части:</strong>
+                            <ul>
+                                <li>Выполнено: <a href="https://git.iu7.bmstu.ru/sgn3-prog/sgn3-prog-it-2025/ghostbusters/-/tree/develop/frontend/js" target="_blank">Код клиентской логики</a></li>
+                                <li>Выполнено: интеграция с <a href="https://git.iu7.bmstu.ru/sgn3-prog/sgn3-prog-it-2025/ghostbusters/-/blob/develop/backend/WebApplication/SmartEstate.API/OpenAPI.yml" target="_blank">API</a></a></li>
+                                <li>Пример работы:
+                                    <div style="padding:62.44% 0 0 0;position:relative;">
+                                        <iframe src="https://player.vimeo.com/video/1075068480?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Smartestate demonstration"></iframe>
+                                    </div>
+                                    <script src="https://player.vimeo.com/api/player.js"></script>
+                                </li>
+                                <li>Пример запроса: <br>
+                                    <img src="/images/Examples/api_request.png" alt="Пример API-запроса">
+                                </li>
+                            </ul>
+                        </li>
+
+                        <br>
+                        
+                        <li><strong>Документация:</strong>
+                            <ul>
+                                <li>Выполнено: <a href="https://git.iu7.bmstu.ru/sgn3-prog/sgn3-prog-it-2025/ghostbusters/-/blob/develop/README.md" target="_blank">README.md</a></li>
+                                <li>Инструкция по развертыванию описана в README</li>
+                            </ul>
+                        </li>
+                        
+                        <br>
+
+                        <li><strong>Работа с репозиторием:</strong>
+                            <ul>
+                                <li><a href="https://git.iu7.bmstu.ru/sgn3-prog/sgn3-prog-it-2025/ghostbusters/-/tree/develop?ref_type=heads" target="_blank">Ветка develop</a></li>
+                                <li><a href="https://git.iu7.bmstu.ru/sgn3-prog/sgn3-prog-it-2025/ghostbusters/-/merge_requests/5" target="_blank">Merge Request</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="report-content" id="report-5">
+                <h2 class="report-title">Дополнительная информация</h2>
+                <div class="report-text">
+                    <ul>
+                        <strong>Разработка и назначение:</strong>
+                        <ul>
+                            <li>Веб-приложение <strong>SmartEstate</strong> разработано в рамках дисциплины «Web-технологии» в МГТУ им. Н. Э. Баумана.</li>
+                            <li>Главное назначение приложения:
+                                <ul>
+                                    <li>Сравнение квартир по расположенности инфраструктуры — время пешком до ближайших:
+                                        <ul>
+                                            <li>метро,</li>
+                                            <li>школ,</li>
+                                            <li>детских садов,</li>
+                                            <li>магазинов,</li>
+                                            <li>аптек.</li>
+                                        </ul>
+                                    </li>
+                                    <li>Предоставление истории изменения цен на квартиры всем пользователям.</li>
+                                    <li>Возможность посмотреть близлежащие объекты на карте.</li>
+                                </ul>
+                            </li>
+                            <li>Для создания более конкретных запросов можно настроить фильтры (см. раздел "Функциональные ограничения").</li>
+                            <li><strong>SmartEstate</strong> использует локальную память браузера для хранения пользовательских данных.</li>
+                        </ul>
+                    </ul>
+                </div>
+            
+                <h2 class="report-title">Ограничения</h2>
+                <div class="report-text">
+                    <ul>
+                        <li><strong>Источники данных:</strong>
+                            <ul>
+                                <li>Сайт подгружает изображения с <a href="https://images.cdn-cian.ru/images/2408194040-1.jpg" target="_blank">Фото-хостинга Cian</a>. При снятии квартиры с публикации на сайте Cian изображения в объявлении на <strong>SmartEstate</strong> могут стать недоступными.</li>
+                                <li>Работоспособность приложения зависит от доступности внешних сервисов:
+                                    <ul>
+                                        <li>Картографического сервиса — <a href="https://yandex.ru/maps/" target="_blank">Yandex Maps</a>.</li>
+                                        <li><a href="https://images.cdn-cian.ru/images/2408194040-1.jpg" target="_blank">Фото-хостинга Cian</a>.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><strong>Точность данных:</strong>
+                            <ul>
+                                <li>Ближайшие объекты инфраструктуры определяются по географическим координатам, поэтому время ходьбы до них может быть некорректным (например, для квартир на станции метро "Автозаводская").</li>
+                                <li>Некоторые жилые комплексы не имеют точного адреса из-за отсутствия разрешения на ввод домов в эксплуатацию.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Функциональные ограничения:</strong>
+                            <ul>
+                                <li>Плохая оптимизация для мобильных устройств на некоторых страницах.</li>
+                                <li>Студия и свободная планировка при парсинге имеют одинаковое значение, поэтому в фильтрах и отображении "свободная планировка" приравнивается к "студии".</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/js/pages/reports.js"></script>
+    <script src="/js/components/ui/profile_dropdown.js" defer></script>
+</body>
+</html>

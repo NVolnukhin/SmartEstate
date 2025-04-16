@@ -1,0 +1,220 @@
+.mortgage-calculator {
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.calculator-container {
+    display: flex;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.calculator-form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.calculator-results {
+    flex: 1;
+    background-color: #FFE4AA;
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #40027E;
+}
+
+.form-control {
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #40027E;
+}
+
+.calculate-btn {
+    background-color: #40027E;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.calculate-btn:hover {
+    opacity: 1;
+    background-color: #5E00B8;
+}
+
+.result-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(64, 2, 126, 0.1);
+}
+
+.result-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.result-label {
+    font-weight: 600;
+    color: #40027E;
+}
+
+.result-value {
+    font-weight: 700;
+    color: #40027E;
+}
+
+.input-with-label {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.input-label-container {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #40027E;
+}
+
+.input-label-container span:first-child {
+    font-weight: 600;
+}
+
+#initial-payment-percent {
+    width: 100%;
+    margin-top: 5px;
+    -webkit-appearance: none;
+    height: 6px;
+    background: #ddd;
+    border-radius: 3px;
+    outline: none;
+}
+
+#initial-payment-percent::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #40027E;
+    cursor: pointer;
+}
+
+#initial-payment-percent::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #40027E;
+    cursor: pointer;
+}
+
+
+.percent-input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.percent-input-container input {
+    padding-right: 30px;
+    width: 100%;
+}
+
+.percent-input-container span {
+    position: absolute;
+    right: 10px;
+    color: #40027E;
+    font-weight: 600;
+}
+
+.slider-container {
+    margin-top: 10px;
+    position: relative;
+}
+
+.percent-slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    background: linear-gradient(to right, #FFE4AA 0%, #FFE4AA var(--slider-progress), #ddd var(--slider-progress), #ddd 100%);
+    border-radius: 3px;
+    outline: none;
+    margin: 15px 0;
+}
+
+.percent-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #40027E;
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.percent-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #40027E;
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.slider-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: -10px;
+    font-size: 12px;
+    color: #40027E;
+}
+
+.payment-in-rub {
+    margin-top: 5px;
+    text-align: right;
+    font-size: 14px;
+    color: #40027E;
+    font-weight: 600;
+}
+
+
+@media (max-width: 768px) {
+    .calculator-container {
+        flex-direction: column;
+    }
+}
