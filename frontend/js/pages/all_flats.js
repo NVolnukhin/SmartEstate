@@ -154,16 +154,15 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (response.ok) {
                 allFlatsData = data.items;
-                renderFlats(data.items);
+                await renderFlats(data.items);
                 updatePagination(data.totalPages, page);
                 renderComparisonList();
+                
+                const anchor = document.getElementById('flats-anchor');
+                if (anchor) {
+                    anchor.scrollIntoView({ behavior: 'smooth' });
+                }
 
-                setTimeout(() => {
-                    const anchor = document.getElementById('flats-anchor');
-                    if (anchor) {
-                        anchor.scrollIntoView({ behavior: 'smooth' });
-                    }
-                }, 100);
             } else {
                 console.error('Ошибка загрузки квартир:', data.message);
                 renderError();
@@ -177,88 +176,91 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function renderFlats(flats) {
-        const container = document.getElementById('flatsList');
-        container.innerHTML = '';
+        return new Promise((resolve) => {
+            const container = document.getElementById('flatsList');
+            container.innerHTML = '';
 
-        localStorage.setItem('allFlatsData', JSON.stringify(flats));
-        
-        flats.forEach(flat => {
-            const card = document.createElement('div');
-            card.className = 'flat-card';
-            card.setAttribute('data-id', flat.flatId);
+            localStorage.setItem('allFlatsData', JSON.stringify(flats));
             
-            const formattedPrice = new Intl.NumberFormat('ru-RU', {
-                style: 'currency',
-                currency: 'RUB',
-                maximumFractionDigits: 0
-            }).format(flat.price).replace('RUB', '₽');
-            
-            const mainImage = flat.images && flat.images.length > 0 ? 
-                flat.images[0] : 
-                'https://via.placeholder.com/240x220/40027E/FFE4AA?text=No+Image';
-            
-            card.innerHTML = `
-                <div class="flat-image">
-                    <img src="${mainImage}" alt="ЖК ${flat.building.residentialComplex}">
-                </div>
-                <div class="flat-info">
-                    <div class="flat-price">${formattedPrice}</div>
-                    <div class="flat-details">
-                        <div class="detail-item">
-                            <div class="detail-label">Площадь</div>
-                            <div>${flat.square} м²</div>
-                        </div>
-                        <div class="detail-item">
-                            <div class="detail-label">Комнатность</div>
-                            <div>${flat.roominess === -1 ? 'Студия' : flat.roominess === -2 ? 'Своб. планировка' : `${flat.roominess}-комнатная`}</div>
-                        </div>
-                        <div class="detail-item">
-                            <div class="detail-label">Этаж</div>
-                            <div>${flat.floor}/${flat.building.floorCount}</div>
-                        </div>
-                        <div class="detail-item">
-                            <div class="detail-label">Метро</div>
-                            <div>
-                                <i class="fas fa-subway metro-icon"></i>
-                                ${flat.nearestMetro.name} (${flat.nearestMetro.minutesToMetro} мин)
+            flats.forEach(flat => {
+                const card = document.createElement('div');
+                card.className = 'flat-card';
+                card.setAttribute('data-id', flat.flatId);
+                
+                const formattedPrice = new Intl.NumberFormat('ru-RU', {
+                    style: 'currency',
+                    currency: 'RUB',
+                    maximumFractionDigits: 0
+                }).format(flat.price).replace('RUB', '₽');
+                
+                const mainImage = flat.images && flat.images.length > 0 ? 
+                    flat.images[0] : 
+                    'https://via.placeholder.com/240x220/40027E/FFE4AA?text=No+Image';
+                
+                card.innerHTML = `
+                    <div class="flat-image">
+                        <img src="${mainImage}" alt="ЖК ${flat.building.residentialComplex}">
+                    </div>
+                    <div class="flat-info">
+                        <div class="flat-price">${formattedPrice}</div>
+                        <div class="flat-details">
+                            <div class="detail-item">
+                                <div class="detail-label">Площадь</div>
+                                <div>${flat.square} м²</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Комнатность</div>
+                                <div>${flat.roominess === -1 ? 'Студия' : flat.roominess === -2 ? 'Своб. планировка' : `${flat.roominess}-комнатная`}</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Этаж</div>
+                                <div>${flat.floor}/${flat.building.floorCount}</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Метро</div>
+                                <div>
+                                    <i class="fas fa-subway metro-icon"></i>
+                                    ${flat.nearestMetro.name} (${flat.nearestMetro.minutesToMetro} мин)
+                                </div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">ЖК</div>
+                                <div>${flat.building.residentialComplex}</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Статус</div>
+                                <div>${flat.building.status}</div>
                             </div>
                         </div>
-                        <div class="detail-item">
-                            <div class="detail-label">ЖК</div>
-                            <div>${flat.building.residentialComplex}</div>
-                        </div>
-                        <div class="detail-item">
-                            <div class="detail-label">Статус</div>
-                            <div>${flat.building.status}</div>
-                        </div>
                     </div>
-                </div>
-                <div class="flat-actions">
-                    <button class="action-btn favorite-btn" data-id="${flat.flatId}">
-                        <i class="far fa-heart"></i> Избранное
-                    </button>
-                    <button class="action-btn compare-btn" data-id="${flat.flatId}">
-                        <i class="fas fa-balance-scale"></i> Сравнить
-                    </button>
-                </div>
-            `;
-            
-            container.appendChild(card);
-        });
-        
-        initFavoriteButtons();
-        initializeComparisonButtons();
-        
-        document.querySelectorAll('.flat-card').forEach(card => {
-            card.addEventListener('click', function(e) {
-                if (e.target.closest('.action-btn')) {
-                    return;
-                }
+                    <div class="flat-actions">
+                        <button class="action-btn favorite-btn" data-id="${flat.flatId}">
+                            <i class="far fa-heart"></i> Избранное
+                        </button>
+                        <button class="action-btn compare-btn" data-id="${flat.flatId}">
+                            <i class="fas fa-balance-scale"></i> Сравнить
+                        </button>
+                    </div>
+                `;
                 
-                const flatId = this.getAttribute('data-id');
-                localStorage.setItem('lastPage', currentPage.toString());
-                goToFlatPage(flatId);
+                container.appendChild(card);
             });
+            
+            initFavoriteButtons();
+            initializeComparisonButtons();
+            
+            document.querySelectorAll('.flat-card').forEach(card => {
+                card.addEventListener('click', function(e) {
+                    if (e.target.closest('.action-btn')) {
+                        return;
+                    }
+                    
+                    const flatId = this.getAttribute('data-id');
+                    localStorage.setItem('lastPage', currentPage.toString());
+                    goToFlatPage(flatId);
+                });
+            });
+            resolve(); // Разрешаем Promise после завершения рендеринга
         });
     }
     
