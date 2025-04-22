@@ -29,9 +29,8 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IDeveloperService, DeveloperService>();
         services.AddScoped<IDeveloperRepository, DeveloperRepository>();
         services.AddSingleton<IEmailEncryptor, EmailEncryptor>();
-
-
-
+        services.AddScoped<IBuildingsRepository, BuildingsRepository>();
+        services.AddScoped<IBuildingService, BuildingService>();
         
         services.AddControllers()
             .ConfigureApiBehaviorOptions(options =>
