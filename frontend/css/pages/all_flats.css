@@ -188,7 +188,7 @@ html {
 .flats-anchor {
     display: block;
     position: relative;
-    top: -100px;
+    top: -200px;
     visibility: hidden;
 }
 

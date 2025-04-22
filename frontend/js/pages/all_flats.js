@@ -157,6 +157,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 renderFlats(data.items);
                 updatePagination(data.totalPages, page);
                 renderComparisonList();
+
+                setTimeout(() => {
+                    const anchor = document.getElementById('flats-anchor');
+                    if (anchor) {
+                        anchor.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }, 100);
             } else {
                 console.error('Ошибка загрузки квартир:', data.message);
                 renderError();
