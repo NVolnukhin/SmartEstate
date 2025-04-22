@@ -90,6 +90,10 @@ document.addEventListener('DOMContentLoaded', function() {
             
             renderApartmentData(data);
             initPhotoSlider(data.images);
+
+            if (data.buildingId) {
+                loadSimilarFlats(data.buildingId, data.flatId);
+            }
             
             if (data.buildingInfo.coordinates || data.nearestMetroInfo?.nearestMetroCoordinates) {
                 initMap(data, ymaps);
@@ -1017,6 +1021,74 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
+
+    async function loadSimilarFlats(buildingId, currentFlatId) {
+        try {
+            const response = await fetch(`${config.api.baseUrl}/buildings/${buildingId}/flats`);
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            
+            const data = await response.json();
+            // Исключаем текущую квартиру из списка
+            const similarFlats = Array.isArray(data) ? data.filter(flat => flat.flatId !== currentFlatId) : [];
+            renderSimilarFlats(similarFlats);
+        } catch (error) {
+            console.error('Ошибка загрузки похожих квартир:', error);
+            document.getElementById('similarFlatsList').innerHTML = `
+                <div class="no-similar-flats">Не удалось загрузить список квартир в этом ЖК</div>
+            `;
+        }
+    }
+    
+    function renderSimilarFlats(flats) {
+        const container = document.getElementById('similarFlatsList');
+        
+        if (!flats || !Array.isArray(flats) || flats.length === 0) {
+            container.innerHTML = `
+                <div class="no-similar-flats">Нет других квартир в этом ЖК</div>
+            `;
+            return;
+        }
+        
+        container.innerHTML = '';
+        
+        flats.forEach(flat => {
+            const metroInfo = flat.nearestMetro || {};
+            
+            const formattedPrice = new Intl.NumberFormat('ru-RU', {
+                style: 'currency',
+                currency: 'RUB',
+                maximumFractionDigits: 0
+            }).format(flat.price).replace('RUB', '₽');
+            
+
+            const card = document.createElement('div');
+            card.className = 'similar-flat-card';
+            card.setAttribute('data-id', flat.flatId);
+            card.innerHTML = `
+                <div class="similar-flat-image">
+                    <img src="${flat.mainImage}">
+                </div>
+                <div class="similar-flat-price">${formattedPrice}</div>
+                <div class="similar-flat-details">
+                    <div class="similar-flat-detail">
+                        <span class="similar-flat-detail-label">Площадь: ${flat.square} м²</span>
+                    </div>
+                    <div class="similar-flat-detail">
+                        <span class="similar-flat-detail-label">Комнатность: ${flat.roominess === -1 ? 'Студия' : flat.roominess === -2 ? 'Своб. план.' : `${flat.roominess}-к`}</span>
+                    </div>
+                    <div class="similar-flat-detail">
+                        <span class="similar-flat-detail-label">Этаж ${flat.floor}</span>
+                    </div>
+                </div>
+            `;
+            
+            card.addEventListener('click', () => {
+                window.location.href = `flat?id=${flat.flatId}`;
+            });
+            
+            container.appendChild(card);
+        });
+    }
 
     loadApartmentData().then(() => {
         setupFavoriteButton();
