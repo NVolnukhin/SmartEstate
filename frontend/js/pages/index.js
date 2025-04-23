@@ -160,8 +160,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    
-
     async function loadFavorites() {
         try {
             const response = await fetch(`${config.api.baseUrl}/user-preferences/favorites`, {
@@ -222,6 +220,161 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Ошибка удаления из избранного:', error);
             return false;
         }
+    }
+
+    const mapModal = document.getElementById('mapModal');
+    const showMapButton = document.getElementById('showMapButton');
+    const closeModal = document.querySelector('.close-modal');
+    let map;
+
+    showMapButton.addEventListener('click', function() {
+        mapModal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        
+        if (!map) {
+            const script = document.createElement('script');
+            script.src = `https://api-maps.yandex.ru/2.1/?apikey=${config.api.ymaps_api_key}&lang=ru_RU`;
+            script.onload = initMap;
+            document.head.appendChild(script);
+        }
+    });
+
+    closeModal.addEventListener('click', function() {
+        mapModal.style.display = 'none';
+        document.body.style.overflow = '';
+    });
+
+    window.addEventListener('click', function(event) {
+        if (event.target === mapModal) {
+            mapModal.style.display = 'none';
+            document.body.style.overflow = '';
+        }
+    });
+
+    function initMap() {
+        ymaps.ready(function() {
+            map = new ymaps.Map('mapContainer', {
+                center: [55.751244, 37.618423],
+                zoom: 11,
+                controls: ['zoomControl']
+            });
+    
+            map.options.set({
+                suppressMapOpenBlock: true
+            });
+            
+            map.controls.get('zoomControl').options.set({
+                size: 'small',
+                position: { right: 10, top: 100 }
+            });
+    
+            loadBuildings();
+        });
+    }    
+
+    async function loadBuildings() {
+        try {
+            const response = await fetch(`${config.api.baseUrl}/buildings`);
+            const buildings = await response.json();
+            
+            if (response.ok) {
+                renderBuildingsOnMap(buildings);
+            } else {
+                console.error('Ошибка загрузки зданий:', buildings.message);
+            }
+        } catch (error) {
+            console.error('Ошибка соединения:', error);
+        }
+    }    
+
+    function renderBuildingsOnMap(buildings) {
+        const collection = new ymaps.GeoObjectCollection(null, {
+            preset: 'islands#darkOrangeDotIcon',
+            openBalloonOnClick: false
+        });
+    
+        buildings.forEach(building => {
+            const placemark = new ymaps.Placemark(
+                [building.latitude, building.longitude],
+                {
+                    hintContent: building.residentalComplex,
+                    balloonContent: `<strong>${building.residentalComplex}</strong><br>Квартир: ${building.flatsCount}`,
+                },
+                {
+                    preset: 'islands#darkOrangeDotIcon'
+                }
+            );
+    
+            placemark.events.add('click', async () => {
+                await showFlatsInBuilding(building.buildingId, building.residentalComplex);
+            });
+    
+            collection.add(placemark);
+        });
+    
+        map.geoObjects.add(collection);
+    }
+    
+
+    async function showFlatsInBuilding(buildingId, complexName) {
+        const sidebar = document.getElementById('flatsSidebar');
+        sidebar.innerHTML = `<h3 style="color: #FFE4AA; margin-top: 0;">${complexName}</h3>`;
+        
+        try {
+            const response = await fetch(`${config.api.baseUrl}/buildings/${buildingId}/flats`);
+            const flats = await response.json();
+            
+            if (response.ok) {
+                renderFlatsInSidebar(flats);
+            } else {
+                sidebar.innerHTML += `<p style="color: #FFE4AA;">Не удалось загрузить квартиры</p>`;
+            }
+        } catch (error) {
+            console.error('Ошибка загрузки квартир:', error);
+            sidebar.innerHTML += `<p style="color: #FFE4AA;">Ошибка загрузки квартир</p>`;
+        }
+    }
+
+    function renderFlatsInSidebar(flats) {
+        const sidebar = document.getElementById('flatsSidebar');
+        
+        if (flats.length === 0) {
+            sidebar.innerHTML += `<p style="color: #FFE4AA;">Нет доступных квартир в этом здании</p>`;
+            return;
+        }
+        
+        flats.forEach(flat => {
+            const formattedPrice = new Intl.NumberFormat('ru-RU', {
+                style: 'currency',
+                currency: 'RUB',
+                maximumFractionDigits: 0
+            }).format(flat.price).replace('RUB', '₽');
+            
+            const roominessText = flat.roominess === -1 ? 'Студия' : 
+                               flat.roominess === -2 ? 'Своб. планировка' : 
+                               `${flat.roominess}-комнатная`;
+            
+            const flatCard = document.createElement('div');
+            flatCard.className = 'flat-card-sidebar';
+            flatCard.innerHTML = `
+                <h4>${flat.residentialComplex}</h4>
+                <div class="price">${formattedPrice}</div>
+                <div class="details">
+                    <span>${roominessText}</span>
+                    <span>${flat.square} м²</span>
+                    <span>Этаж ${flat.floor}</span>
+                </div>
+                <div class="metro">
+                    <i class="fas fa-subway"></i> ${flat.nearestMetro.name} (${flat.nearestMetro.minutesToMetro} мин)
+                </div>
+            `;
+            
+            flatCard.addEventListener('click', () => {
+                window.location.href = `./flat?id=${flat.flatId}`;
+            });
+            
+            sidebar.appendChild(flatCard);
+        });
     }
 
     loadApartments();
