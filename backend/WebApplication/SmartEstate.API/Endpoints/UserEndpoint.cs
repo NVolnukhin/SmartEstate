@@ -25,48 +25,63 @@ public class UsersEndpoint : ControllerBase
     [AllowAnonymous]
     public async Task<IActionResult> Register([FromBody] RegisterUserRequest request)
     {
-        var result = await _userService.Register(request.Login, request.Email, request.Password, request.Name);
-
-        if (result.IsFailed)
-            return BadRequest(result.Errors);
-
-        var (user, token) = result.Value;
-
-        Response.Cookies.Append("whtstht", token, new CookieOptions
+        try
         {
-            HttpOnly = true,
-            Secure = true,
-            SameSite = SameSiteMode.Strict,
-            Expires = DateTimeOffset.UtcNow.AddHours(12)
-        });
+            var result = await _userService.Register(request.Login, request.Email, request.Password, request.Name);
 
-        return Ok(new
+            if (result.IsFailed)
+                return BadRequest(result.Errors);
+
+            var (user, token) = result.Value;
+
+            Response.Cookies.Append("whtstht", token, new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.Strict,
+                Expires = DateTimeOffset.UtcNow.AddHours(12)
+            });
+
+            return Ok(new
+            {
+                user.UserId,
+                user.Email,
+                user.Name,
+                Token = token
+            });
+        }
+        catch (Exception ex)
         {
-            user.UserId,
-            user.Email,
-            user.Name,
-            Token = token
-        });
+            return StatusCode(500, ex.Message);
+        }
+        
     }
 
     [HttpPost("login")]
     [AllowAnonymous]
     public async Task<IActionResult> Login([FromBody] LoginUserRequest request)
     {
-        var result = await _userService.Login(request.Login, request.Password);
-
-        if (result.IsFailed)
-            return BadRequest(new { error = result.Errors.First().Message });
-
-        Response.Cookies.Append("whtstht", result.Value, new CookieOptions
+        try
         {
-            HttpOnly = true,
-            Secure = true,
-            SameSite = SameSiteMode.Strict,
-            Expires = DateTimeOffset.UtcNow.AddHours(12)
-        });
+            var result = await _userService.Login(request.Login, request.Password);
 
-        return Ok(new { token = result.Value });
+            if (result.IsFailed)
+                return BadRequest(new { error = result.Errors.First().Message });
+
+            Response.Cookies.Append("whtstht", result.Value, new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.Strict,
+                Expires = DateTimeOffset.UtcNow.AddHours(12)
+            });
+
+            return Ok(new { token = result.Value });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
     }
 
     [HttpGet("me")]
@@ -89,27 +104,48 @@ public class UsersEndpoint : ControllerBase
     [Authorize]
     public async Task<IActionResult> UpdateEmail([FromBody] UpdateEmailRequest request)
     {
-        var userId = GetUserIdFromClaims();
-        var result = await _userService.UpdateEmail(userId, request.NewEmail);
-        return result.IsFailed ? BadRequest(result.Errors) : Ok();
+        try
+        {
+            var userId = GetUserIdFromClaims();
+            var result = await _userService.UpdateEmail(userId, request.NewEmail);
+            return result.IsFailed ? BadRequest(result.Errors) : Ok();
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
     }
 
     [HttpPut("name")]
     [Authorize]
     public async Task<IActionResult> UpdateName([FromBody] UpdateNameRequest request)
     {
-        var userId = GetUserIdFromClaims();
-        var result = await _userService.UpdateName(userId, request.NewName);
-        return result.IsFailed ? BadRequest(result.Errors) : Ok();
+        try
+        {
+            var userId = GetUserIdFromClaims();
+            var result = await _userService.UpdateName(userId, request.NewName);
+            return result.IsFailed ? BadRequest(result.Errors) : Ok();
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
     }
 
     [HttpPut("password")]
     [Authorize]
     public async Task<IActionResult> UpdatePassword([FromBody] UpdatePasswordRequest request)
     {
-        var userId = GetUserIdFromClaims();
-        var result = await _userService.UpdatePassword(userId, request.NewPassword, request.CurrentPassword);
-        return result.IsFailed ? BadRequest(result.Errors) : Ok();
+        try
+        {
+            var userId = GetUserIdFromClaims();
+            var result = await _userService.UpdatePassword(userId, request.NewPassword, request.CurrentPassword);
+            return result.IsFailed ? BadRequest(result.Errors) : Ok();
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
     }
 
     private Guid GetUserIdFromClaims()

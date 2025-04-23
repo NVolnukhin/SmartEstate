@@ -21,7 +21,14 @@ public class MetroEndpoint : ControllerBase
     [HttpGet]
     public async Task<ActionResult<List<MetroDto>>> GetAllMetroStations()
     {
-        var result = await _metroService.GetAllMetroStationsAsync();
-        return Ok(result);
+        try
+        {
+            var result = await _metroService.GetAllMetroStationsAsync();
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
     }
 }

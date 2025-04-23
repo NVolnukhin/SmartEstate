@@ -19,7 +19,14 @@ public class DeveloperEndpoint : ControllerBase
     [HttpGet]
     public async Task<ActionResult<List<ListDeveloperDto>>> GetAllMetroStations()
     {
-        var result = await _developerService.GetAllDevelopersAsync();
-        return Ok(result);
+        try
+        {
+            var result = await _developerService.GetAllDevelopersAsync();
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
     }
 }

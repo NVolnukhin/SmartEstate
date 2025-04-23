@@ -19,14 +19,28 @@ public class BuildingEndpoint : ControllerBase
     [HttpGet]
     public async Task<ActionResult<List<BuildingMapDto>>> GetAllBuildings()
     {
-        var result = await _buildingService.GetAllBuildingsAsync();
-        return Ok(result);
+        try
+        {
+            var result = await _buildingService.GetAllBuildingsAsync();
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
     }
 
     [HttpGet("{buildingId:int}/flats")]
     public async Task<ActionResult<List<FlatShortInfoResponse>>> GetFlatsByBuildingId(int buildingId)
     {
-        var result = await _buildingService.GetFlatsByBuildingIdAsync(buildingId);
-        return result == null || !result.Any() ? NotFound() : Ok(result);
+        try
+        {
+            var result = await _buildingService.GetFlatsByBuildingIdAsync(buildingId);
+            return result == null || !result.Any() ? NotFound() : Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
     }
 }

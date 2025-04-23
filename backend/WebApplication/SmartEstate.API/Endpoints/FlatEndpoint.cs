@@ -39,38 +39,60 @@ public class FlatEndpoint : ControllerBase
         [FromQuery] decimal? minSquare = null,
         [FromQuery] decimal? maxSquare = null)
     {
-        var filters = new FlatFilterRequest(
-            order,
-            minPrice,
-            maxPrice,
-            minSquare,
-            maxSquare,
-            minFloor,
-            maxFloor,
-            minFloorCount,
-            maxFloorCount,
-            maxMetroTime,
-            roominess?.Split(',').Select(int.Parse).ToList(),
-            metroStations?.Split(',').Select(int.Parse).ToList(),
-            developers?.Split(',').Select(int.Parse).ToList(),
-            buildingStatus?.Split(',').ToList());
-        
-        var result = await _flatService.GetAllFlatsAsync(page, pageSize, filters);
-        return Ok(result);
+        try
+        {
+            var filters = new FlatFilterRequest(
+                order,
+                minPrice,
+                maxPrice,
+                minSquare,
+                maxSquare,
+                minFloor,
+                maxFloor,
+                minFloorCount,
+                maxFloorCount,
+                maxMetroTime,
+                roominess?.Split(',').Select(int.Parse).ToList(),
+                metroStations?.Split(',').Select(int.Parse).ToList(),
+                developers?.Split(',').Select(int.Parse).ToList(),
+                buildingStatus?.Split(',').ToList());
+
+            var result = await _flatService.GetAllFlatsAsync(page, pageSize, filters);
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
+
     }
 
 
     [HttpGet("random")]
     public async Task<ActionResult<List<FlatShortInfoResponse>>> GetRandomFlats([FromQuery] int count = 10)
     {
-        var result = await _flatService.GetRandomFlatsAsync(count);
-        return Ok(result);
+        try
+        {
+            var result = await _flatService.GetRandomFlatsAsync(count);
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
     }
 
     [HttpGet("{flatId:int}")]
     public async Task<ActionResult<FlatDetailsResponse>> GetFlatById(int flatId)
     {
-        var result = await _flatService.GetFlatDetailsByIdAsync(flatId);
-        return result == null ? NotFound() : Ok(result);
+        try
+        {
+            var result = await _flatService.GetFlatDetailsByIdAsync(flatId);
+            return result == null ? NotFound() : Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
     }
 }
