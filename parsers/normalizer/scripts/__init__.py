@@ -1,0 +1,6 @@
+from .delete_not_developer import delete_not_developer
+from .delete_with_no_author import delete_with_no_author
+from .delete_wrong_price import delete_wrong_price
+from .delete_if_no_year_of_construction import delete_if_no_year_of_construction
+from .delete_no_residential_complex import delete_no_residential_complex
+from .if_no_address_set_res_compl_as_address import if_no_address_set_res_compl_as_address

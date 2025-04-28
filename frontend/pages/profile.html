@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SmartEstate - Профиль</title>
+    <script src="/js/components/ui/notification.js" type="module"></script>
+    <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="/css/logo.css">
+    <link rel="stylesheet" href="/css/decorating.css">
+    <link rel="stylesheet" href="/css/form_group.css">
+    <link rel="stylesheet" href="/css/header_links.css">
+    <link rel="stylesheet" href="/css/base_settings.css">
+    <link rel="stylesheet" href="/css/back_link.css">
+    <link rel="stylesheet" href="/css/password_strength.css">
+    <link rel="stylesheet" href="/css/notification.css">
+    <link rel="stylesheet" href="/css/pages/profile.css">
+</head>
+<body>
+    <div class="screen animated-bg">
+        <div class="decor-circle circle-1"></div>
+        <div class="decor-circle circle-2"></div>
+        
+        <div class="header">
+            <a href="./index" class="logo">SmartEstate</a>
+            <div class="profile-link-wrapper">
+                <a href="./profile" class="profile-link">
+                    <i class="fas fa-user"></i>
+                    Профиль
+                </a>
+            </div>
+        </div>
+
+        <div class="profile-container">
+            <h1 class="profile-header">Ваш профиль</h1>
+            
+            <div class="user-info">
+                <div class="user-field">
+                    <span class="field-label">Логин:</span>
+                    <div class="editable-field">
+                        <span class="field-value" id="username-value">user123</span>
+                    </div>
+                </div>
+                
+                <div class="user-field">
+                    <span class="field-label">Имя:</span>
+                    <div class="editable-field">
+                        <span class="field-value" id="name-value">Иван Иванов</span>
+                        <i class="fas fa-pencil-alt edit-btn" onclick="showEditForm('name')"></i>
+                    </div>
+                </div>
+                
+                <div class="user-field">
+                    <span class="field-label">Email:</span>
+                    <div class="editable-field">
+                        <span class="field-value" id="email-value">user@example.com</span>
+                        <i class="fas fa-pencil-alt edit-btn" onclick="showEditForm('email')"></i>
+                    </div>
+                </div>
+                
+                <div class="user-field">
+                    <span class="field-label">Пароль:</span>
+                    <div class="editable-field">
+                        <span class="field-value">••••••••</span>
+                        <i class="fas fa-pencil-alt edit-btn" onclick="showEditForm('password')"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="edit-form" id="name-form">
+                <div class="form-group">
+                    <label class="field-label">Имя</label>
+                    <input type="text" id="name-input" class="edit-input" value="Иван Иванов">
+                </div>
+                <div class="form-actions">
+                    <button class="form-btn form-btn-primary" onclick="saveChanges('name')">Сохранить</button>
+                    <button class="form-btn form-btn-secondary" onclick="hideAllForms()">Отмена</button>
+                </div>
+            </div>
+            
+            <div class="edit-form" id="email-form">
+                <div class="form-group">
+                    <label class="field-label">Email</label>
+                    <input type="email" id="email-input" class="edit-input" value="user@example.com">
+                </div>
+                <div class="form-actions">
+                    <button class="form-btn form-btn-primary" onclick="saveChanges('email')">Сохранить</button>
+                    <button class="form-btn form-btn-secondary" onclick="hideAllForms()">Отмена</button>
+                </div>
+            </div>
+            
+            <div class="edit-form" id="password-form">
+                <div class="form-group password-container">
+                    <label class="field-label">Текущий пароль</label>
+                    <input type="password" id="current-password" class="edit-input" placeholder="Введите текущий пароль">
+                    <i class="fas fa-eye-slash toggle-password" data-target="current-password"></i>
+                </div>
+                <div class="form-group password-container">
+                    <label class="field-label">Новый пароль</label>
+                    <input type="password" id="new-password" class="edit-input" placeholder="Введите новый пароль">
+                    <i class="fas fa-eye-slash toggle-password" data-target="new-password"></i>
+                </div>
+                <div class="password-requirements" id="password-requirements">
+                    <strong>Требования к паролю:</strong>
+                    <ul>
+                        <li id="req-length">Минимум 8 символов</li>
+                        <li id="req-uppercase">Хотя бы одна заглавная буква</li>
+                        <li id="req-lowercase">Хотя бы одна строчная буква</li>
+                        <li id="req-digit">Хотя бы одна цифра</li>
+                        <li id="req-special">Хотя бы один специальный символ</li>
+                    </ul>
+                </div>
+                
+                <div class="form-group password-container">
+                    <label class="field-label">Повторите пароль</label>
+                    <input type="password" id="confirm-password" class="edit-input" placeholder="Повторите новый пароль">
+                    <i class="fas fa-eye-slash toggle-password" data-target="confirm-password"></i>
+                </div>
+                <div class="form-actions">
+                    <button class="form-btn form-btn-primary" onclick="saveChanges('password')">Изменить пароль</button>
+                    <button class="form-btn form-btn-secondary" onclick="hideAllForms()">Отмена</button>
+                </div>
+            </div>        
+        </div>
+        <a href="javascript:history.back()" class="back-link">← Вернуться назад</a>
+    </div>
+
+    <div class="notification" id="global-notification">
+        <i class="fas fa-exclamation-circle"></i>
+        <span id="notification-message"></span>
+    </div>
+
+    <div class="dev-footer">
+        <span class="dev-footer-text">Для разработчиков</span>
+        <div class="dev-footer-dropdown">
+          <a href="https://git.iu7.bmstu.ru/sgn3-prog/sgn3-prog-it-2025/ghostbusters" target="_blank">GitHub</a>
+          <a href="./reports" target="_blank">Отчеты</a>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
+    <script src="/js/components/ui/profile_dropdown.js" defer></script>
+
+    <script type="module" src="/js/pages/profile_settings.js"></script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+.reports-container {
+    display: flex;
+    width: 90vw;
+    margin: 50px auto 30px;
+    max-height: 80vh;
+    background-color: #FFE4AA;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.reports-menu {
+    width: 250px;
+    background-color: #5E04B5;
+    padding: 20px 0;
+    overflow-y: auto;
+}
+
+.report-item {
+    padding: 15px 20px;
+    color: #FFE4AA;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
+}
+
+.report-item:hover {
+    background-color: rgba(255, 228, 170, 0.2);
+}
+
+.report-item.active {
+    background-color: rgba(255, 228, 170, 0.3);
+    border-left: 4px solid #FFE4AA;
+    font-weight: 700;
+}
+
+.report-content {
+    flex: 1;
+    padding: 30px;
+    color: #40027E;
+    display: none;
+    overflow-y: auto;
+}
+
+.report-content.active {
+    display: block;
+}
+
+.report-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(94, 4, 181, 0.2);
+}
+
+.report-text {
+    line-height: 1.6;
+}
+
+.report-text ul {
+    padding-left: 20px;
+}
+
+.report-text ul ul {
+    padding-left: 40px;
+    margin: 8px 0;
+}
+
+.report-text li {
+    margin-bottom: 8px;
+}
+
+.report-text img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-top: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+@media (max-width: 768px) {
+    .reports-container {
+        flex-direction: column;
+        margin-top: 40px;
+        min-height: auto;
+        max-height: none;
+    }
+    
+    .reports-menu {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        padding: 0;
+        overflow-y: visible;
+    }
+    
+    .report-item {
+        flex: 1;
+        min-width: 50%;
+        text-align: center;
+        border-left: none;
+        border-bottom: 4px solid transparent;
+    }
+    
+    .report-item.active {
+        border-left: none;
+        border-bottom: 4px solid #FFE4AA;
+    }
+}

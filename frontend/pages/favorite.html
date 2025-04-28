@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SmartEstate - Избранное</title>
+    <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="/css/logo.css">
+    <link rel="stylesheet" href="/css/decorating.css">
+    <link rel="stylesheet" href="/css/base_settings.css">
+    <link rel="stylesheet" href="/css/pagination.css">
+    <link rel="stylesheet" href="/css/pages/favorite.css">
+
+</head>
+<body>
+    <div class="screen animated-bg">
+        <div class="decor-circle circle-1"></div>
+        <div class="decor-circle circle-2"></div>
+        
+        <div class="header">
+            <a href="./index" class="logo">SmartEstate</a>
+            <div class="profile-link-wrapper">
+                <a href="./profile" class="profile-link">
+                    <i class="fas fa-user"></i>
+                    Профиль
+                </a>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="flats-container">
+                <div class="flats-list-container">
+                    <h1 class="flats-list-title">Избранные квартиры</h1>
+                    <div class="flats-list" id="flatsList"></div>
+                    <div class="pagination" id="pagination"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="loading-indicator" id="loading-indicator">
+        Загрузка данных.
+    </div>
+
+    <div class="dev-footer">
+        <span class="dev-footer-text">Для разработчиков</span>
+        <div class="dev-footer-dropdown">
+          <a href="https://git.iu7.bmstu.ru/sgn3-prog/sgn3-prog-it-2025/ghostbusters" target="_blank">GitHub</a>
+          <a href="./reports" target="_blank">Отчеты</a>
+        </div>
+    </div>
+
+    <div class="data-actual">
+        Данные актуальны на <span id="actual-date"></span>
+    </div>
+    <script type="module" src="/js/components/ui/date.js"></script>
+    <script src="/js/components/ui/profile_dropdown.js" defer></script>
+    <script type="module" src="/js/pages/favorite.js"></script>
+</body>
+</html>

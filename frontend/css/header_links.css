@@ -1,0 +1,51 @@
+/** ==============================
+ *  Ссылки в хэдере на  
+ *  авторизацию и регистрацию
+ *  ==============================
+*/
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    position: relative;
+    z-index: 2;
+}
+
+.header-link {
+    color: #FFE4AA;
+    text-decoration: underline;
+    font-weight: 400;
+    font-size: 19px;
+    letter-spacing: 0.16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.header-link:hover {
+    text-shadow: 0 0 10px rgba(255, 228, 170, 0.7);
+    transform: translateY(-2px);
+}
+
+
+.header-link {
+    display: flex;
+    gap: 20px;
+}
+
+
+.header-link a {
+    color: #FFE4AA;
+    text-decoration: underline;
+    font-weight: 400;
+    font-size: 19px;
+    letter-spacing: 0.16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.header-link a:hover {
+    text-shadow: 0 0 10px rgba(255, 228, 170, 0.7);
+    transform: translateY(-2px);
+}

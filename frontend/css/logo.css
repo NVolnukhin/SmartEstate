@@ -1,0 +1,20 @@
+/** ==============================
+ *  Лого SmartEstate
+ *  ==============================
+*/
+
+.logo {
+    color: #FFE4AA;
+    font-weight: 700;
+    font-size: 27px;
+    letter-spacing: 0.16px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    text-decoration: none; 
+    cursor: pointer; 
+    transition: all 0.3s ease;
+}
+
+.logo:hover {
+    text-shadow: 0 0 10px rgba(255, 228, 170, 0.7);
+    transform: translateY(-2px);
+}

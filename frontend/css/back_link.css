@@ -1,0 +1,14 @@
+.back-link {
+    display: block;
+    text-align: center;
+    color: #FFE4AA;
+    text-decoration: none;
+    font-size: 19px;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+}
+
+.back-link:hover {
+    text-shadow: 0 0 10px rgba(255, 228, 170, 0.7);
+    transform: translateY(-2px);
+}

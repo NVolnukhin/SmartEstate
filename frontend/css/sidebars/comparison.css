@@ -1,0 +1,192 @@
+.comparison-sidebar {
+    width: 280px;
+    background: #FFE4AA;
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 10px;
+    height: fit-content;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    visibility: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    max-height: 100vh;
+    overflow-y: auto;
+    position: absolute;
+}
+
+.comparison-sidebar.active {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+}
+
+.comparison-title {
+    font-size: 22px;
+    color: #40027E;
+    margin-bottom: 25px;
+    text-align: center;
+    font-weight: 700;
+    padding-bottom: 15px;
+    border-bottom: 2px solid rgba(94, 4, 181, 0.1);
+}
+
+.comparison-items {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.comparison-card {
+    position: relative;
+    padding: 15px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.comparison-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.comparison-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.comparison-detail {
+    font-size: 14px;
+}
+
+.comparison-detail-label {
+    font-weight: 700;
+    color: #5E04B5;
+    margin-bottom: 3px;
+}
+
+.comparison-image {
+    width: 100%;
+    height: 120px;
+    background: white;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFE4AA;
+    overflow: hidden;
+}
+
+.comparison-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.comparison-price {
+    font-size: 18px;
+    font-weight: 700;
+    color: #40027E;
+    margin-bottom: 8px;
+}
+
+.comparison-rooms {
+    font-size: 16px;
+    color: #5E04B5;
+    margin-bottom: 8px;
+}
+
+.comparison-metro {
+    font-size: 14px;
+    color: #666;
+}
+
+.remove-comparison {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ff4757;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+}
+
+.remove-comparison:hover {
+    background: #ff4757;
+    color: white;
+    transform: scale(1.1);
+}
+
+.empty-comparison {
+    text-align: center;
+    color: #5E04B5;
+    font-size: 16px;
+    display: none;
+}
+
+.clear-comparison {
+    width: 100%;
+    background: rgba(255, 71, 87, 0.9);
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    display: none;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    text-align: center;
+}
+
+.clear-comparison:hover {
+    background: #ff4757;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3);
+}
+
+.compare-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.compare-btn {
+    width: 100%;
+    background: #5E04B5;
+    color: #FFE4AA;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    display: none;
+    transition: all 0.3s ease;
+    font-size: 16px;
+    text-align: center;
+}
+
+.compare-btn:hover {
+    background: #40027E;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(94, 4, 181, 0.3);
+}
+
+@media (max-width: 1024px) {
+    .comparison-sidebar {
+        width: 100%;
+        position: static;
+    }
+}
